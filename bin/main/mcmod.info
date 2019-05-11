@@ -1,0 +1,12 @@
+[{
+  "modid": "solinia3ui",
+  "name": "Solinia3-UI",
+  "description": "The supplementary mod for clients connecting to servers running Solinia3-Core",
+  "version": "1.0.0.0",
+  "mcversion": "1.12.2",
+  "logoFile": "assets/solinia3ui/textures/logo.png",
+  "url": "solinia.github.io",
+  "updateJSON": "solinia.github.io/versions.json",
+  "authorList": ["Mixxit"],
+  "credits": "Credits"
+}]
