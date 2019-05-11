@@ -1,6 +1,7 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -96,7 +97,86 @@ public class solinia3ui {
 	}
 
 	private static void checkKeys() {
-		if (KeyBinds.targetNearestNPC.isPressed())
-			LOGGER.info("Target Nearest NPC is pressed");
+		if (KeyBinds.targetnearestnpc.isPressed())
+			targetNearestNpc();
+		if (KeyBinds.toggleautoattack.isPressed())
+			toggleAutoAttack();
+		if (KeyBinds.canceltarget.isPressed())
+			cancelTarget();
+		if (KeyBinds.targetself.isPressed())
+			targetSelf();
+		if (KeyBinds.togglesitstand.isPressed())
+			toggleSitStand();
+		if (KeyBinds.targetteammember1.isPressed())
+			targetTeamMember(1);
+		if (KeyBinds.targetteammember2.isPressed())
+			targetTeamMember(2);
+		if (KeyBinds.targetteammember3.isPressed())
+			targetTeamMember(3);
+		if (KeyBinds.targetteammember4.isPressed())
+			targetTeamMember(4);
+		if (KeyBinds.targetteammember5.isPressed())
+			targetTeamMember(5);
+		if (KeyBinds.castspell1.isPressed())
+			castSpell(1);
+		if (KeyBinds.castspell2.isPressed())
+			castSpell(2);
+		if (KeyBinds.castspell3.isPressed())
+			castSpell(3);
+		if (KeyBinds.castspell4.isPressed())
+			castSpell(4);
+		if (KeyBinds.castspell5.isPressed())
+			castSpell(5);
+		if (KeyBinds.castspell6.isPressed())
+			castSpell(6);
+		if (KeyBinds.castspell7.isPressed())
+			castSpell(7);
+		if (KeyBinds.castspell8.isPressed())
+			castSpell(8);
+		if (KeyBinds.castspell9.isPressed())
+			castSpell(9);
+		if (KeyBinds.castspell0.isPressed())
+			castSpell(0);
+		if (KeyBinds.consider.isPressed())
+			consider();
+		if (KeyBinds.targetpet.isPressed())
+			targetPet();
+	}
+
+	private static void toggleSitStand() {
+		Minecraft.getInstance().player.sendChatMessage("/sit");
+	}
+
+	private static void targetPet() {
+		Minecraft.getInstance().player.sendChatMessage("/target pet");
+	}
+
+	private static void consider() {
+		Minecraft.getInstance().player.sendChatMessage("/consider");
+	}
+
+	private static void castSpell(int i) {
+		Minecraft.getInstance().player.sendChatMessage("/castslot " + i);
+	}
+
+	private static void targetTeamMember(int i) {
+		Minecraft.getInstance().player.sendChatMessage("/target " + i);
+		
+	}
+
+	private static void targetSelf() {
+		Minecraft.getInstance().player.sendChatMessage("/target self");
+	}
+
+	private static void cancelTarget() {
+		Minecraft.getInstance().player.sendChatMessage("/target clear");
+	}
+
+	private static void toggleAutoAttack() {
+		Minecraft.getInstance().player.sendChatMessage("/autoattack");
+	}
+
+	private static void targetNearestNpc() {
+		Minecraft.getInstance().player.sendChatMessage("/target nearestnpc");
 	}
 }
