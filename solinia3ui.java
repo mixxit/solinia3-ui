@@ -97,6 +97,6 @@ public class solinia3ui {
 
 	private static void checkKeys() {
 		if (KeyBinds.targetNearestNPC.isPressed())
-			LOGGER.info("Target Narest NPC is pressed");
+			LOGGER.info("Target Nearest NPC is pressed");
 	}
 }
