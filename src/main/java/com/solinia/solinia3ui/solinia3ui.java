@@ -172,10 +172,12 @@ public class solinia3ui {
 	}
 
 	private static void toggleAutoAttack() {
+		Minecraft.getInstance().player.sendChatMessage("/autoattack");
 		LOGGER.info("Auto attacking");
 	}
 
 	private static void targetNearestNpc() {
+		Minecraft.getInstance().player.sendChatMessage("/target nearestnpc");
 		LOGGER.info("Targetting nearest npc");
 	}
 }

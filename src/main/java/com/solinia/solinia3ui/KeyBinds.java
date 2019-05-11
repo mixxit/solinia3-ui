@@ -33,26 +33,26 @@ public class KeyBinds
  
     public void registerKeyBinds()
     {
-    	targetnearestnpc = new KeyBinding("key.targetnearestnpc", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.categories.gameplay");
-    	toggleautoattack = new KeyBinding("key.toggleautoattack", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_Z, "key.categories.gameplay");
-    	canceltarget = new KeyBinding("key.canceltarget", KeyConflictContext.IN_GAME, KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_GRAVE_ACCENT, "key.categories.gameplay");
-    	targetself = new KeyBinding("key.targetself", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F1, "key.categories.gameplay");
+    	targetnearestnpc = new KeyBinding("key.targetnearestnpc", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.categories.solinia");
+    	toggleautoattack = new KeyBinding("key.toggleautoattack", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_Z, "key.categories.solinia");
+    	canceltarget = new KeyBinding("key.canceltarget", KeyConflictContext.IN_GAME, KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_GRAVE_ACCENT, "key.categories.solinia");
+    	targetself = new KeyBinding("key.targetself", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_X, "key.categories.solinia");
     	targetpet = new KeyBinding("key.targetpet", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_P, "key.categories.gameplay");
-    	targetteammember1 = new KeyBinding("key.targetteammember1", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F2, "key.categories.gameplay");
-    	targetteammember2 = new KeyBinding("key.targetteammember2", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_F3, "key.categories.gameplay");
-    	targetteammember3 = new KeyBinding("key.targetteammember3", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_F4, "key.categories.gameplay");
-    	targetteammember4 = new KeyBinding("key.targetteammember4", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F5, "key.categories.gameplay");
-    	targetteammember5 = new KeyBinding("key.targetteammember5", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F6, "key.categories.gameplay");
-    	togglesitstand = new KeyBinding("key.togglesitstand", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.categories.gameplay");
-    	castspell1 = new KeyBinding("key.castspell1", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_1, "key.categories.gameplay");
-    	castspell2 = new KeyBinding("key.castspell2", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_2, "key.categories.gameplay");
-    	castspell3 = new KeyBinding("key.castspell3", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_3, "key.categories.gameplay");
-    	castspell4 = new KeyBinding("key.castspell4", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_4, "key.categories.gameplay");
-    	castspell5 = new KeyBinding("key.castspell5", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_5, "key.categories.gameplay");
-    	castspell6 = new KeyBinding("key.castspell6", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_6, "key.categories.gameplay");
-    	castspell7 = new KeyBinding("key.castspell7", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_7, "key.categories.gameplay");
-    	castspell8 = new KeyBinding("key.castspell8", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_8, "key.categories.gameplay");
-       	consider = new KeyBinding("key.consider", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_C, "key.categories.gameplay");
+    	targetteammember1 = new KeyBinding("key.targetteammember1", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F5, "key.categories.solinia");
+    	targetteammember2 = new KeyBinding("key.targetteammember2", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_F6, "key.categories.solinia");
+    	targetteammember3 = new KeyBinding("key.targetteammember3", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_F7, "key.categories.solinia");
+    	targetteammember4 = new KeyBinding("key.targetteammember4", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F8, "key.categories.solinia");
+    	targetteammember5 = new KeyBinding("key.targetteammember5", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_F9, "key.categories.solinia");
+    	togglesitstand = new KeyBinding("key.togglesitstand", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.categories.solinia");
+    	castspell1 = new KeyBinding("key.castspell1", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_1, "key.categories.solinia");
+    	castspell2 = new KeyBinding("key.castspell2", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_2, "key.categories.solinia");
+    	castspell3 = new KeyBinding("key.castspell3", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_3, "key.categories.solinia");
+    	castspell4 = new KeyBinding("key.castspell4", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_4, "key.categories.solinia");
+    	castspell5 = new KeyBinding("key.castspell5", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_5, "key.categories.solinia");
+    	castspell6 = new KeyBinding("key.castspell6", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_6, "key.categories.solinia");
+    	castspell7 = new KeyBinding("key.castspell7", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_7, "key.categories.solinia");
+    	castspell8 = new KeyBinding("key.castspell8", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_8, "key.categories.solinia");
+       	consider = new KeyBinding("key.consider", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_C, "key.categories.solinia");
         
         ClientRegistry.registerKeyBinding(targetnearestnpc);
         ClientRegistry.registerKeyBinding(toggleautoattack);

@@ -19,13 +19,13 @@ issueTrackerURL="http://my.issue.tracker/" #optional
 modId="solinia3ui" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${file.jarVersion}" #mandatory
+version="1.03" #mandatory
 
  # A display name for the mod
 displayName="solinia3ui" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="http://solinia.github.io/versions.json" #optional
+updateJSONURL="http://www.fallofanempire.com/versions.json" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="http://solinia.github.io" #optional

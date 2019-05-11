@@ -20,5 +20,6 @@
 	"key.castspell9": "Cast Spell 9",
 	"key.castspell0": "Cast Spell 10",
 	"key.targetpet": "Target pet",
-	"key.consider": "Considers the danger of your target"
+	"key.consider": "Considers the danger of your target",
+	"key.categories.solinia": "Solinia Bindings"
 }
