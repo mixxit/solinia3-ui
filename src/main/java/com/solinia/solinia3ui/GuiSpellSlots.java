@@ -2,12 +2,9 @@ package com.solinia.solinia3ui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiSpellSlots extends Gui {
-	private static final ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/Spell_Icons.png" );
-
 	
 	public GuiSpellSlots(Minecraft mc)
 	{
@@ -29,8 +26,15 @@ public class GuiSpellSlots extends Gui {
 		drawString(mc.fontRenderer, getPartyMember(3,mc), 0, 120, Integer.parseInt("FFFFFF",16));
 		drawString(mc.fontRenderer, getPartyMember(4,mc), 0, 130, Integer.parseInt("FFFFFF",16));
 		drawString(mc.fontRenderer, getPartyMember(5,mc), 0, 140, Integer.parseInt("FFFFFF",16));
-		mc.getTextureManager().bindTexture(spellSprites);
-		this.drawTexturedModalRect(0, 0,0,0, 10, 10);
+		try
+		{	
+			ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
+			mc.getTextureManager().bindTexture(spellSprites);
+			drawTexturedModalRect(70,110,0,0,40,30);
+		} catch (Exception e)
+		{
+			solinia3ui.LOGGER.info(e.getMessage() + " " + e.getStackTrace());
+		}
 	}
 
 	private String getPet(Minecraft mc) {

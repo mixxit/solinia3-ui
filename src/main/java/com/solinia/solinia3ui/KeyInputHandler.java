@@ -1,19 +1,12 @@
 package com.solinia.solinia3ui;
 
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class KeyInputHandler {
-	private solinia3ui plugin;
-
-	public KeyInputHandler(solinia3ui plugin) {
-		this.plugin = plugin;
-	}
+	public KeyBinds keyBinds = new KeyBinds();
 
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onKeyInputEvent(KeyInputEvent event) {
@@ -27,45 +20,45 @@ public class KeyInputHandler {
 	}
 
 	private void checkKeys() {
-		if (plugin.keyBinds.targetnearestnpc.isPressed())
+		if (keyBinds.targetnearestnpc.isPressed())
 			targetNearestNpc();
-		if (plugin.keyBinds.toggleautoattack.isPressed())
+		if (keyBinds.toggleautoattack.isPressed())
 			toggleAutoAttack();
-		if (plugin.keyBinds.canceltarget.isPressed())
+		if (keyBinds.canceltarget.isPressed())
 			cancelTarget();
-		if (plugin.keyBinds.targetself.isPressed())
+		if (keyBinds.targetself.isPressed())
 			targetSelf();
-		if (plugin.keyBinds.togglesitstand.isPressed())
+		if (keyBinds.togglesitstand.isPressed())
 			toggleSitStand();
-		if (plugin.keyBinds.targetteammember1.isPressed())
+		if (keyBinds.targetteammember1.isPressed())
 			targetTeamMember(1);
-		if (plugin.keyBinds.targetteammember2.isPressed())
+		if (keyBinds.targetteammember2.isPressed())
 			targetTeamMember(2);
-		if (plugin.keyBinds.targetteammember3.isPressed())
+		if (keyBinds.targetteammember3.isPressed())
 			targetTeamMember(3);
-		if (plugin.keyBinds.targetteammember4.isPressed())
+		if (keyBinds.targetteammember4.isPressed())
 			targetTeamMember(4);
-		if (plugin.keyBinds.targetteammember5.isPressed())
+		if (keyBinds.targetteammember5.isPressed())
 			targetTeamMember(5);
-		if (plugin.keyBinds.castspell1.isPressed())
+		if (keyBinds.castspell1.isPressed())
 			castSpell(1);
-		if (plugin.keyBinds.castspell2.isPressed())
+		if (keyBinds.castspell2.isPressed())
 			castSpell(2);
-		if (plugin.keyBinds.castspell3.isPressed())
+		if (keyBinds.castspell3.isPressed())
 			castSpell(3);
-		if (plugin.keyBinds.castspell4.isPressed())
+		if (keyBinds.castspell4.isPressed())
 			castSpell(4);
-		if (plugin.keyBinds.castspell5.isPressed())
+		if (keyBinds.castspell5.isPressed())
 			castSpell(5);
-		if (plugin.keyBinds.castspell6.isPressed())
+		if (keyBinds.castspell6.isPressed())
 			castSpell(6);
-		if (plugin.keyBinds.castspell7.isPressed())
+		if (keyBinds.castspell7.isPressed())
 			castSpell(7);
-		if (plugin.keyBinds.castspell8.isPressed())
+		if (keyBinds.castspell8.isPressed())
 			castSpell(8);
-		if (plugin.keyBinds.consider.isPressed())
+		if (keyBinds.consider.isPressed())
 			consider();
-		if (plugin.keyBinds.targetpet.isPressed())
+		if (keyBinds.targetpet.isPressed())
 			targetPet();
 	}
 

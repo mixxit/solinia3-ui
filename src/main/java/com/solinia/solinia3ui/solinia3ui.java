@@ -1,13 +1,9 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -24,8 +20,10 @@ import org.apache.logging.log4j.Logger;
 public class solinia3ui {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
-	public KeyBinds keyBinds = new KeyBinds();
-
+	
+	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
+	private KeyInputHandler keyInputHandler = new KeyInputHandler();
+			
 	public solinia3ui() {
 		// Register the setup method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -35,17 +33,17 @@ public class solinia3ui {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 		// Register the doClientStuff method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+		
+		// Register ourselves for server and other game events we are interested in
+		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
+		MinecraftForge.EVENT_BUS.register(keyInputHandler);
 	}
 	
 	private void setup(final FMLCommonSetupEvent event) {
 		// some preinit code
 		LOGGER.info("HELLO FROM PREINIT");
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-		keyBinds.registerKeyBinds();
-
-		// Register ourselves for server and other game events we are interested in
-		MinecraftForge.EVENT_BUS.register(new RenderGuiHandler(this));
-		MinecraftForge.EVENT_BUS.register(new KeyInputHandler(this));
+		keyInputHandler.keyBinds.registerKeyBinds();
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
