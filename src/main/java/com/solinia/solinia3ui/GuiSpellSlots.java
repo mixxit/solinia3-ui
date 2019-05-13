@@ -30,11 +30,31 @@ public class GuiSpellSlots extends Gui {
 		{	
 			ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
 			mc.getTextureManager().bindTexture(spellSprites);
-			drawTexturedModalRect(70,110,0,0,40,30);
+			
+			drawSpellGem(1);
+			drawSpellGem(2);
+			drawSpellGem(3);
+			drawSpellGem(4);
+			drawSpellGem(5);
+			drawSpellGem(6);
+			drawSpellGem(7);
+			drawSpellGem(8);
 		} catch (Exception e)
 		{
 			solinia3ui.LOGGER.info(e.getMessage() + " " + e.getStackTrace());
 		}
+	}
+
+	private void drawSpellGem(int i) {
+		int locx = 72;
+		int locy = 110;
+		int sizex = 36;
+		int sizey = 30;
+
+		int x = 0;
+		int y = (i-1)*(sizey);
+		
+		drawTexturedModalRect(x,y,locx,locy,sizex,sizey);
 	}
 
 	private String getPet(Minecraft mc) {
