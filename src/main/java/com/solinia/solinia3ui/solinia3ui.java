@@ -23,6 +23,8 @@ public class solinia3ui {
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
+	
+	int messageId = 0;
 			
 	public solinia3ui() {
 		// Register the setup method for modloading
@@ -37,6 +39,8 @@ public class solinia3ui {
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
+		
+		PacketHandler.register();
 	}
 	
 	private void setup(final FMLCommonSetupEvent event) {
