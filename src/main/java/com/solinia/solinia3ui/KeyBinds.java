@@ -30,6 +30,7 @@ public class KeyBinds
     public KeyBinding castspell8;
     public KeyBinding consider;
     public KeyBinding targetpet;
+    public KeyBinding openspellbook;
  
     public void registerKeyBinds()
     {
@@ -53,6 +54,7 @@ public class KeyBinds
     	castspell7 = new KeyBinding("key.castspell7", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_7, "key.categories.solinia");
     	castspell8 = new KeyBinding("key.castspell8", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_8, "key.categories.solinia");
        	consider = new KeyBinding("key.consider", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_C, "key.categories.solinia");
+       	openspellbook = new KeyBinding("key.openspellbook", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_L, "key.categories.solinia");
         
         ClientRegistry.registerKeyBinding(targetnearestnpc);
         ClientRegistry.registerKeyBinding(toggleautoattack);
@@ -74,5 +76,6 @@ public class KeyBinds
         ClientRegistry.registerKeyBinding(castspell8);
         ClientRegistry.registerKeyBinding(consider);
         ClientRegistry.registerKeyBinding(targetpet);
+        ClientRegistry.registerKeyBinding(openspellbook);
     }
 }

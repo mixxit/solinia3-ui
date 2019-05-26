@@ -2,6 +2,7 @@ package com.solinia.solinia3ui;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,8 +13,14 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkEvent.ServerCustomPayloadEvent;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.netty.buffer.ByteBuf;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("solinia3ui")
@@ -24,8 +31,14 @@ public class solinia3ui {
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	
-	int messageId = 0;
-			
+	private static final String PROTOCOL_VERSION = Integer.toString(1);
+	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
+			.named(new ResourceLocation("solinia3core", "toclient"))
+			.clientAcceptedVersions(PROTOCOL_VERSION::equals)
+            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> PROTOCOL_VERSION)
+.simpleChannel();
+	
 	public solinia3ui() {
 		// Register the setup method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -39,8 +52,22 @@ public class solinia3ui {
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
-		
-		PacketHandler.register();
+	}
+	
+	public void onPacketData(final ServerCustomPayloadEvent event) {
+
+	    final ByteBuf payload = event.getPayload();
+	    byte[] bytes;
+	    int length = payload.readableBytes();
+
+	    if (payload.hasArray()) {
+	        bytes = payload.array();
+	    } else {
+	        bytes = new byte[length];
+	        payload.getBytes(payload.readerIndex(), bytes);
+	    }
+
+	    LOGGER.info("PacketHandler onPacketData " + bytes.toString());
 	}
 	
 	private void setup(final FMLCommonSetupEvent event) {
@@ -48,6 +75,8 @@ public class solinia3ui {
 		LOGGER.info("HELLO FROM PREINIT");
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 		keyInputHandler.keyBinds.registerKeyBinds();
+
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.OPEN_SPELLBOOK, PacketRequestOpenSpellbook.class, PacketRequestOpenSpellbook::encode, PacketRequestOpenSpellbook::new, PacketRequestOpenSpellbook::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {

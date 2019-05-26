@@ -1,6 +1,7 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,48 +21,56 @@ public class KeyInputHandler {
 	}
 
 	private void checkKeys() {
-		if (keyBinds.targetnearestnpc.isPressed())
+		if (keyBinds.targetnearestnpc != null && keyBinds.targetnearestnpc.isPressed())
 			targetNearestNpc();
-		if (keyBinds.toggleautoattack.isPressed())
+		if (keyBinds.toggleautoattack != null && keyBinds.toggleautoattack.isPressed())
 			toggleAutoAttack();
-		if (keyBinds.canceltarget.isPressed())
+		if (keyBinds.canceltarget != null && keyBinds.canceltarget.isPressed())
 			cancelTarget();
-		if (keyBinds.targetself.isPressed())
+		if (keyBinds.targetself != null && keyBinds.targetself.isPressed())
 			targetSelf();
-		if (keyBinds.togglesitstand.isPressed())
+		if (keyBinds.togglesitstand != null && keyBinds.togglesitstand.isPressed())
 			toggleSitStand();
-		if (keyBinds.targetteammember1.isPressed())
+		if (keyBinds.targetteammember1 != null && keyBinds.targetteammember1.isPressed())
 			targetTeamMember(1);
-		if (keyBinds.targetteammember2.isPressed())
+		if (keyBinds.targetteammember2 != null && keyBinds.targetteammember2.isPressed())
 			targetTeamMember(2);
-		if (keyBinds.targetteammember3.isPressed())
+		if (keyBinds.targetteammember3 != null && keyBinds.targetteammember3.isPressed())
 			targetTeamMember(3);
-		if (keyBinds.targetteammember4.isPressed())
+		if (keyBinds.targetteammember4 != null && keyBinds.targetteammember4.isPressed())
 			targetTeamMember(4);
-		if (keyBinds.targetteammember5.isPressed())
+		if (keyBinds.targetteammember5 != null && keyBinds.targetteammember5.isPressed())
 			targetTeamMember(5);
-		if (keyBinds.castspell1.isPressed())
+		if (keyBinds.castspell1 != null && keyBinds.castspell1.isPressed())
 			castSpell(1);
-		if (keyBinds.castspell2.isPressed())
+		if (keyBinds.castspell2 != null && keyBinds.castspell2.isPressed())
 			castSpell(2);
-		if (keyBinds.castspell3.isPressed())
+		if (keyBinds.castspell3 != null && keyBinds.castspell3.isPressed())
 			castSpell(3);
-		if (keyBinds.castspell4.isPressed())
+		if (keyBinds.castspell4 != null && keyBinds.castspell4.isPressed())
 			castSpell(4);
-		if (keyBinds.castspell5.isPressed())
+		if (keyBinds.castspell5 != null && keyBinds.castspell5.isPressed())
 			castSpell(5);
-		if (keyBinds.castspell6.isPressed())
+		if (keyBinds.castspell6 != null && keyBinds.castspell6.isPressed())
 			castSpell(6);
-		if (keyBinds.castspell7.isPressed())
+		if (keyBinds.castspell7 != null && keyBinds.castspell7.isPressed())
 			castSpell(7);
-		if (keyBinds.castspell8.isPressed())
+		if (keyBinds.castspell8 != null && keyBinds.castspell8.isPressed())
 			castSpell(8);
-		if (keyBinds.consider.isPressed())
+		if (keyBinds.consider != null && keyBinds.consider.isPressed())
 			consider();
-		if (keyBinds.targetpet.isPressed())
+		if (keyBinds.targetpet != null && keyBinds.targetpet.isPressed())
 			targetPet();
+		if (keyBinds.openspellbook != null && keyBinds.openspellbook.isPressed())
+			openSpellbook();
 	}
 
+	private static void openSpellbook() {
+		Minecraft.getInstance().player.sendChatMessage("/openspellbook");
+		solinia3ui.LOGGER.info("Opening Spell Book");
+		EntityLivingBase thePlayer = Minecraft.getInstance().player;
+	}
+	
 	private static void toggleSitStand() {
 		Minecraft.getInstance().player.sendChatMessage("/sit");
 		solinia3ui.LOGGER.info("Sitting");
