@@ -31,14 +31,14 @@ public class GuiSpellSlots extends Gui {
 			ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
 			mc.getTextureManager().bindTexture(spellSprites);
 			
-			drawSpellGem(1);
+			/*drawSpellGem(1);
 			drawSpellGem(2);
 			drawSpellGem(3);
 			drawSpellGem(4);
 			drawSpellGem(5);
 			drawSpellGem(6);
 			drawSpellGem(7);
-			drawSpellGem(8);
+			drawSpellGem(8);*/
 		} catch (Exception e)
 		{
 			solinia3ui.LOGGER.info(e.getMessage() + " " + e.getStackTrace());

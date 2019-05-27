@@ -41,6 +41,7 @@ public class PacketRequestOpenSpellbook {
     
     public void handle(Supplier<NetworkEvent.Context> context)
     {
+    	System.out.println("received message: " + this.message);
     	context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
     }
