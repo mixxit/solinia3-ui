@@ -11,7 +11,7 @@ public class RenderGuiHandler {
 		if (event.isCanceled())
 			return;
 		
-		new GuiSpellSlots(Minecraft.getInstance());
+		new GuiSolinia3UI(Minecraft.getInstance());
 	}
 
 }

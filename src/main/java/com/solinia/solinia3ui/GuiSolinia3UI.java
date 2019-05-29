@@ -4,9 +4,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiSpellSlots extends Gui {
+public class GuiSolinia3UI extends Gui {
 	
-	public GuiSpellSlots(Minecraft mc)
+	public static final ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
+	public static final ResourceLocation spellbookUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbook_ui.png" );
+	
+	public GuiSolinia3UI(Minecraft mc)
 	{
 		int width = mc.mainWindow.getScaledWidth();
 		int height = mc.mainWindow.getScaledHeight();
@@ -28,7 +31,6 @@ public class GuiSpellSlots extends Gui {
 		drawString(mc.fontRenderer, getPartyMember(5,mc), 0, 140, Integer.parseInt("FFFFFF",16));
 		try
 		{	
-			ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
 			mc.getTextureManager().bindTexture(spellSprites);
 			
 			/*drawSpellGem(1);
