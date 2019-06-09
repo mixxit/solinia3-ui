@@ -54,7 +54,7 @@ public class KeyBinds
     	castspell7 = new KeyBinding("key.castspell7", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_7, "key.categories.solinia");
     	castspell8 = new KeyBinding("key.castspell8", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_8, "key.categories.solinia");
        	consider = new KeyBinding("key.consider", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_C, "key.categories.solinia");
-       	openspellbook = new KeyBinding("key.openspellbook", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_L, "key.categories.solinia");
+       	openspellbook = new KeyBinding("key.openspellbook", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_K, "key.categories.solinia");
         
         ClientRegistry.registerKeyBinding(targetnearestnpc);
         ClientRegistry.registerKeyBinding(toggleautoattack);

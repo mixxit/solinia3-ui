@@ -27,7 +27,7 @@ public class PacketRequestOpenSpellbook {
 	    	if (rawData.length < 6)
 	    		this.message = "";
 	    	else
-	    		this.message = new String(Arrays.copyOfRange(rawData,5,rawData.length),StandardCharsets.UTF_8);
+	    		this.message = new String(Arrays.copyOfRange(rawData,3,rawData.length),StandardCharsets.UTF_8);
     	} catch (Exception e)
     	{
     		this.message = "";
@@ -42,6 +42,7 @@ public class PacketRequestOpenSpellbook {
     public void handle(Supplier<NetworkEvent.Context> context)
     {
     	System.out.println("received message: " + this.message);
+		context.get().enqueueWork(() -> solinia3ui.openSpellBook(SpellBookData.fromJson(this.message)));
     	context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
     }

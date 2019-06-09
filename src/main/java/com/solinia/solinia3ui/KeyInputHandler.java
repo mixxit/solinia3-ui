@@ -1,13 +1,18 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class KeyInputHandler {
+
 	public KeyBinds keyBinds = new KeyBinds();
+	private solinia3ui _parent;
+	public KeyInputHandler(solinia3ui parent)
+	{
+		_parent = parent;
+	}
 
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onKeyInputEvent(KeyInputEvent event) {
@@ -65,53 +70,52 @@ public class KeyInputHandler {
 			openSpellbook();
 	}
 
-	private static void openSpellbook() {
+	private void openSpellbook() {
 		Minecraft.getInstance().player.sendChatMessage("/openspellbook");
 		solinia3ui.LOGGER.info("Opening Spell Book");
-		EntityLivingBase thePlayer = Minecraft.getInstance().player;
 	}
 	
-	private static void toggleSitStand() {
+	private void toggleSitStand() {
 		Minecraft.getInstance().player.sendChatMessage("/sit");
 		solinia3ui.LOGGER.info("Sitting");
 	}
 
-	private static void targetPet() {
+	private void targetPet() {
 		Minecraft.getInstance().player.sendChatMessage("/target pet");
 		solinia3ui.LOGGER.info("Targetting pet");
 	}
 
-	private static void consider() {
+	private void consider() {
 		Minecraft.getInstance().player.sendChatMessage("/consider");
 		solinia3ui.LOGGER.info("Considering");
 	}
 
-	private static void castSpell(int i) {
+	private void castSpell(int i) {
 		Minecraft.getInstance().player.sendChatMessage("/castslot " + i);
 		solinia3ui.LOGGER.info("Casting spell slot " + i);
 	}
 
-	private static void targetTeamMember(int i) {
+	private void targetTeamMember(int i) {
 		Minecraft.getInstance().player.sendChatMessage("/target " + i);
 		solinia3ui.LOGGER.info("Targetting team member " + i);
 	}
 
-	private static void targetSelf() {
+	private void targetSelf() {
 		Minecraft.getInstance().player.sendChatMessage("/target self");
 		solinia3ui.LOGGER.info("Chat message sent");
 	}
 
-	private static void cancelTarget() {
+	private void cancelTarget() {
 		Minecraft.getInstance().player.sendChatMessage("/target clear");
 		solinia3ui.LOGGER.info("Clearing target");
 	}
 
-	private static void toggleAutoAttack() {
+	private void toggleAutoAttack() {
 		Minecraft.getInstance().player.sendChatMessage("/autoattack");
 		solinia3ui.LOGGER.info("Auto attacking");
 	}
 
-	private static void targetNearestNpc() {
+	private void targetNearestNpc() {
 		Minecraft.getInstance().player.sendChatMessage("/target nearestnpc");
 		solinia3ui.LOGGER.info("Targetting nearest npc");
 	}

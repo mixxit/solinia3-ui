@@ -1,6 +1,7 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,8 +29,8 @@ public class solinia3ui {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
 	
-	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
-	private KeyInputHandler keyInputHandler = new KeyInputHandler();
+	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler(this);
+	private KeyInputHandler keyInputHandler = new KeyInputHandler(this);
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -113,5 +114,11 @@ public class solinia3ui {
 			// register a new block here
 			LOGGER.info("HELLO from Register Block");
 		}
+	}
+
+	
+	public static void openSpellBook(SpellBookData spellBookData) {
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(spellBookData));
+		Minecraft.getInstance().addScheduledTask(rn);
 	}
 }
