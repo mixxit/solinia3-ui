@@ -18,7 +18,6 @@ public class SpellBookData {
 			Gson gson = new Gson();
 			BufferedReader br = new BufferedReader(new StringReader(message));
 			data = gson.fromJson(br, new TypeToken<SpellBookData>(){}.getType());
-			System.out.println(data.SpellSlot1Name);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -80,4 +79,20 @@ public class SpellBookData {
 	public int SpellSlot15MemIcon = 0;
 	public int SpellSlot16MemIcon = 0;
 	
+	public int SpellSlot1NewIcon = 0;
+	public int SpellSlot2NewIcon = 0;
+	public int SpellSlot3NewIcon = 0;
+	public int SpellSlot4NewIcon = 0;
+	public int SpellSlot5NewIcon = 0;
+	public int SpellSlot6NewIcon = 0;
+	public int SpellSlot7NewIcon = 0;
+	public int SpellSlot8NewIcon = 0;
+	public int SpellSlot9NewIcon = 0;
+	public int SpellSlot10NewIcon = 0;
+	public int SpellSlot11NewIcon = 0;
+	public int SpellSlot12NewIcon = 0;
+	public int SpellSlot13NewIcon = 0;
+	public int SpellSlot14NewIcon = 0;
+	public int SpellSlot15NewIcon = 0;
+	public int SpellSlot16NewIcon = 0;
 }
