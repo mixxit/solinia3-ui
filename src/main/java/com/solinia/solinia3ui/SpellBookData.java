@@ -26,6 +26,8 @@ public class SpellBookData {
 		return data;
 		
 	}
+	
+	public int PageNo = 0;
 
 	public String SpellSlot1Name = "";
 	public String SpellSlot2Name = "";
