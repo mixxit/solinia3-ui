@@ -190,9 +190,8 @@ public class GuiSpellbook extends GuiScreen {
 		
 		int previousPageNo = this._spellbookData.PageNo - 1;
 		if (previousPageNo < 0)
-		{
 			previousPageNo = 0;
-		}
+
 		int nextPageNo = this._spellbookData.PageNo + 1;
 
 		//Page 1

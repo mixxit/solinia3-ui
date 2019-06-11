@@ -52,12 +52,15 @@ public class RenderGuiHandler {
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
+		int width = Minecraft.getInstance().mainWindow.getScaledWidth();
+		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
+		
 		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
 		
-		int spellbarUiWidth = 24;
-		int spellbarUiHeight = 152;
+		int spellbarUiWidth = 108;
+		int spellbarUiHeight = 14;
 		Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
-		drawTexturedModalRect(0, 0, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+		drawTexturedModalRect(3, height-20-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
 	}
 	
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, int zLevel) {
