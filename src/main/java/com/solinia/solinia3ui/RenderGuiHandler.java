@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -14,12 +15,67 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderGuiHandler {
 	private solinia3ui _parent;
+
+	public static final int spellbarDistanceFromBottom = 20;
+	public static final int spellbarDistanceFromLeft = 3;
+	public static final int spellbarUiWidth = 108;
+	public static final int spellbarUiHeight = 14;
+	public static final int edgePositionX = 0;
 	
 	public static final ResourceLocation spellbarUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbar.png" );
 
 	public RenderGuiHandler(solinia3ui parent)
 	{
 		_parent = parent;
+	}
+	
+	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+	public void onMouseClickEvent(MouseClickedEvent.Post event)
+	{
+		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+		System.out.println("Detected memorisedSpellSlot: " + memorisedSpellSlot);
+	}
+	
+	private int getMemorisedSpellSlotByMouseCoords(int mouseX, int mouseY) {
+		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
+		
+		if (mouseX < edgePositionX+spellbarDistanceFromLeft)
+			return -1;
+		if (mouseX > (edgePositionX+spellbarDistanceFromLeft)+spellbarUiWidth)
+			return -1;
+
+		int minY =  (height-spellbarDistanceFromBottom)-spellbarUiHeight;
+		int maxY =  (height-spellbarDistanceFromBottom);
+		
+		System.out.println("Y:" + mouseY + "Lowest: " + minY + " Highest: " + maxY);
+		if (mouseY < minY)
+			return -1;
+		if (mouseY > maxY)
+			return -1;
+		
+		// We are in the hotbar area
+		int positionInsideHotbarX = mouseX-(edgePositionX+spellbarDistanceFromLeft);
+		int buttonSizeX = spellbarUiWidth/8;
+		
+		int hotbarButton = (int)Math.ceil(positionInsideHotbarX/buttonSizeX)+1;
+		if (hotbarButton < 1)
+			return -1;
+		
+		if (hotbarButton > 8)
+			return -1;
+		
+		return hotbarButton;
+	}
+
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
+		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
+		
+		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
+		
+		
+		Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
+		drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft, height-spellbarDistanceFromBottom -spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
@@ -48,19 +104,6 @@ public class RenderGuiHandler {
 		//int spellUiHeight = 168;
 		//Minecraft.getInstance().textureManager.bindTexture(spellbookUi);
 		//drawTexturedModalRect(50, 50, 0, 0, spellUiWidth, spellUiHeight, 6);
-	}
-	
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
-		int width = Minecraft.getInstance().mainWindow.getScaledWidth();
-		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
-		
-		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
-		
-		int spellbarUiWidth = 108;
-		int spellbarUiHeight = 14;
-		Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
-		drawTexturedModalRect(3, height-20-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
 	}
 	
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, int zLevel) {
