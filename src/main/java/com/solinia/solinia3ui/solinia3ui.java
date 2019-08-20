@@ -1,9 +1,10 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -118,7 +119,8 @@ public class solinia3ui {
 
 	
 	public static void openSpellBook(SpellBookData spellBookData) {
-		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(spellBookData));
-		Minecraft.getInstance().addScheduledTask(rn);
+		StringTextComponent textComponent = new StringTextComponent("Test");
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
+		Minecraft.getInstance().runImmediately(rn);
 	}
 }

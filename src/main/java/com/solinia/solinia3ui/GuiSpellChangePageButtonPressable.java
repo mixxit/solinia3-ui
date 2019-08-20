@@ -1,22 +1,13 @@
 package com.solinia.solinia3ui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 
-public class GuiSpellChangePageButton extends GuiButton {
-	public GuiSpellChangePageButton(int buttonId, int x, int y, String buttonText) {
-		super(buttonId, x, y, buttonText);
-	}
-	
-	public GuiSpellChangePageButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText) {
-		super(buttonId, x, y, widthIn, heightIn, buttonText);
-	}
-	
+public class GuiSpellChangePageButtonPressable implements Button.IPressable {
 
 	@Override
-	public void onClick(double mouseX, double mouseY) 
-	{
-		String[] data = this.displayString.split(" ");
+	public void onPress(Button buttonPressed) {
+		String[] data = buttonPressed.getMessage().split(" ");
 		
 		int page = 0;
 		

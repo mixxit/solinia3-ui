@@ -1,25 +1,17 @@
 package com.solinia.solinia3ui;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiSolinia3UI extends Gui {
+public class GuiSolinia3UI extends AbstractGui {
 	
 	public static final ResourceLocation spellSprites = new ResourceLocation( "solinia3ui", "textures/gui/gemicons03.png" );
 	
 	private Minecraft _mc;
-	private solinia3ui _parent;
 	
-	public GuiSolinia3UI(Minecraft mc, solinia3ui parent)
+	public GuiSolinia3UI(Minecraft mc)
 	{
 		this._mc = mc;
-		this._parent = parent;
 
 		//int width = _mc.mainWindow.getScaledWidth();
 		//int height = _mc.mainWindow.getScaledHeight();
@@ -70,8 +62,7 @@ public class GuiSolinia3UI extends Gui {
 
 		int x = 0;
 		int y = (i-1)*(sizey);
-		
-		drawTexturedModalRect(x,y,locx,locy,sizex,sizey);
+		blit(x,y,locx,locy,sizex,sizey);
 	}
 
 	private String getPet(Minecraft mc) {

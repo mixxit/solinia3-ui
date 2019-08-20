@@ -7,13 +7,14 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiSpellIconButton extends GuiButton {
+public class GuiSpellIconButton extends Button {
 
 	protected static final ResourceLocation SPELLS01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1.png");
 	protected static final ResourceLocation SPELLS02 = new ResourceLocation( "solinia3ui", "textures/gui/spells2.png");
@@ -25,23 +26,20 @@ public class GuiSpellIconButton extends GuiButton {
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 
-	public GuiSpellIconButton(int buttonId, int x, int y, String buttonText) {
-		super(buttonId, x, y, buttonText);
+	public GuiSpellIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
+		super(widthIn, heightIn, x, y, text, onPress);
 	}
 	
-	public GuiSpellIconButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText) {
-		super(buttonId, x, y, widthIn, heightIn, buttonText);
-	}
-
+	
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		if (!this.visible)
 			return;
 		
-		if (!displayString.contains("^"))
+		if (!getMessage().contains("^"))
 			return;
 		
-		String displayIconStr = this.displayString.split("\\^")[0];
+		String displayIconStr = this.getMessage().split("\\^")[0];
 		try
 		{
 			this.spellIcon = Integer.parseInt(displayIconStr);
@@ -75,9 +73,9 @@ public class GuiSpellIconButton extends GuiButton {
 		//this.renderBg(minecraft, mouseX, mouseY);
 		
 		Minecraft.getInstance().getTextureManager().bindTexture(location.loc);
-		int i = this.getHoverState(true);
+		//int i = this.getHoverState(true);
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.drawTexturedModalRect(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
+		this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
 		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
 		
 		//drawSpellIcon(this.x, this.y,location.point.x, location.point.y);
@@ -85,13 +83,13 @@ public class GuiSpellIconButton extends GuiButton {
 		int j = 14737632;
 		if (packedFGColor != 0) {
 			j = packedFGColor;
-		} else if (!this.enabled) {
+		} else if (!this.active) {
 			j = 10526880;
-		} else if (this.hovered) {
+		} else if (this.isHovered()) {
 			j = 16777120;
 		}
 		
-		String displayString = this.displayString.split("\\^")[1];
+		String displayString = this.getMessage().split("\\^")[1];
 
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 	}

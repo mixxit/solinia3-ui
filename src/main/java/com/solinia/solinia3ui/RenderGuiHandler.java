@@ -16,11 +16,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class RenderGuiHandler {
 	private solinia3ui _parent;
 
-	public static final int spellbarDistanceFromBottom = 20;
 	public static final int spellbarDistanceFromLeft = 3;
-	public static final int spellbarUiWidth = 108;
-	public static final int spellbarUiHeight = 14;
+	public static final int spellbarDistanceFromBottom = 16;
+	public static final int spellbarUiWidth = 16;
+	public static final int spellbarUiHeight = 16;
 	public static final int edgePositionX = 0;
+	public static final int hotbarCount = 8;
 	
 	public static final ResourceLocation spellbarUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbar.png" );
 
@@ -47,7 +48,7 @@ public class RenderGuiHandler {
 		int minY =  (height-spellbarDistanceFromBottom)-spellbarUiHeight;
 		int maxY =  (height-spellbarDistanceFromBottom);
 		
-		System.out.println("Y:" + mouseY + "Lowest: " + minY + " Highest: " + maxY);
+		System.out.println("Y: " + mouseY + "Lowest: " + minY + " Highest: " + maxY);
 		if (mouseY < minY)
 			return -1;
 		if (mouseY > maxY)
@@ -55,13 +56,13 @@ public class RenderGuiHandler {
 		
 		// We are in the hotbar area
 		int positionInsideHotbarX = mouseX-(edgePositionX+spellbarDistanceFromLeft);
-		int buttonSizeX = spellbarUiWidth/8;
+		int buttonSizeX = spellbarUiWidth/hotbarCount;
 		
 		int hotbarButton = (int)Math.ceil(positionInsideHotbarX/buttonSizeX)+1;
 		if (hotbarButton < 1)
 			return -1;
 		
-		if (hotbarButton > 8)
+		if (hotbarButton > hotbarCount)
 			return -1;
 		
 		return hotbarButton;
@@ -73,9 +74,11 @@ public class RenderGuiHandler {
 		
 		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
 		
-		
-		Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
-		drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft, height-spellbarDistanceFromBottom -spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+		for(int i = 0; i < hotbarCount; i++)
+		{
+			Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
+			drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft+(i*spellbarUiWidth), height-spellbarDistanceFromBottom-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+		}
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
