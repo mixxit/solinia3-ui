@@ -191,7 +191,7 @@ public class GuiSpellbook extends Screen {
 		int nextPageNo = this._spellbookData.PageNo + 1;
 
 		//Page 1
-		this.addButton(this.leftPageButton = new Button(baseX + 5,baseY + 70,20,20, "< " + previousPageNo, null));
+		this.addButton(this.leftPageButton = new Button(baseX + 5,baseY + 70,20,20, "< " + previousPageNo, new GuiSpellChangePageButtonPressable()));
 		
 		this.addButton(this.spellItemButton1 = new GuiSpellIconButton(baseX + 41,baseY + 13,20,20,getNewIcon(1)+"^"+getSpellName(1), new GuiSpellIconButtonPressable()));
 		this.addButton(this.spellItemButton2 = new GuiSpellIconButton(baseX + 87,baseY + 13,20,20,getNewIcon(2)+"^"+getSpellName(2), new GuiSpellIconButtonPressable()));
