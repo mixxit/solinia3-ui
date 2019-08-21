@@ -1,8 +1,12 @@
 package com.solinia.solinia3ui;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -23,61 +27,67 @@ public class RenderGuiHandler {
 	public static final int edgePositionX = 0;
 	public static final int hotbarCount = 8;
 	
+	public static final int memorisedSpellSize = 16;
+	
+	public ConcurrentHashMap<Integer,Button> memorisedButtons = new ConcurrentHashMap<Integer,Button>();
+	
 	public static final ResourceLocation spellbarUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbar.png" );
 
 	public RenderGuiHandler(solinia3ui parent)
 	{
 		_parent = parent;
+		int baseX = 0;
+        int baseY = 0;
+ 
+		for(int i = 0; i < hotbarCount; i++)
+		{
+			this.memorisedButtons.put(i,new Button(memorisedSpellSize*i,0,16,16,Integer.toString(i), new GuiMemorisedSpellButtonPressable(i+1)));
+			//Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
+			//drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft+(i*spellbarUiWidth), height-spellbarDistanceFromBottom-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+		}
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onMouseClickEvent(MouseClickedEvent.Post event)
 	{
-		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
-		System.out.println("Detected memorisedSpellSlot: " + memorisedSpellSlot);
+		if (event.isCanceled())
+			return;
+		
+		if (event.getGui() instanceof GuiSpellbook)
+		{
+			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY());
+		}
 	}
 	
-	private int getMemorisedSpellSlotByMouseCoords(int mouseX, int mouseY) {
-		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
+	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y) {
+		int selectedSpellid = spellBook.getSelectedSpellId();
+		if (selectedSpellid < 1)
+			return; 
+		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(x), (int)Math.round(y));
+		if (memorisedSpellSlot < 1)
+			return; 
 		
-		if (mouseX < edgePositionX+spellbarDistanceFromLeft)
-			return -1;
-		if (mouseX > (edgePositionX+spellbarDistanceFromLeft)+spellbarUiWidth)
-			return -1;
+		System.out.println("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+		Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+	}
 
-		int minY =  (height-spellbarDistanceFromBottom)-spellbarUiHeight;
-		int maxY =  (height-spellbarDistanceFromBottom);
-		
-		System.out.println("Y: " + mouseY + "Lowest: " + minY + " Highest: " + maxY);
-		if (mouseY < minY)
-			return -1;
-		if (mouseY > maxY)
-			return -1;
-		
-		// We are in the hotbar area
-		int positionInsideHotbarX = mouseX-(edgePositionX+spellbarDistanceFromLeft);
-		int buttonSizeX = spellbarUiWidth/hotbarCount;
-		
-		int hotbarButton = (int)Math.ceil(positionInsideHotbarX/buttonSizeX)+1;
-		if (hotbarButton < 1)
-			return -1;
-		
-		if (hotbarButton > hotbarCount)
-			return -1;
-		
-		return hotbarButton;
+	private int getMemorisedSpellSlotByMouseCoords(int mouseX, int mouseY) {
+		for (int i = 0; i < memorisedButtons.size(); i++)
+		{
+			if (memorisedButtons.get(i).isMouseOver(mouseX, mouseY))
+				return i+1;
+			
+		}
+		return -1;
 	}
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
-		int height = Minecraft.getInstance().mainWindow.getScaledHeight();
-		
 		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
 		
-		for(int i = 0; i < hotbarCount; i++)
+		for(int i = 0; i < memorisedButtons.size(); i++)
 		{
-			Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
-			drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft+(i*spellbarUiWidth), height-spellbarDistanceFromBottom-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+			memorisedButtons.get(i).renderButton(memorisedSpellSize*i, 0, 1.0F);
 		}
 	}
 	

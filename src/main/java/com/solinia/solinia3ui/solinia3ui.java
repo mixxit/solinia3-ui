@@ -79,6 +79,7 @@ public class solinia3ui {
 		keyInputHandler.keyBinds.registerKeyBinds();
 
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.OPEN_SPELLBOOK, PacketRequestOpenSpellbook.class, PacketRequestOpenSpellbook::encode, PacketRequestOpenSpellbook::new, PacketRequestOpenSpellbook::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.UPDATE_MEMORISEDSPELLS, PacketRequestUpdateMemorisedSpells.class, PacketRequestUpdateMemorisedSpells::encode, PacketRequestUpdateMemorisedSpells::new, PacketRequestUpdateMemorisedSpells::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -122,5 +123,12 @@ public class solinia3ui {
 		StringTextComponent textComponent = new StringTextComponent("Test");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
 		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public static void updateMemorisedSpells(MemorisedSpells fromJson) {
+		System.out.println("Received new memorised spells: " + fromJson);
+		//StringTextComponent textComponent = new StringTextComponent("Test");
+		//Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
+		//Minecraft.getInstance().runImmediately(rn);
 	}
 }
