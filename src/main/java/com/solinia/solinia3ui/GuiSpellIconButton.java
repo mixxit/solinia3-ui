@@ -48,38 +48,6 @@ public class GuiSpellIconButton extends Button {
 			return;
 		}
 		
-		if (this.spellIcon < 1)
-			return;
-		
-		setSpellIconResourceLocations();
-		SpellIconLocation location = spellIconLocations.get(this.spellIcon);
-		if (location == null)
-			return;
-		
-		//Minecraft.getInstance().getTextureManager().bindTexture(SPELLTEXTURES1);
-		//GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
-		//		&& mouseY < this.y + this.height;
-		//int i = this.getHoverState(this.hovered);
-		//GlStateManager.enableBlend();
-		//GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
-		//		GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
-		//		GlStateManager.DestFactor.ZERO);
-		//GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA,
-		//		GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		//this.drawTexturedModalRect(this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-		//this.drawTexturedModalRect(this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20,
-		//		this.width / 2, this.height);
-		//this.renderBg(minecraft, mouseX, mouseY);
-		
-		Minecraft.getInstance().getTextureManager().bindTexture(location.loc);
-		//int i = this.getHoverState(true);
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
-		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
-		
-		//drawSpellIcon(this.x, this.y,location.point.x, location.point.y);
-		
 		int j = 14737632;
 		if (packedFGColor != 0) {
 			j = packedFGColor;
@@ -89,9 +57,24 @@ public class GuiSpellIconButton extends Button {
 			j = 16777120;
 		}
 		
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		
+		if (this.spellIcon > 0)
+		{
+			setSpellIconResourceLocations();
+			SpellIconLocation location = spellIconLocations.get(this.spellIcon);
+			if (location != null)
+			{
+				Minecraft.getInstance().getTextureManager().bindTexture(location.loc);
+				this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
+			}
+		}
+		
+		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
+		
 		String displayString = this.getMessage().split("\\^")[1];
-
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
+
 	}
 	
 	public void drawStringCenteredScale(FontRenderer fontRendererIn, String text, int x, int y, float size, int color) {

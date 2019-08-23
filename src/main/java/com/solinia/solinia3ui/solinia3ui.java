@@ -30,7 +30,7 @@ public class solinia3ui {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
 	
-	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler(this);
+	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler(this);
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
@@ -78,8 +78,8 @@ public class solinia3ui {
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 		keyInputHandler.keyBinds.registerKeyBinds();
 
-        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.OPEN_SPELLBOOK, PacketRequestOpenSpellbook.class, PacketRequestOpenSpellbook::encode, PacketRequestOpenSpellbook::new, PacketRequestOpenSpellbook::handle);
-        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.UPDATE_MEMORISEDSPELLS, PacketRequestUpdateMemorisedSpells.class, PacketRequestUpdateMemorisedSpells::encode, PacketRequestUpdateMemorisedSpells::new, PacketRequestUpdateMemorisedSpells::handle);
+		
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.GENERIC_MESSAGE, PacketRequestGenericMessage.class, PacketRequestGenericMessage::encode, PacketRequestGenericMessage::new, PacketRequestGenericMessage::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -119,16 +119,14 @@ public class solinia3ui {
 	}
 
 	
-	public static void openSpellBook(SpellBookData spellBookData) {
+	public static void openSpellBook(final SpellBookData spellBookData) {
 		StringTextComponent textComponent = new StringTextComponent("Test");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
-	public static void updateMemorisedSpells(MemorisedSpells fromJson) {
-		System.out.println("Received new memorised spells: " + fromJson);
-		//StringTextComponent textComponent = new StringTextComponent("Test");
-		//Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
-		//Minecraft.getInstance().runImmediately(rn);
+	public static void updateMemorisedSpells(final MemorisedSpells memorisedSpells) {
+		Runnable rn = () -> ClientState.getInstance().setMemorisedSpells(memorisedSpells);;
+		Minecraft.getInstance().runImmediately(rn);
 	}
 }

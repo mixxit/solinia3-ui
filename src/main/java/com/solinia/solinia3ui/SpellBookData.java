@@ -1,28 +1,6 @@
 package com.solinia.solinia3ui;
 
-import java.io.BufferedReader;
-import java.io.StringReader;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 public class SpellBookData {
-
-	public static SpellBookData fromJson(String message) {
-		SpellBookData data = new SpellBookData();
-		try
-		{
-			Gson gson = new Gson();
-			BufferedReader br = new BufferedReader(new StringReader(message));
-			data = gson.fromJson(br, new TypeToken<SpellBookData>(){}.getType());
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return data;
-		
-	}
-	
 	public int PageNo = 0;
 
 	public String SpellSlot1Name = "";
@@ -59,7 +37,6 @@ public class SpellBookData {
 	public int SpellSlot15Icon = 0;
 	public int SpellSlot16Icon = 0;
 	
-
 	public int SpellSlot1MemIcon = 0;
 	public int SpellSlot2MemIcon = 0;
 	public int SpellSlot3MemIcon = 0;
@@ -93,4 +70,200 @@ public class SpellBookData {
 	public int SpellSlot14NewIcon = 0;
 	public int SpellSlot15NewIcon = 0;
 	public int SpellSlot16NewIcon = 0;
+	
+	private int getSpellIdFromSpellNameData(String spellSlotNameData) {
+		if(spellSlotNameData == null)
+			return -1;
+		
+		if (!spellSlotNameData.contains("|"))
+			return -1;
+		
+		String[] split = spellSlotNameData.split("\\|");
+		int spellId = -1;
+		
+		try
+		{
+			spellId = Integer.parseInt(split[0]);
+		} catch (Exception e)
+		{
+			
+		}
+		
+		return spellId;
+	}
+	
+	private String getSpellNameFromSpellNameData(String spellSlotNameData) {
+		if(spellSlotNameData == null)
+			return null;
+		
+		if (!spellSlotNameData.contains("|"))
+			return spellSlotNameData;
+		
+		String[] split = spellSlotNameData.split("\\|");
+		return split[1];	
+	}
+	
+	public int getSpellIcon(int spellSlot)
+	{
+		switch(spellSlot)
+		{
+			case 1:
+				return SpellSlot1Icon;
+			case 2:
+				return SpellSlot2Icon;
+			case 3:
+				return SpellSlot3Icon;
+			case 4:
+				return SpellSlot4Icon;
+			case 5:
+				return SpellSlot5Icon;
+			case 6:
+				return SpellSlot6Icon;
+			case 7:
+				return SpellSlot7Icon;
+			case 8:
+				return SpellSlot8Icon;
+			case 9:
+				return SpellSlot9Icon;
+			case 10:
+				return SpellSlot10Icon;
+			case 11:
+				return SpellSlot11Icon;
+			case 12:
+				return SpellSlot12Icon;
+			case 13:
+				return SpellSlot13Icon;
+			case 14:
+				return SpellSlot14Icon;
+			case 15:
+				return SpellSlot15Icon;
+			case 16:
+				return SpellSlot16Icon;
+			default:
+				return 0;
+		}
+	}
+	
+	public int getNewIcon(int spellSlot)
+	{
+		switch(spellSlot)
+		{
+			case 1:
+				return SpellSlot1NewIcon;
+			case 2:
+				return SpellSlot2NewIcon;
+			case 3:
+				return SpellSlot3NewIcon;
+			case 4:
+				return SpellSlot4NewIcon;
+			case 5:
+				return SpellSlot5NewIcon;
+			case 6:
+				return SpellSlot6NewIcon;
+			case 7:
+				return SpellSlot7NewIcon;
+			case 8:
+				return SpellSlot8NewIcon;
+			case 9:
+				return SpellSlot9NewIcon;
+			case 10:
+				return SpellSlot10NewIcon;
+			case 11:
+				return SpellSlot11NewIcon;
+			case 12:
+				return SpellSlot12NewIcon;
+			case 13:
+				return SpellSlot13NewIcon;
+			case 14:
+				return SpellSlot14NewIcon;
+			case 15:
+				return SpellSlot15NewIcon;
+			case 16:
+				return SpellSlot16NewIcon;
+			default:
+				return 0;
+		}
+	} 
+	
+	public String getSpellName(int spellSlot)
+	{
+		switch(spellSlot)
+		{
+			case 1:
+				return getSpellNameFromSpellNameData(SpellSlot1Name);
+			case 2:
+				return getSpellNameFromSpellNameData(SpellSlot2Name);
+			case 3:
+				return getSpellNameFromSpellNameData(SpellSlot3Name);
+			case 4:
+				return getSpellNameFromSpellNameData(SpellSlot4Name);
+			case 5:
+				return getSpellNameFromSpellNameData(SpellSlot5Name);
+			case 6:
+				return getSpellNameFromSpellNameData(SpellSlot6Name);
+			case 7:
+				return getSpellNameFromSpellNameData(SpellSlot7Name);
+			case 8:
+				return getSpellNameFromSpellNameData(SpellSlot8Name);
+			case 9:
+				return getSpellNameFromSpellNameData(SpellSlot9Name);
+			case 10:
+				return getSpellNameFromSpellNameData(SpellSlot10Name);
+			case 11:
+				return getSpellNameFromSpellNameData(SpellSlot11Name);
+			case 12:
+				return getSpellNameFromSpellNameData(SpellSlot12Name);
+			case 13:
+				return getSpellNameFromSpellNameData(SpellSlot13Name);
+			case 14:
+				return getSpellNameFromSpellNameData(SpellSlot14Name);
+			case 15:
+				return getSpellNameFromSpellNameData(SpellSlot15Name);
+			case 16:
+				return getSpellNameFromSpellNameData(SpellSlot16Name);
+			default:
+				return "";
+		}
+	}
+	
+	public int getSpellId(int spellSlot)
+	{
+		switch(spellSlot)
+		{
+			case 1:
+				return getSpellIdFromSpellNameData(SpellSlot1Name);
+			case 2:
+				return getSpellIdFromSpellNameData(SpellSlot2Name);
+			case 3:
+				return getSpellIdFromSpellNameData(SpellSlot3Name);
+			case 4:
+				return getSpellIdFromSpellNameData(SpellSlot4Name);
+			case 5:
+				return getSpellIdFromSpellNameData(SpellSlot5Name);
+			case 6:
+				return getSpellIdFromSpellNameData(SpellSlot6Name);
+			case 7:
+				return getSpellIdFromSpellNameData(SpellSlot7Name);
+			case 8:
+				return getSpellIdFromSpellNameData(SpellSlot8Name);
+			case 9:
+				return getSpellIdFromSpellNameData(SpellSlot9Name);
+			case 10:
+				return getSpellIdFromSpellNameData(SpellSlot10Name);
+			case 11:
+				return getSpellIdFromSpellNameData(SpellSlot11Name);
+			case 12:
+				return getSpellIdFromSpellNameData(SpellSlot12Name);
+			case 13:
+				return getSpellIdFromSpellNameData(SpellSlot13Name);
+			case 14:
+				return getSpellIdFromSpellNameData(SpellSlot14Name);
+			case 15:
+				return getSpellIdFromSpellNameData(SpellSlot15Name);
+			case 16:
+				return getSpellIdFromSpellNameData(SpellSlot16Name);
+			default:
+				return -1;
+		}
+	}
 }

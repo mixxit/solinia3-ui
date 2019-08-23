@@ -11,15 +11,15 @@ import java.util.function.Supplier;
 import io.netty.buffer.ByteBufUtil;
 
 // Great examples at https://github.com/gigaherz/ToolBelt/tree/master/src/main/java/gigaherz/toolbelt/network
-public class PacketRequestUpdateMemorisedSpells {
+public class PacketRequestGenericMessage {
 	public String message;
-
-    public PacketRequestUpdateMemorisedSpells(String message)
+	
+	public PacketRequestGenericMessage(String message)
     {
     	this.message = message;
     }
 
-    public PacketRequestUpdateMemorisedSpells(PacketBuffer buf)
+    public PacketRequestGenericMessage(PacketBuffer buf)
     {
     	try
     	{
@@ -41,8 +41,17 @@ public class PacketRequestUpdateMemorisedSpells {
     
     public void handle(Supplier<NetworkEvent.Context> context)
     {
-    	System.out.println("received message: " + this.message);
-		context.get().enqueueWork(() -> solinia3ui.updateMemorisedSpells(MemorisedSpells.fromJson(this.message)));
+    	GenericPacketMessage message = GenericPacketMessage.fromJson(this.message);
+    	
+    	if (message.SpellbookPage != null)
+			context.get().enqueueWork(() -> solinia3ui.openSpellBook(message.SpellbookPage));
+    	
+	    if (message.MemorisedSpellSlots != null)
+	    {
+	    	System.out.println("Received memorised spells: " + this.message);
+	    	context.get().enqueueWork(() -> solinia3ui.updateMemorisedSpells(message.MemorisedSpellSlots));
+	    }
+    	
     	context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
     }

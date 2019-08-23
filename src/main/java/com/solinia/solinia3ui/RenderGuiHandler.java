@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -18,8 +17,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderGuiHandler {
-	private solinia3ui _parent;
-
 	public static final int spellbarDistanceFromLeft = 3;
 	public static final int spellbarDistanceFromBottom = 16;
 	public static final int spellbarUiWidth = 16;
@@ -33,15 +30,15 @@ public class RenderGuiHandler {
 	
 	public static final ResourceLocation spellbarUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbar.png" );
 
-	public RenderGuiHandler(solinia3ui parent)
+	public RenderGuiHandler()
 	{
-		_parent = parent;
 		int baseX = 0;
         int baseY = 0;
- 
+        
 		for(int i = 0; i < hotbarCount; i++)
 		{
-			this.memorisedButtons.put(i,new Button(memorisedSpellSize*i,0,16,16,Integer.toString(i), new GuiMemorisedSpellButtonPressable(i+1)));
+			int slot = (i+1);
+			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 			//Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
 			//drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft+(i*spellbarUiWidth), height-spellbarDistanceFromBottom-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
 		}
@@ -75,7 +72,7 @@ public class RenderGuiHandler {
 		for (int i = 0; i < memorisedButtons.size(); i++)
 		{
 			if (memorisedButtons.get(i).isMouseOver(mouseX, mouseY))
-				return i+1;
+				return (i+1);
 			
 		}
 		return -1;
@@ -87,36 +84,15 @@ public class RenderGuiHandler {
 		
 		for(int i = 0; i < memorisedButtons.size(); i++)
 		{
-			memorisedButtons.get(i).renderButton(memorisedSpellSize*i, 0, 1.0F);
+			int slot = (i+1);
+			if (ClientState.getInstance().getMemorisedSpells().getSpellIcon(slot) > 0)
+			{
+				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getNewIcon(slot)+"^"+Integer.toString(slot));
+				//this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,memorisedSpells.getNewIcon(slot)+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
+			}
+			
+			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
 		}
-	}
-	
-	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-	public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
-		if (event.isCanceled())
-			return;
-		
-		if (Minecraft.getInstance() == null)
-			return;
-		
-		if (Minecraft.getInstance().mainWindow == null)
-			return;
-		
-		if (_parent == null)
-			return;
-	}
-	
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onRenderSpellbook(RenderGameOverlayEvent.Post event)
-	{
-		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
-		
-		//Mouse.setGrabbed(false);
-		
-		//int spellUiWidth = 256;
-		//int spellUiHeight = 168;
-		//Minecraft.getInstance().textureManager.bindTexture(spellbookUi);
-		//drawTexturedModalRect(50, 50, 0, 0, spellUiWidth, spellUiHeight, 6);
 	}
 	
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, int zLevel) {
