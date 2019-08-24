@@ -4,11 +4,14 @@ jdk:
   - oraclejdk8
 before_install:
  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+ - export MC_VERSION=$(grep -o 'version = '.*'' build.gradle | sed "s/'//g" | sed 's/version = //g' | sed $'s/\r$//')
  - chmod +x ./gradlew
 language: java
 notifications: 
   email: true
 script: 
+  - sed -i 's/CIREPLACEMEVERSION/${TRAVIS_TAG}/g' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - sed -i 's/CIREPLACEMEVERSIONRANGE/{$MC_VERSION}/g' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml       
   - "./gradlew build"
 sudo: required
 before_deploy:
@@ -24,11 +27,11 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-#after_success:
-#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-#  - chmod +x send.sh
-#  - ./send.sh success $WEBHOOK_URL
-#after_failure:
-#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-#  - chmod +x send.sh
-#  - ./send.sh failure $WEBHOOK_URL
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
