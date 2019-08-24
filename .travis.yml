@@ -5,7 +5,6 @@ jdk:
 before_install:
  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
  - export MC_VERSION=$(grep -o 'version = '.*'' build.gradle | sed "s/'//g" | sed 's/version = //g' | sed $'s/\r$//')
- - echo "Building for Minecraft Version: ${MC_VERSION}"
  - chmod +x ./gradlew
 language: java
 notifications: 
