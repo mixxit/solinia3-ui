@@ -10,8 +10,8 @@ language: java
 notifications: 
   email: true
 script: 
-  - sed -i 's/CIREPLACEMEVERSION/${TRAVIS_TAG}/g' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
-  - sed -i 's/CIREPLACEMEVERSIONRANGE/{$MC_VERSION}/g' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml       
+  - sed -i -e "s/CIREPLACEMEVERSION/${TRAVIS_TAG}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - sed -i -e "s/CIREPLACEMEVERSIONRANGE/{$MC_VERSION}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml       
   - "./gradlew build"
 sudo: required
 before_deploy:
