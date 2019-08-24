@@ -72,7 +72,10 @@ public class GuiSpellIconButton extends Button {
 		
 		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
 		
-		String displayString = this.getMessage().split("\\^")[1];
+		
+		String displayString = "";
+		if (this.getMessage().split("\\^").length > 1)
+			displayString = this.getMessage().split("\\^")[1];
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 
 	}

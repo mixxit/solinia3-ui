@@ -94,7 +94,7 @@ public class SpellBookData {
 	
 	private String getSpellNameFromSpellNameData(String spellSlotNameData) {
 		if(spellSlotNameData == null)
-			return null;
+			return "";
 		
 		if (!spellSlotNameData.contains("|"))
 			return spellSlotNameData;
@@ -140,7 +140,7 @@ public class SpellBookData {
 			case 16:
 				return SpellSlot16Icon;
 			default:
-				return 0;
+				return -1;
 		}
 	}
 	
@@ -181,7 +181,7 @@ public class SpellBookData {
 			case 16:
 				return SpellSlot16NewIcon;
 			default:
-				return 0;
+				return -1;
 		}
 	} 
 	

@@ -87,7 +87,7 @@ public class MemorisedSpells {
 			case 8:
 				return SpellSlot8Icon;
 			default:
-				return 0;
+				return -1;
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class MemorisedSpells {
 			case 8:
 				return SpellSlot8NewIcon;
 			default:
-				return 0;
+				return -1;
 		}
 	} 
 	
