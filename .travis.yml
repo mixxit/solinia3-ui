@@ -1,0 +1,42 @@
+dist: trusty
+env: "GRADLE_OPTS=\"-Xms1g -Xmx3g\""
+jdk: 
+  - oraclejdk8
+before_install:
+ - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+ - export MC_VERSION=$(grep -o 'version = '.*'' build.gradle | sed "s/'//g" | sed 's/version = //g' | sed $'s/\r$//')
+ - chmod +x ./gradlew
+language: java
+notifications: 
+  email: true
+script: 
+  - sed -i -e "s/CIREPLACEMEVERSION/${TRAVIS_TAG}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - sed -i -e "s/CIREPLACEMEMCVERSIONRANGE/${MC_VERSION}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - sed -i -e "s/CIREPLACEMEVERSION/${TRAVIS_TAG}/g" /home/travis/build/mixxit/solinia3-ui/versions.json
+  - sed -i -e "s/CIREPLACEMEMCVERSIONRANGE/${MC_VERSION}/g" /home/travis/build/mixxit/solinia3-ui/versions.json
+  - "./gradlew build"
+sudo: required
+deploy:
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: /home/travis/build/mixxit/solinia3-ui/build/libs/*.jar
+    overwrite: true
+    file_glob: true
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    deployment_file: /home/travis/build/mixxit/solinia3-ui/versions.json
+    on:
+      branch: master
+#after_success:
+#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+#  - chmod +x send.sh
+#  - ./send.sh success $WEBHOOK_URL
+#after_failure:
+#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+#  - chmod +x send.sh
+#  - ./send.sh failure $WEBHOOK_URL
