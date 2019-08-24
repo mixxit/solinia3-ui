@@ -8,7 +8,7 @@ jdk:
 before_install:
  - export MC_VERSION=$(grep -o 'version = '.*'' build.gradle | sed "s/'//g" | sed 's/version = //g' | sed $'s/\r$//')
  - export TRAVIS_TAG=${TRAVIS_TAG:-${MC_VERSION}.$(date +'%Y%m%d%H%M%S')}
- - echo $TRAVIS_TAG
+ - echo -e "New version tag is set to: $TRAVIS_TAG"
  - chmod +x ./gradlew
 language: java
 notifications: 
