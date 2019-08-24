@@ -59,6 +59,6 @@ The supplementary mod for clients connecting to servers running Solinia3-Core
 [[dependencies.solinia3ui]]
     modId="minecraft"
     mandatory=true
-    versionRange="[CIREPLACEMEVERSIONRANGE]"
+    versionRange="[CIREPLACEMEMCVERSIONRANGE]"
     ordering="NONE"
     side="BOTH"
