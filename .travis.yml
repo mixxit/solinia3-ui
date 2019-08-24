@@ -16,6 +16,7 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   repo: solinia3-ui-builds
+  target_branch: master
   local_dir: /home/travis/build/mixxit/solinia3-ui/build/libs
   on:
     branch: master
