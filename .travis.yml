@@ -18,6 +18,7 @@ deploy:
   repo: solinia3-ui-builds
   target_branch: master
   local_dir: /home/travis/build/mixxit/solinia3-ui/build/libs
+  verbose: true
   on:
     branch: master
 after_success:
