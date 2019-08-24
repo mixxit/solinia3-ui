@@ -2,6 +2,8 @@ dist: trusty
 env: "GRADLE_OPTS=\"-Xms1g -Xmx3g\""
 jdk: 
   - oraclejdk8
+before_install:
+ - chmod +x ./gradlew
 language: java
 notifications: 
   email: true
