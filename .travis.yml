@@ -20,6 +20,16 @@ deploy:
   verbose: true
   on:
     branch: master
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: /home/travis/build/mixxit/solinia3-ui/build/libs/*.jar
+  overwrite: true
+  file_glob: true
+  skip_cleanup: true
+  on:
+    tags: true
 #after_success:
 #  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
 #  - chmod +x send.sh
