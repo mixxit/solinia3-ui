@@ -25,7 +25,7 @@ version="CIREPLACEMEVERSION" #mandatory
 displayName="solinia3ui" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="http://www.fallofanempire.com/versions.json" #optional
+updateJSONURL="https://raw.githubusercontent.com/mixxit/solinia3-ui/gh-pages/versions.json" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="http://solinia.github.io" #optional
