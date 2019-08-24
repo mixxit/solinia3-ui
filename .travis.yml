@@ -6,8 +6,9 @@ branches:
 jdk: 
   - oraclejdk8
 before_install:
- - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
  - export MC_VERSION=$(grep -o 'version = '.*'' build.gradle | sed "s/'//g" | sed 's/version = //g' | sed $'s/\r$//')
+ - export TRAVIS_TAG=${TRAVIS_TAG:-${MC_VERSION}.$(date +'%Y%m%d%H%M%S')}
+ - echo $TRAVIS_TAG
  - chmod +x ./gradlew
 language: java
 notifications: 
@@ -47,5 +48,5 @@ after_deploy:
   - chmod +x senddiscord.sh
   - if ! [ "$BEFORE_DEPLOY_RUN" ]; then
   - export BEFORE_DEPLOY_RUN=1;
-  - ./senddiscord.sh $BOT_TOKEN $CHANNEL "A new version of Solinia3-UI [${TRAVIS_TAG}] has been released at https://github.com/mixxit/solinia3-ui/releases" $WEBHOOKUI_URL
+  - ./senddiscord.sh $BOT_TOKEN $CHANNEL "A new version of Solinia3-UI [${TRAVIS_TAG}] has been released at https://github.com/mixxit/solinia3-ui/releases"
   - fi
