@@ -32,11 +32,8 @@ deploy:
     deployment_file: /home/travis/build/mixxit/solinia3-ui/versions.json
     on:
       branch: master
-#after_success:
-#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-#  - chmod +x send.sh
-#  - ./send.sh success $WEBHOOK_URL
-#after_failure:
-#  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-#  - chmod +x send.sh
-#  - ./send.sh failure $WEBHOOK_URL
+after_deploy:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+  - ./send.sh "A new version of Solinia3-UI [${TRAVIS_TAG}] has been released at https://github.com/mixxit/solinia3-ui/releases" $WEBHOOKUI_URL
