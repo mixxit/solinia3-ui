@@ -1,5 +1,8 @@
 dist: trusty
 env: "GRADLE_OPTS=\"-Xms1g -Xmx3g\""
+branches:
+  only:
+  - master
 jdk: 
   - oraclejdk8
 before_install:
@@ -36,4 +39,5 @@ after_deploy:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
-  - ./send.sh "A new version of Solinia3-UI [${TRAVIS_TAG}] has been released at https://github.com/mixxit/solinia3-ui/releases" $WEBHOOKUI_URL
+  - chmod +x senddiscord.sh
+  - ./senddiscord.sh $BOT_TOKEN $CHANNEL "A new version of Solinia3-UI [${TRAVIS_TAG}] has been released at https://github.com/mixxit/solinia3-ui/releases" $WEBHOOKUI_URL
