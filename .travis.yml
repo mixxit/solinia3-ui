@@ -1,18 +1,11 @@
-language: java
 dist: trusty
-jdk: oraclejdk8
-before_install:
- - wget http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.14.4-28.0.55/forge-1.14.4-28.0.55-mdk.zip
- - unzip -n forge-1.14.4-28.0.55-mdk.zip
- - rm forge-1.14.4-28.0.55-mdk.zip
- - chmod +x ./gradlew
-install: ./gradlew setupCiWorkspace
-script: ./gradlew build
-after_success:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh success $WEBHOOK_URL
-after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
+env: "GRADLE_OPTS=\"-Xms1g -Xmx3g\""
+jdk: 
+  - oraclejdk8
+language: java
+notifications: 
+  email: true
+script: 
+  - "./gradlew build"
+  - "./gradlew curseforge --stacktrace"
+sudo: required
