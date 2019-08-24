@@ -17,14 +17,14 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderGuiHandler {
-	public static final int spellbarDistanceFromLeft = 3;
-	public static final int spellbarDistanceFromBottom = 16;
-	public static final int spellbarUiWidth = 16;
-	public static final int spellbarUiHeight = 16;
-	public static final int edgePositionX = 0;
+//	public static final int spellbarDistanceFromLeft = 3;
+//	public static final int spellbarDistanceFromBottom = 16;
+//	public static final int spellbarUiWidth = 16;
+//	public static final int spellbarUiHeight = 16;
+//	public static final int edgePositionX = 0;
 	public static final int hotbarCount = 8;
 	
-	public static final int memorisedSpellSize = 16;
+	public static final int memorisedSpellSize = 20;
 	
 	public ConcurrentHashMap<Integer,Button> memorisedButtons = new ConcurrentHashMap<Integer,Button>();
 	
@@ -38,11 +38,12 @@ public class RenderGuiHandler {
 		for(int i = 0; i < hotbarCount; i++)
 		{
 			int slot = (i+1);
-			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
-			//Minecraft.getInstance().textureManager.bindTexture(spellbarUi);
-			//drawTexturedModalRect(edgePositionX+spellbarDistanceFromLeft+(i*spellbarUiWidth), height-spellbarDistanceFromBottom-spellbarUiHeight, 0, 0, spellbarUiWidth, spellbarUiHeight, 5);
+			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
+		
 	}
+	
+	
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onMouseClickEvent(MouseClickedEvent.Post event)
@@ -77,6 +78,15 @@ public class RenderGuiHandler {
 		}
 		return -1;
 	}
+	
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void onRenderCharacterText(RenderGameOverlayEvent.Post event)
+	{
+		if (event.isCanceled())
+			return;
+		
+		new GuiCharacterText();
+	}
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
@@ -94,16 +104,4 @@ public class RenderGuiHandler {
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
 		}
 	}
-	
-	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, int zLevel) {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(x + 0, y + height, zLevel).tex(textureX * 0.00390625F, (textureY + height) * 0.00390625F).endVertex();
-        bufferbuilder.pos(x + width, y + height, zLevel).tex((textureX + width) * 0.00390625F, (textureY + height) * 0.00390625F).endVertex();
-        bufferbuilder.pos(x + width, y + 0, zLevel).tex((textureX + width) * 0.00390625F, textureY * 0.00390625F).endVertex();
-        bufferbuilder.pos(x + 0, y + 0, zLevel).tex(textureX * 0.00390625F, textureY * 0.00390625F).endVertex();
-        tessellator.draw();
-	}
-
 }
