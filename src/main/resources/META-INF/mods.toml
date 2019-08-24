@@ -31,7 +31,7 @@ updateJSONURL="https://raw.githubusercontent.com/mixxit/solinia3-ui/gh-pages/ver
 displayURL="http://solinia.github.io" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="assets/solinia3ui/textures/logo.png" #optional
+logoFile="logo.png" #optional
 
 # A text field displayed in the mod UI
 credits="Thank for all the help from the Forge Mod discord channel" #optional
