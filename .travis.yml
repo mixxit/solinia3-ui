@@ -3,6 +3,7 @@ env: "GRADLE_OPTS=\"-Xms1g -Xmx3g\""
 jdk: 
   - oraclejdk8
 before_install:
+ - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
  - chmod +x ./gradlew
 language: java
 notifications: 
@@ -13,7 +14,6 @@ sudo: required
 before_deploy:
  - git config --local user.name "mixxit"
  - git config --local user.email "mixxituk@gmail.com"
- - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
  - git tag $TRAVIS_TAG
 deploy:
   provider: releases
@@ -22,8 +22,6 @@ deploy:
   overwrite: true
   file_glob: true
   skip_cleanup: true
-  on:
-    tags: true
 #after_success:
 #  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
 #  - chmod +x send.sh
