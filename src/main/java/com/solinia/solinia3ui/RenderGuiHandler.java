@@ -62,9 +62,23 @@ public class RenderGuiHandler {
 		if (event.getGui() instanceof GuiSpellbook)
 		{
 			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
+		} else {
+			if (event.getButton() != 0)
+			{
+				int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+				if (memorisedSpellSlot < 1)
+					return; 
+				
+				removeSpellSlot(memorisedSpellSlot);
+			}
 		}
 	}
 	
+	private void removeSpellSlot(int memorisedSpellSlot) {
+		Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + 0);
+	}
+
+
 	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y, int button) {
 		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(x), (int)Math.round(y));
 		if (memorisedSpellSlot < 1)
@@ -78,7 +92,7 @@ public class RenderGuiHandler {
 		
 			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
 		} else {
-			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + 0);
+			removeSpellSlot(memorisedSpellSlot);
 		}
 	}
 
