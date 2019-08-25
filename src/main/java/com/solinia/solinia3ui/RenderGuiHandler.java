@@ -53,11 +53,11 @@ public class RenderGuiHandler {
 		
 		if (event.getGui() instanceof GuiSpellbook)
 		{
-			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY());
+			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
 		}
 	}
 	
-	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y) {
+	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y, int button) {
 		int selectedSpellid = spellBook.getSelectedSpellId();
 		if (selectedSpellid < 1)
 			return; 
@@ -65,8 +65,12 @@ public class RenderGuiHandler {
 		if (memorisedSpellSlot < 1)
 			return; 
 		
-		System.out.println("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
-		Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+		if (button == 0)
+		{
+			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+		} else {
+			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + 0);
+		}
 	}
 
 	private int getMemorisedSpellSlotByMouseCoords(int mouseX, int mouseY) {
