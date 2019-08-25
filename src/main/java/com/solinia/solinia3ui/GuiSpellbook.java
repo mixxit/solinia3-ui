@@ -1,5 +1,6 @@
 package com.solinia.solinia3ui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
@@ -42,6 +43,13 @@ public class GuiSpellbook extends Screen {
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks)
     {
+		if (this._spellbookData == null)
+		{
+			// TODO Auto-generated method stub
+			Minecraft.getInstance().player.closeScreen();
+			return;
+		}
+		
         getMinecraft().getTextureManager().bindTexture(spellbookUi);
         int x = (width - this.xSize) / 2;
 		int y = (height - this.ySize) / 2;
@@ -56,6 +64,13 @@ public class GuiSpellbook extends Screen {
 	
 	public void loadGui()
 	{
+		if (this._spellbookData == null)
+		{
+			// TODO Auto-generated method stub
+			Minecraft.getInstance().player.closeScreen();
+			return;
+		}
+		
 		int baseX = (width - this.xSize) / 2;
 		int baseY = (height - this.ySize) / 2;
 		
