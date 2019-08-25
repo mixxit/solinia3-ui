@@ -58,15 +58,16 @@ public class RenderGuiHandler {
 	}
 	
 	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y, int button) {
-		int selectedSpellid = spellBook.getSelectedSpellId();
-		if (selectedSpellid < 1)
-			return; 
 		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(x), (int)Math.round(y));
 		if (memorisedSpellSlot < 1)
 			return; 
-		
+
 		if (button == 0)
 		{
+			int selectedSpellid = spellBook.getSelectedSpellId();
+			if (selectedSpellid < 1)
+				return; 
+		
 			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
 		} else {
 			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + 0);
@@ -103,6 +104,8 @@ public class RenderGuiHandler {
 			{
 				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getNewIcon(slot)+"^"+Integer.toString(slot));
 				//this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,memorisedSpells.getNewIcon(slot)+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
+			} else {
+				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
 			}
 			
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
