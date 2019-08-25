@@ -13,8 +13,14 @@ public class GuiSpellIconButtonPressable implements Button.IPressable {
 
 	@Override
 	public void onPress(Button button) {
-		System.out.println("You clicked spellId: " + spellId + " in spellBookSlotId " + spellBookSlotId);
-		ClientState.getInstance().setSelectedSpellSlot(spellBookSlotId);
+		if (ClientState.getInstance().getSelectedSpellSlot() == spellBookSlotId)
+		{
+			// Clear if its the same one we already clicked
+			ClientState.getInstance().setSelectedSpellSlot(-1);
+		} else {
+			ClientState.getInstance().setSelectedSpellSlot(spellBookSlotId);
+		}
+		
 	}
 
 }
