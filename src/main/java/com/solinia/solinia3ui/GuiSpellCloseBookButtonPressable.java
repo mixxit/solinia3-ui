@@ -7,6 +7,8 @@ public class GuiSpellCloseBookButtonPressable implements Button.IPressable {
 	@Override
 	public void onPress(Button button) {
 		// TODO Auto-generated method stub
+		ClientState.getInstance().setSelectedSpellSlot(-1);
+
 		Minecraft.getInstance().player.closeScreen();
 	}
 }

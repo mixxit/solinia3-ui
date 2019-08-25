@@ -7,6 +7,9 @@ public class GuiSpellChangePageButtonPressable implements Button.IPressable {
 
 	@Override
 	public void onPress(Button buttonPressed) {
+		// Clear selected spell slot
+		ClientState.getInstance().setSelectedSpellSlot(-1);
+
 		String[] data = buttonPressed.getMessage().split(" ");
 		
 		int page = 0;
