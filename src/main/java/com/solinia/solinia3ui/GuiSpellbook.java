@@ -45,6 +45,7 @@ public class GuiSpellbook extends Screen {
     {
 		if (this._spellbookData == null)
 		{
+			ClientState.getInstance().setSelectedSpellSlot(-1);
 			// TODO Auto-generated method stub
 			Minecraft.getInstance().player.closeScreen();
 			return;
@@ -66,6 +67,7 @@ public class GuiSpellbook extends Screen {
 	{
 		if (this._spellbookData == null)
 		{
+			ClientState.getInstance().setSelectedSpellSlot(-1);
 			// TODO Auto-generated method stub
 			Minecraft.getInstance().player.closeScreen();
 			return;
