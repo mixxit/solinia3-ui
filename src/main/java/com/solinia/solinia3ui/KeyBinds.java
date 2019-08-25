@@ -32,7 +32,7 @@ public class KeyBinds
  
     public void registerKeyBinds()
     {
-    	targetnearestnpc = new Solinia3UIKeyBinding("key.targetnearestnpc", KeyConflictContext.IN_GAME,KeyModifier.CONTROL, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT, "key.categories.solinia");
+    	targetnearestnpc = new Solinia3UIKeyBinding("key.targetnearestnpc", KeyConflictContext.IN_GAME,KeyModifier.CONTROL, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.categories.solinia");
     	toggleautoattack = new Solinia3UIKeyBinding("key.toggleautoattack", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_Z, "key.categories.solinia");
     	canceltarget = new Solinia3UIKeyBinding("key.canceltarget", KeyConflictContext.IN_GAME, KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_GRAVE_ACCENT, "key.categories.solinia");
     	targetself = new Solinia3UIKeyBinding("key.targetself", KeyConflictContext.IN_GAME,KeyModifier.CONTROL,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_1, "key.categories.solinia");
