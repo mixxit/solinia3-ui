@@ -35,6 +35,7 @@ public class solinia3ui {
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
+	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -59,6 +60,7 @@ public class solinia3ui {
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
+		MinecraftForge.EVENT_BUS.register(renderLivingHandler);
 	}
 	
 	public void onPacketData(final ServerCustomPayloadEvent event) {
