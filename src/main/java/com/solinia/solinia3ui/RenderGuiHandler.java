@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -44,6 +45,13 @@ public class RenderGuiHandler {
 	}
 	
 	
+	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+	public void onGui(GuiOpenEvent event)
+	{
+		if (event.isCanceled())
+			return;
+		
+	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onMouseClickEvent(MouseClickedEvent.Post event)
