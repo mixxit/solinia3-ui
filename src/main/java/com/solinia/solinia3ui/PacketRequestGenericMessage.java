@@ -44,6 +44,7 @@ public class PacketRequestGenericMessage {
     	GenericPacketMessage message = GenericPacketMessage.fromJson(this.message);
     	
     	if (message.SpellbookPage != null)
+	    	System.out.println("Received spellbook page: " + this.message);
 			context.get().enqueueWork(() -> solinia3ui.openSpellBook(message.SpellbookPage));
     	
 	    if (message.MemorisedSpellSlots != null)

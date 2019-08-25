@@ -1,6 +1,17 @@
 package com.solinia.solinia3ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MemorisedSpells {
+	public int SpellSlot1Id = 0;
+	public int SpellSlot2Id = 0;
+	public int SpellSlot3Id = 0;
+	public int SpellSlot4Id = 0;
+	public int SpellSlot5Id = 0;
+	public int SpellSlot6Id = 0;
+	public int SpellSlot7Id = 0;
+	public int SpellSlot8Id = 0;
 	public String SpellSlot1Name = "";
 	public String SpellSlot2Name = "";
 	public String SpellSlot3Name = "";
@@ -34,36 +45,27 @@ public class MemorisedSpells {
 	public int SpellSlot7NewIcon = 0;
 	public int SpellSlot8NewIcon = 0;
 	
-	private int getSpellIdFromSpellNameData(String spellSlotNameData) {
-		if(spellSlotNameData == null)
-			return -1;
+	public List<Integer> getAllSpellIds() {
+		List<Integer> returnIds = new ArrayList<Integer>();
 		
-		if (!spellSlotNameData.contains("|"))
-			return -1;
+		if (SpellSlot1Id > 0)
+			returnIds.add(SpellSlot1Id);
+		if (SpellSlot2Id > 0)
+			returnIds.add(SpellSlot2Id);
+		if (SpellSlot3Id > 0)
+			returnIds.add(SpellSlot3Id);
+		if (SpellSlot4Id > 0)
+			returnIds.add(SpellSlot4Id);
+		if (SpellSlot5Id > 0)
+			returnIds.add(SpellSlot5Id);
+		if (SpellSlot6Id > 0)
+			returnIds.add(SpellSlot6Id);
+		if (SpellSlot7Id > 0)
+			returnIds.add(SpellSlot7Id);
+		if (SpellSlot8Id > 0)
+			returnIds.add(SpellSlot8Id);
 		
-		String[] split = spellSlotNameData.split("\\|");
-		int spellId = -1;
-		
-		try
-		{
-			spellId = Integer.parseInt(split[0]);
-		} catch (Exception e)
-		{
-			
-		}
-		
-		return spellId;
-	}
-	
-	private String getSpellNameFromSpellNameData(String spellSlotNameData) {
-		if(spellSlotNameData == null)
-			return null;
-		
-		if (!spellSlotNameData.contains("|"))
-			return spellSlotNameData;
-		
-		String[] split = spellSlotNameData.split("\\|");
-		return split[1];	
+		return returnIds;
 	}
 	
 	public int getSpellIcon(int spellSlot)
@@ -116,26 +118,27 @@ public class MemorisedSpells {
 		}
 	} 
 	
+
 	public String getSpellName(int spellSlot)
 	{
 		switch(spellSlot)
 		{
 			case 1:
-				return getSpellNameFromSpellNameData(SpellSlot1Name);
+				return SpellSlot1Name;
 			case 2:
-				return getSpellNameFromSpellNameData(SpellSlot2Name);
+				return SpellSlot2Name;
 			case 3:
-				return getSpellNameFromSpellNameData(SpellSlot3Name);
+				return SpellSlot3Name;
 			case 4:
-				return getSpellNameFromSpellNameData(SpellSlot4Name);
+				return SpellSlot4Name;
 			case 5:
-				return getSpellNameFromSpellNameData(SpellSlot5Name);
+				return SpellSlot5Name;
 			case 6:
-				return getSpellNameFromSpellNameData(SpellSlot6Name);
+				return SpellSlot6Name;
 			case 7:
-				return getSpellNameFromSpellNameData(SpellSlot7Name);
+				return SpellSlot7Name;
 			case 8:
-				return getSpellNameFromSpellNameData(SpellSlot8Name);
+				return SpellSlot8Name;
 			default:
 				return "";
 		}
@@ -146,21 +149,21 @@ public class MemorisedSpells {
 		switch(spellSlot)
 		{
 			case 1:
-				return getSpellIdFromSpellNameData(SpellSlot1Name);
+				return SpellSlot1Id;
 			case 2:
-				return getSpellIdFromSpellNameData(SpellSlot2Name);
+				return SpellSlot2Id;
 			case 3:
-				return getSpellIdFromSpellNameData(SpellSlot3Name);
+				return SpellSlot3Id;
 			case 4:
-				return getSpellIdFromSpellNameData(SpellSlot4Name);
+				return SpellSlot4Id;
 			case 5:
-				return getSpellIdFromSpellNameData(SpellSlot5Name);
+				return SpellSlot5Id;
 			case 6:
-				return getSpellIdFromSpellNameData(SpellSlot6Name);
+				return SpellSlot6Id;
 			case 7:
-				return getSpellIdFromSpellNameData(SpellSlot7Name);
+				return SpellSlot7Id;
 			case 8:
-				return getSpellIdFromSpellNameData(SpellSlot8Name);
+				return SpellSlot8Id;
 			default:
 				return -1;
 		}

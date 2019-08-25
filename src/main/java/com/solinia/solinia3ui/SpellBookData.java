@@ -1,7 +1,27 @@
 package com.solinia.solinia3ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SpellBookData {
 	public int PageNo = 0;
+	
+	public int SpellSlot1Id = 0;
+	public int SpellSlot2Id = 0;
+	public int SpellSlot3Id = 0;
+	public int SpellSlot4Id = 0;
+	public int SpellSlot5Id = 0;
+	public int SpellSlot6Id = 0;
+	public int SpellSlot7Id = 0;
+	public int SpellSlot8Id = 0;
+	public int SpellSlot9Id = 0;
+	public int SpellSlot10Id = 0;
+	public int SpellSlot11Id = 0;
+	public int SpellSlot12Id = 0;
+	public int SpellSlot13Id = 0;
+	public int SpellSlot14Id = 0;
+	public int SpellSlot15Id = 0;
+	public int SpellSlot16Id = 0;
 
 	public String SpellSlot1Name = "";
 	public String SpellSlot2Name = "";
@@ -71,38 +91,6 @@ public class SpellBookData {
 	public int SpellSlot15NewIcon = 0;
 	public int SpellSlot16NewIcon = 0;
 	
-	private int getSpellIdFromSpellNameData(String spellSlotNameData) {
-		if(spellSlotNameData == null)
-			return -1;
-		
-		if (!spellSlotNameData.contains("|"))
-			return -1;
-		
-		String[] split = spellSlotNameData.split("\\|");
-		int spellId = -1;
-		
-		try
-		{
-			spellId = Integer.parseInt(split[0]);
-		} catch (Exception e)
-		{
-			
-		}
-		
-		return spellId;
-	}
-	
-	private String getSpellNameFromSpellNameData(String spellSlotNameData) {
-		if(spellSlotNameData == null)
-			return "";
-		
-		if (!spellSlotNameData.contains("|"))
-			return spellSlotNameData;
-		
-		String[] split = spellSlotNameData.split("\\|");
-		return split[1];	
-	}
-	
 	public int getSpellIcon(int spellSlot)
 	{
 		switch(spellSlot)
@@ -142,6 +130,44 @@ public class SpellBookData {
 			default:
 				return -1;
 		}
+	}
+	
+	public List<Integer> getAllSpellIds() {
+		List<Integer> returnIds = new ArrayList<Integer>();
+		
+		if (SpellSlot1Id > 0)
+			returnIds.add(SpellSlot1Id);
+		if (SpellSlot2Id > 0)
+			returnIds.add(SpellSlot2Id);
+		if (SpellSlot3Id > 0)
+			returnIds.add(SpellSlot3Id);
+		if (SpellSlot4Id > 0)
+			returnIds.add(SpellSlot4Id);
+		if (SpellSlot5Id > 0)
+			returnIds.add(SpellSlot5Id);
+		if (SpellSlot6Id > 0)
+			returnIds.add(SpellSlot6Id);
+		if (SpellSlot7Id > 0)
+			returnIds.add(SpellSlot7Id);
+		if (SpellSlot8Id > 0)
+			returnIds.add(SpellSlot8Id);
+		if (SpellSlot9Id > 0)
+			returnIds.add(SpellSlot9Id);
+		if (SpellSlot10Id > 0)
+			returnIds.add(SpellSlot10Id);
+		if (SpellSlot11Id > 0)
+			returnIds.add(SpellSlot11Id);
+		if (SpellSlot12Id > 0)
+			returnIds.add(SpellSlot12Id);
+		if (SpellSlot13Id > 0)
+			returnIds.add(SpellSlot13Id);
+		if (SpellSlot14Id > 0)
+			returnIds.add(SpellSlot14Id);
+		if (SpellSlot15Id > 0)
+			returnIds.add(SpellSlot15Id);
+		if (SpellSlot16Id > 0)
+			returnIds.add(SpellSlot16Id);		
+		return returnIds;
 	}
 	
 	public int getNewIcon(int spellSlot)
@@ -190,37 +216,37 @@ public class SpellBookData {
 		switch(spellSlot)
 		{
 			case 1:
-				return getSpellNameFromSpellNameData(SpellSlot1Name);
+				return SpellSlot1Name;
 			case 2:
-				return getSpellNameFromSpellNameData(SpellSlot2Name);
+				return SpellSlot2Name;
 			case 3:
-				return getSpellNameFromSpellNameData(SpellSlot3Name);
+				return SpellSlot3Name;
 			case 4:
-				return getSpellNameFromSpellNameData(SpellSlot4Name);
+				return SpellSlot4Name;
 			case 5:
-				return getSpellNameFromSpellNameData(SpellSlot5Name);
+				return SpellSlot5Name;
 			case 6:
-				return getSpellNameFromSpellNameData(SpellSlot6Name);
+				return SpellSlot6Name;
 			case 7:
-				return getSpellNameFromSpellNameData(SpellSlot7Name);
+				return SpellSlot7Name;
 			case 8:
-				return getSpellNameFromSpellNameData(SpellSlot8Name);
+				return SpellSlot8Name;
 			case 9:
-				return getSpellNameFromSpellNameData(SpellSlot9Name);
+				return SpellSlot9Name;
 			case 10:
-				return getSpellNameFromSpellNameData(SpellSlot10Name);
+				return SpellSlot10Name;
 			case 11:
-				return getSpellNameFromSpellNameData(SpellSlot11Name);
+				return SpellSlot11Name;
 			case 12:
-				return getSpellNameFromSpellNameData(SpellSlot12Name);
+				return SpellSlot12Name;
 			case 13:
-				return getSpellNameFromSpellNameData(SpellSlot13Name);
+				return SpellSlot13Name;
 			case 14:
-				return getSpellNameFromSpellNameData(SpellSlot14Name);
+				return SpellSlot14Name;
 			case 15:
-				return getSpellNameFromSpellNameData(SpellSlot15Name);
+				return SpellSlot15Name;
 			case 16:
-				return getSpellNameFromSpellNameData(SpellSlot16Name);
+				return SpellSlot16Name;
 			default:
 				return "";
 		}
@@ -231,37 +257,37 @@ public class SpellBookData {
 		switch(spellSlot)
 		{
 			case 1:
-				return getSpellIdFromSpellNameData(SpellSlot1Name);
+				return SpellSlot1Id;
 			case 2:
-				return getSpellIdFromSpellNameData(SpellSlot2Name);
+				return SpellSlot2Id;
 			case 3:
-				return getSpellIdFromSpellNameData(SpellSlot3Name);
+				return SpellSlot3Id;
 			case 4:
-				return getSpellIdFromSpellNameData(SpellSlot4Name);
+				return SpellSlot4Id;
 			case 5:
-				return getSpellIdFromSpellNameData(SpellSlot5Name);
+				return SpellSlot5Id;
 			case 6:
-				return getSpellIdFromSpellNameData(SpellSlot6Name);
+				return SpellSlot6Id;
 			case 7:
-				return getSpellIdFromSpellNameData(SpellSlot7Name);
+				return SpellSlot7Id;
 			case 8:
-				return getSpellIdFromSpellNameData(SpellSlot8Name);
+				return SpellSlot8Id;
 			case 9:
-				return getSpellIdFromSpellNameData(SpellSlot9Name);
+				return SpellSlot9Id;
 			case 10:
-				return getSpellIdFromSpellNameData(SpellSlot10Name);
+				return SpellSlot10Id;
 			case 11:
-				return getSpellIdFromSpellNameData(SpellSlot11Name);
+				return SpellSlot11Id;
 			case 12:
-				return getSpellIdFromSpellNameData(SpellSlot12Name);
+				return SpellSlot12Id;
 			case 13:
-				return getSpellIdFromSpellNameData(SpellSlot13Name);
+				return SpellSlot13Id;
 			case 14:
-				return getSpellIdFromSpellNameData(SpellSlot14Name);
+				return SpellSlot14Id;
 			case 15:
-				return getSpellIdFromSpellNameData(SpellSlot15Name);
+				return SpellSlot15Id;
 			case 16:
-				return getSpellIdFromSpellNameData(SpellSlot16Name);
+				return SpellSlot16Id;
 			default:
 				return -1;
 		}

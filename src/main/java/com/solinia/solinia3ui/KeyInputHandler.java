@@ -19,6 +19,8 @@ public class KeyInputHandler {
 		if (event.isCanceled())
 			return;
 		
+		System.out.println("DEBUGKEY: " + event.getScanCode() + " " + event.getAction() + " " + event.getKey() + " " + event.getModifiers());
+		
 		if (event.getAction() != 1)
 			return;
 		

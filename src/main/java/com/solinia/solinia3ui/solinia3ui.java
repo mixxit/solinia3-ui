@@ -120,12 +120,18 @@ public class solinia3ui {
 
 	
 	public static void openSpellBook(final SpellBookData spellBookData) {
+		if (spellBookData == null)
+			return;
+		
 		StringTextComponent textComponent = new StringTextComponent("Test");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
 	public static void updateMemorisedSpells(final MemorisedSpells memorisedSpells) {
+		if (memorisedSpells == null)
+			return;
+
 		Runnable rn = () -> ClientState.getInstance().setMemorisedSpells(memorisedSpells);;
 		Minecraft.getInstance().runImmediately(rn);
 	}

@@ -14,8 +14,10 @@ language: java
 notifications: 
   email: true
 script: 
-  - sed -i -e "s/CIREPLACEMEVERSION/${TRAVIS_TAG}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
-  - sed -i -e "s/CIREPLACEMEMCVERSIONRANGE/${MC_VERSION}/g" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - export TOMLVERSIONLINE=$(sed -n '/zzversionline/=' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml)
+  - export TOMLMINVERSIONLINE=$(sed -n '/zzminversionline/=' /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml)
+  - sed -i -e "${TOMLVERSIONLINE}s/.*/version=\"${TRAVIS_TAG}\" #mandatory zzversionline/" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
+  - sed -i -e "${TOMLMINVERSIONLINE}s/.*/    versionRange=\"[${MC_VERSION]\" # zzminversionline/" /home/travis/build/mixxit/solinia3-ui/src/main/resources/META-INF/mods.toml
   - sed -i -e "s/CIREPLACEMEVERSION/${TRAVIS_TAG}/g" /home/travis/build/mixxit/solinia3-ui/versions.json
   - sed -i -e "s/CIREPLACEMEMCVERSIONRANGE/${MC_VERSION}/g" /home/travis/build/mixxit/solinia3-ui/versions.json
   - "./gradlew build"
