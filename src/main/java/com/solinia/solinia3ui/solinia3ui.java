@@ -3,14 +3,17 @@ package com.solinia.solinia3ui;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -31,7 +34,7 @@ public class solinia3ui {
 	public static final Logger LOGGER = LogManager.getLogger();
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
-	private KeyInputHandler keyInputHandler = new KeyInputHandler(this);
+	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -50,7 +53,9 @@ public class solinia3ui {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 		// Register the doClientStuff method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-		
+		// load complete
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
+
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
@@ -72,13 +77,23 @@ public class solinia3ui {
 	    LOGGER.info("PacketHandler onPacketData " + bytes.toString());
 	}
 	
+	private void loadComplete(final FMLLoadCompleteEvent event)
+	{
+		LOGGER.info("HELLO FROM LOADCOMPLETEEVENT");
+		changeKeyBindings();
+	}
+	
+	private void changeKeyBindings() {
+		// replace all hotkey keybinds
+		for(int i = 0; i < Minecraft.getInstance().gameSettings.keyBindsHotbar.length; i++)
+			Minecraft.getInstance().gameSettings.keyBindsHotbar[i] = new Solinia3UIKeyBinding(Minecraft.getInstance().gameSettings.keyBindsHotbar[i]);
+	}
+
 	private void setup(final FMLCommonSetupEvent event) {
 		// some preinit code
 		LOGGER.info("HELLO FROM PREINIT");
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-		keyInputHandler.keyBinds.registerKeyBinds();
-
-		
+		ClientState.getInstance().getKeyBinds().registerKeyBinds();
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.GENERIC_MESSAGE, PacketRequestGenericMessage.class, PacketRequestGenericMessage::encode, PacketRequestGenericMessage::new, PacketRequestGenericMessage::handle);
 	}
 
@@ -86,7 +101,7 @@ public class solinia3ui {
 		// do something that can only be done on the client
 		LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
 	}
-
+	
 	private void enqueueIMC(final InterModEnqueueEvent event) {
 		// some example code to dispatch IMC to another mod
 		//InterModComms.sendTo("examplemod", "helloworld", () -> {LOGGER.info("Hello world from the MDK");
