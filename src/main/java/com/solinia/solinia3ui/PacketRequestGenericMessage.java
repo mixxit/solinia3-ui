@@ -42,14 +42,21 @@ public class PacketRequestGenericMessage {
     public void handle(Supplier<NetworkEvent.Context> context)
     {
     	GenericPacketMessage message = GenericPacketMessage.fromJson(this.message);
-    	
+    	System.out.println("Received message: " + this.message);
+
+    	if (message.PartyWindow != null)
+			context.get().enqueueWork(() -> ClientState.getInstance().setPartyWindow(message.PartyWindow));
+
+    	context.get().enqueueWork(() -> ClientState.getInstance().setCastingProgress(message.CastingProgress));
+    	context.get().enqueueWork(() -> ClientState.getInstance().setTargetName(message.TargetName));
+    	context.get().enqueueWork(() -> ClientState.getInstance().setTargetUUID(message.TargetUUID));
+    	context.get().enqueueWork(() -> ClientState.getInstance().setTargetHealthPercent(message.TargetHealthPercent));
+   	
     	if (message.SpellbookPage != null)
-	    	System.out.println("Received spellbook page: " + this.message);
 			context.get().enqueueWork(() -> solinia3ui.openSpellBook(message.SpellbookPage));
     	
 	    if (message.MemorisedSpellSlots != null)
 	    {
-	    	System.out.println("Received memorised spells: " + this.message);
 	    	context.get().enqueueWork(() -> solinia3ui.updateMemorisedSpells(message.MemorisedSpellSlots));
 	    }
     	

@@ -1,5 +1,7 @@
 package com.solinia.solinia3ui;
 
+import java.util.UUID;
+
 import net.minecraft.client.Minecraft;
 
 public class ClientState {
@@ -8,7 +10,11 @@ public class ClientState {
 	private MemorisedSpells memorisedSpells = new MemorisedSpells();
 	private int selectedSpellSlot = -1;
 	private KeyBinds keyBinds = new KeyBinds();
-	
+	private PartyWindow partyWindow = null;
+	private double castingProgress = 0D;
+	private String targetName = null;
+	private UUID targetUUID = null;
+	private double targetHealthPercent = 0D;
     private ClientState(){
 
         if (instance != null){
@@ -33,9 +39,48 @@ public class ClientState {
         return instance;
     }
     
+    public void setPartyWindow(PartyWindow partyWindow)
+    {
+    	this.partyWindow = partyWindow;
+    }
+    
+    public String getName()
+    {
+    	if (this.partyWindow == null)
+    		return "";
+    	
+    	return this.partyWindow.Me.Name;
+    }
+    
+    public double getHealthPercent()
+    {
+    	if (this.partyWindow == null)
+    		return 0D;
+    	
+    	return this.partyWindow.Me.HealthPercent;
+    }
+    
+    public double getManaPercent()
+    {
+    	if (this.partyWindow == null)
+    		return 0D;
+    	
+    	return this.partyWindow.Me.ManaPercent;
+    }
+    
     public void setSelectedSpellSlot(int spellSlotId)
     {
     	this.selectedSpellSlot = spellSlotId;
+    }
+    
+    public void setTargetHealthPercent(double targetHealthPercent)
+    {
+    	this.targetHealthPercent = targetHealthPercent;
+    }
+    
+    public double getTargetHealthPercent()
+    {
+    	return this.targetHealthPercent;
     }
     
     public int getSelectedSpellSlot()
@@ -204,5 +249,32 @@ public class ClientState {
 		Minecraft.getInstance().player.sendChatMessage("/target nearestnpc");
 		solinia3ui.LOGGER.info("Targetting nearest npc");
 		return true;
+	}
+
+	public void setCastingProgress(double castingProgress) {
+		this.castingProgress = castingProgress;
+	}
+	
+	public double getCastingProgress()
+	{
+		return this.castingProgress;
+	}
+	
+	public void setTargetName(String targetName) {
+		this.targetName = targetName;
+	}
+	
+	public String getTargetName()
+	{
+		return this.targetName;
+	}
+	
+	public void setTargetUUID(UUID targetUUID) {
+		this.targetUUID = targetUUID;
+	}
+	
+	public UUID getTargetUUID()
+	{
+		return this.targetUUID;
 	}
 }
