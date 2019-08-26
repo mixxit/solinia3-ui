@@ -10,7 +10,7 @@ public class GuiSpellChangePageButtonPressable implements Button.IPressable {
 		// Clear selected spell slot
 		ClientState.getInstance().setSelectedSpellSlot(-1);
 
-		String[] data = buttonPressed.getMessage().split(" ");
+		String[] data = buttonPressed.getMessage().split(" ",-1);
 		
 		int page = 0;
 		

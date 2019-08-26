@@ -36,14 +36,17 @@ public class PacketMemorisedSpells implements ISoliniaPacket {
 		if (data == null)
 			throw new InvalidPacketException("Packet data is empty");
 
-		String[] dataArray = data.split("\\^");
-		
 		// now pages
 		this.memorisedSpells = new MemorisedSpells();
 		
+		if (data.equals(""))
+			return;
+		
+		String[] dataArray = data.split("\\^",-1);
+		
 		for(int i = 0; i < dataArray.length; i++)
 		{
-			String[] spellArray = dataArray[i].split("\\|");
+			String[] spellArray = dataArray[i].split("\\|",-1);
 			int slotNo = Integer.parseInt(spellArray[0]);
 			int Id = Integer.parseInt(spellArray[1]);
 			int Icon = Integer.parseInt(spellArray[2]);
@@ -57,18 +60,25 @@ public class PacketMemorisedSpells implements ISoliniaPacket {
 	public String toPacketData()
 	{
 		String packetData = "";
+		boolean first = true;
 		for(int i = 1; i <= 16; i++)
 		{
 			if (this.memorisedSpells.getSlotId(i) < 1)
 				continue;
+			
+			if (first)
+				first = false;
+			else
+				packetData += "^";
 			
 			packetData += i + "|"
 					+ this.memorisedSpells.getSlotId(i) + "|" 
 					+ this.memorisedSpells.getSlotIcon(i)+ "|" 
 					+ this.memorisedSpells.getSlotNewIcon(i)+ "|" 
 					+ this.memorisedSpells.getSlotMemIcon(i)+ "|" 
-					+ this.memorisedSpells.getSlotName(i)+ "^" ;
+					+ this.memorisedSpells.getSlotName(i);
 		}
+		
 		return packetData;
 	}
 	

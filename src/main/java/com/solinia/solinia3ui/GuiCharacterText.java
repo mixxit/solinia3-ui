@@ -30,7 +30,16 @@ public class GuiCharacterText extends AbstractGui {
         int progressBarDistances = 4;
         int increment = 16;
     	float fontHeight = 0.5f;
-    	String playerName = ClientState.getInstance().getName();
+    	String playerName = "";
+    	float playerHealth = 0.0F;
+    	float playerMana = 0.0F;
+    	if (ClientState.getInstance().getEntityVital(0) != null)
+    	{
+    		if (ClientState.getInstance().getEntityVital(0).getName() != null)
+    			playerName = ClientState.getInstance().getEntityVital(0).getName();
+    		playerHealth = ClientState.getInstance().getEntityVital(0).getHealthPercent();
+    		playerMana = ClientState.getInstance().getEntityVital(0).getManaPercent();
+    	}
         
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
@@ -44,19 +53,27 @@ public class GuiCharacterText extends AbstractGui {
     	int overlayType = 0;
     	int progressBarHorizontalPosition = scaledWidth - progressBarWidth;
     	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition, Color.RED, (float) (ClientState.getInstance().getHealthPercent()), overlayType, progressBarWidth);
+        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition, Color.RED, playerHealth, overlayType, progressBarWidth);
         Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*1), Color.BLUE, (float) (ClientState.getInstance().getManaPercent()), overlayType, progressBarWidth);
+        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*1), Color.BLUE, playerMana, overlayType, progressBarWidth);
     	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), Color.YELLOW, (float) ClientState.getInstance().getCastingPercent(), overlayType, progressBarWidth);
-        Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), Color.RED, (float) (ClientState.getInstance().getTargetHealthPercent()), overlayType, progressBarWidth);
         
-        if (ClientState.getInstance().getTargetName() != null)
+        if (ClientState.getInstance().getEntityVital(-1) != null)
         {
+        	String targetName = "None";
+        	if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getName() != null)
+        		targetName = ClientState.getInstance().getEntityVital(-1).getName();
+        	
+        	if (ClientState.getInstance().getEntityVital(-1) != null)
+        	{
+	            Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+	            this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), Color.RED, (float) (ClientState.getInstance().getEntityVital(-1).getHealthPercent()), overlayType, progressBarWidth);
+        	}
+
         	GL11.glScalef(fontHeight,fontHeight,fontHeight);
             mSize = (float)Math.pow(fontHeight,-1);
-        	String targetText = "Target: " + ClientState.getInstance().getTargetName(); 
+        	String targetText = "Target: " + targetName; 
         	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
 	        int horizontalTextPosition = scaledWidth - lengthOfText;
 	        int vertitalTextPosition = verticalPosition + (progressBarDistances*2) + (int)(15*fontHeight);
