@@ -1,5 +1,7 @@
 package com.solinia.solinia3ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
@@ -39,9 +41,25 @@ public class ClientState {
         return instance;
     }
     
+    public PartyWindow getPartyWindow()
+    {
+    	return this.partyWindow;
+    }
+    
     public void setPartyWindow(PartyWindow partyWindow)
     {
+    	List<PartyWindowPlayer> backedUpMembers = new ArrayList<PartyWindowPlayer>();
+    	// Copy old members
+    	if (partyWindow != null && partyWindow.PartyMembers == null && this.partyWindow != null && this.partyWindow.PartyMembers != null && this.partyWindow.PartyMembers.size() > 0)
+    	{
+    		for (PartyWindowPlayer player : this.partyWindow.PartyMembers) 
+    			backedUpMembers.add(player.Clone());
+    	}
+    	
     	this.partyWindow = partyWindow;
+    	
+    	if (partyWindow != null && partyWindow.PartyMembers == null && this.partyWindow != null && this.partyWindow.PartyMembers == null && backedUpMembers.size() > 0)
+        	this.partyWindow.PartyMembers = backedUpMembers;
     }
     
     public String getName()

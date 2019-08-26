@@ -4,6 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartyWindow {
-	public PartyWindowPlayer Me;
-	public List<PartyWindowPlayer> PartyMembers = new ArrayList<PartyWindowPlayer>();
+	public PartyWindowPlayer Me = null;
+	public List<PartyWindowPlayer> PartyMembers = null;
 }
