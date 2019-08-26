@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 
 public class ClientState {
 
@@ -12,16 +13,26 @@ public class ClientState {
 	private MemorisedSpells memorisedSpells = new MemorisedSpells();
 	private int selectedSpellSlot = -1;
 	private KeyBinds keyBinds = new KeyBinds();
-	private PartyWindow partyWindow = null;
-	private double castingProgress = 0D;
-	private String targetName = null;
+	private double castingPercent = 0F;
 	private UUID targetUUID = null;
 	private double targetHealthPercent = 0D;
+	private String targetName = "";
+	private String name;
+	
+	// player vitals
+	private float healthPercent = 0F;
+	private float manaPercent = 0F;
+	
     private ClientState(){
 
         if (instance != null){
             throw new RuntimeException("Only accessible via getInstance()");
         }
+    }
+    
+    public String getName()
+    {
+    	return this.name;
     }
     
     public KeyBinds getKeyBinds()
@@ -41,50 +52,17 @@ public class ClientState {
         return instance;
     }
     
-    public PartyWindow getPartyWindow()
+    public float getHealthPercent()
     {
-    	return this.partyWindow;
+    	return this.healthPercent;
     }
     
-    public void setPartyWindow(PartyWindow partyWindow)
+    public float getManaPercent()
     {
-    	List<PartyWindowPlayer> backedUpMembers = new ArrayList<PartyWindowPlayer>();
-    	// Copy old members
-    	if (partyWindow != null && partyWindow.PartyMembers == null && this.partyWindow != null && this.partyWindow.PartyMembers != null && this.partyWindow.PartyMembers.size() > 0)
-    	{
-    		for (PartyWindowPlayer player : this.partyWindow.PartyMembers) 
-    			backedUpMembers.add(player.Clone());
-    	}
-    	
-    	this.partyWindow = partyWindow;
-    	
-    	if (partyWindow != null && partyWindow.PartyMembers == null && this.partyWindow != null && this.partyWindow.PartyMembers == null && backedUpMembers.size() > 0)
-        	this.partyWindow.PartyMembers = backedUpMembers;
+    	return this.manaPercent;
     }
     
-    public String getName()
-    {
-    	if (this.partyWindow == null)
-    		return "";
-    	
-    	return this.partyWindow.Me.Name;
-    }
     
-    public double getHealthPercent()
-    {
-    	if (this.partyWindow == null)
-    		return 0D;
-    	
-    	return this.partyWindow.Me.HealthPercent;
-    }
-    
-    public double getManaPercent()
-    {
-    	if (this.partyWindow == null)
-    		return 0D;
-    	
-    	return this.partyWindow.Me.ManaPercent;
-    }
     
     public void setSelectedSpellSlot(int spellSlotId)
     {
@@ -269,17 +247,13 @@ public class ClientState {
 		return true;
 	}
 
-	public void setCastingProgress(double castingProgress) {
-		this.castingProgress = castingProgress;
+	public void setCastingPercent(float castingPercent) {
+		this.castingPercent = castingPercent;
 	}
 	
-	public double getCastingProgress()
+	public double getCastingPercent()
 	{
-		return this.castingProgress;
-	}
-	
-	public void setTargetName(String targetName) {
-		this.targetName = targetName;
+		return this.castingPercent;
 	}
 	
 	public String getTargetName()
@@ -294,5 +268,21 @@ public class ClientState {
 	public UUID getTargetUUID()
 	{
 		return this.targetUUID;
+	}
+
+	public void setEntityVitals(int partyMember, float healthPercent, float manaPercent, UUID uniqueId, String name) {
+		if (partyMember == 0)
+		{
+			this.healthPercent = healthPercent;
+			this.manaPercent = manaPercent;
+			this.name = name;
+		}
+		
+		if (partyMember == -1)
+		{
+			this.targetHealthPercent = healthPercent;
+			this.targetUUID = uniqueId;
+			this.targetName = name;
+		}
 	}
 }

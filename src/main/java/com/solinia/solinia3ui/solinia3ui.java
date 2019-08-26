@@ -3,13 +3,11 @@ package com.solinia.solinia3ui;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -21,8 +19,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkEvent.ServerCustomPayloadEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.versions.forge.ForgeVersion;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -96,7 +92,10 @@ public class solinia3ui {
 		LOGGER.info("HELLO FROM PREINIT");
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 		ClientState.getInstance().getKeyBinds().registerKeyBinds();
-        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.GENERIC_MESSAGE, PacketRequestGenericMessage.class, PacketRequestGenericMessage::encode, PacketRequestGenericMessage::new, PacketRequestGenericMessage::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.VITALS, PacketMobVitals.class, PacketMobVitals::encode, PacketMobVitals::new, PacketMobVitals::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CASTINGPERCENT, PacketCastingPercent.class, PacketCastingPercent::encode, PacketCastingPercent::new, PacketCastingPercent::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.SPELLBOOKPAGE, PacketOpenSpellbook.class, PacketOpenSpellbook::encode, PacketOpenSpellbook::new, PacketOpenSpellbook::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.MEMORISEDSPELLS, PacketMemorisedSpells.class, PacketMemorisedSpells::encode, PacketMemorisedSpells::new, PacketMemorisedSpells::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -136,20 +135,13 @@ public class solinia3ui {
 	}
 
 	
-	public static void openSpellBook(final SpellBookData spellBookData) {
-		if (spellBookData == null)
+	public static void openSpellBook(final SpellbookPage SpellbookPage) {
+		if (SpellbookPage == null)
 			return;
 		
 		StringTextComponent textComponent = new StringTextComponent("Test");
-		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, spellBookData));
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, SpellbookPage));
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
-	public static void updateMemorisedSpells(final MemorisedSpells memorisedSpells) {
-		if (memorisedSpells == null)
-			return;
-
-		Runnable rn = () -> ClientState.getInstance().setMemorisedSpells(memorisedSpells);;
-		Minecraft.getInstance().runImmediately(rn);
-	}
 }

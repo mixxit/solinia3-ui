@@ -6,9 +6,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.ClientBossInfo;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfo.Color;
 
 public class GuiCharacterText extends AbstractGui {
@@ -23,13 +21,17 @@ public class GuiCharacterText extends AbstractGui {
 	
 	public void render()
 	{
+		if (Minecraft.getInstance().player == null)
+			return;
+		
 		int scaledWidth = Minecraft.getInstance().mainWindow.getScaledWidth();
         int verticalPosition = 65;
         int progressBarWidth = 80;
         int progressBarDistances = 4;
         int increment = 16;
     	float fontHeight = 0.5f;
-        String playerName = ClientState.getInstance().getName();
+    	String playerName = ClientState.getInstance().getName();
+        
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         float mSize = (float)Math.pow(fontHeight,-1);
@@ -46,7 +48,7 @@ public class GuiCharacterText extends AbstractGui {
         Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*1), Color.BLUE, (float) (ClientState.getInstance().getManaPercent()), overlayType, progressBarWidth);
     	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), Color.YELLOW, (float) ClientState.getInstance().getCastingProgress(), overlayType, progressBarWidth);
+        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), Color.YELLOW, (float) ClientState.getInstance().getCastingPercent(), overlayType, progressBarWidth);
         Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), Color.RED, (float) (ClientState.getInstance().getTargetHealthPercent()), overlayType, progressBarWidth);
         
@@ -62,6 +64,7 @@ public class GuiCharacterText extends AbstractGui {
 	        GL11.glScalef(mSize,mSize,mSize);
         }
         
+        /*
         if (ClientState.getInstance().getPartyWindow() != null)
         {
         	verticalPosition += increment;
@@ -107,6 +110,7 @@ public class GuiCharacterText extends AbstractGui {
                 }
         	}
         }
+        */
 	}
 	
 	private void renderSpellbar(int x, int y, Color color, float percent, int overlayType, int progressBarWidth)
@@ -125,67 +129,5 @@ public class GuiCharacterText extends AbstractGui {
 	            this.blit(x, y, 0, width + (overlayType - 1) * 5 * 2 + 5, i, 5);
 	         }
 	      }
-	}
-		
-	public void renderState()
-	{
-		//GL11.glColor4f(1, 1, 1, 1);
-		
-		drawRightAlignedString(Minecraft.getInstance().fontRenderer, "HP: " + ClientState.getInstance().getHealthPercent() + " MP: " + ClientState.getInstance().getManaPercent(), 0, 0, Integer.parseInt("FFAA00",16));
-		drawRightAlignedString(Minecraft.getInstance().fontRenderer, "Casting: " + ClientState.getInstance().getCastingProgress() + "/1", 0, 10, Integer.parseInt("FFAA00",16));
-	}
-	
-	public void renderText()
-	{
-		drawString(Minecraft.getInstance().fontRenderer, getName(), 0, 0, Integer.parseInt("FFAA00",16));
-		drawString(Minecraft.getInstance().fontRenderer, "HP: " + getHPOutOfHP(), 0, 10, Integer.parseInt("FF0000",16));
-		drawString(Minecraft.getInstance().fontRenderer, "Mana: " + getManaOutOfMana(), 0, 20, Integer.parseInt("0000FF",16));
-		drawString(Minecraft.getInstance().fontRenderer, "XP: " + getExperienceOutoFExpression(), 0, 30, Integer.parseInt("FFFF00",16));
-		drawString(Minecraft.getInstance().fontRenderer, "Target: " + getTarget(), 0, 40, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, "Pet", 0, 50, Integer.parseInt("FFAA00",16));
-		drawString(Minecraft.getInstance().fontRenderer, "-----------", 0, 60, Integer.parseInt("FFAA00",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPet(), 0, 70, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, "Party", 0, 80, Integer.parseInt("FFAA00",16));
-		drawString(Minecraft.getInstance().fontRenderer, "-----------", 0, 90, Integer.parseInt("FFAA00",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPartyMember(1), 0, 100, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPartyMember(2), 0, 110, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPartyMember(3), 0, 120, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPartyMember(4), 0, 130, Integer.parseInt("FFFFFF",16));
-		drawString(Minecraft.getInstance().fontRenderer, getPartyMember(5), 0, 140, Integer.parseInt("FFFFFF",16));
-	}
-	
-	private String getPet() {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	private String getPartyMember(int i) {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	private String getTarget() {
-		// TODO Auto-generated method stub
-		return "No Target";
-	}
-
-	private String getExperienceOutoFExpression() {
-		// TODO Auto-generated method stub
-		return "100%";
-	}
-
-	private String getManaOutOfMana() {
-		// TODO Auto-generated method stub
-		return "100%";
-	}
-
-	private String getHPOutOfHP() {
-		// TODO Auto-generated method stub
-		return "100%";
-	}
-
-	private String getName() {
-		// TODO Auto-generated method stub
-		return Minecraft.getInstance().player.getDisplayName().getFormattedText();
 	}
 }
