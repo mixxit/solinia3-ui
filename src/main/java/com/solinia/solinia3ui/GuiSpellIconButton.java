@@ -39,7 +39,7 @@ public class GuiSpellIconButton extends Button {
 		if (!getMessage().contains("^"))
 			return;
 		
-		String displayIconStr = this.getMessage().split("\\^")[0];
+		String displayIconStr = this.getMessage().split("\\^",-1)[0];
 		try
 		{
 			this.spellIcon = Integer.parseInt(displayIconStr);
@@ -74,8 +74,8 @@ public class GuiSpellIconButton extends Button {
 		
 		
 		String displayString = "";
-		if (this.getMessage().split("\\^").length > 1)
-			displayString = this.getMessage().split("\\^")[1];
+		if (this.getMessage().split("\\^",-1).length > 1)
+			displayString = this.getMessage().split("\\^",-1)[1];
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 
 	}

@@ -33,11 +33,9 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
 	
 	public void fromPacketData(String data) throws InvalidPacketException
 	{
+		System.out.println("Found spell page:" + data);
 		if (data == null)
 			throw new InvalidPacketException("Packet data is empty");
-
-		if (!data.contains("^"))
-			throw new InvalidPacketException("Packet data is wrong format");
 
 		String[] dataArray = data.split("\\^");
 		if (dataArray.length < 1)
@@ -50,7 +48,7 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
 		
 		for(int i = 1; i < dataArray.length; i++)
 		{
-			String[] spellArray = dataArray[i].split("\\|");
+			String[] spellArray = dataArray[i].split("\\|",-1);
 			int slotNo = Integer.parseInt(spellArray[0]);
 			int Id = Integer.parseInt(spellArray[1]);
 			int Icon = Integer.parseInt(spellArray[2]);

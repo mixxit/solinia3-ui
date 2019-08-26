@@ -7,7 +7,7 @@ public class RenderLivingHandler {
 	@SubscribeEvent
 	public void onRenderLiving(RenderLivingEvent.Post event)
 	{
-		if (ClientState.getInstance().getTargetUUID() != null && event.getEntity().getUniqueID().equals(ClientState.getInstance().getTargetUUID()))
+		if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getUniqueId() != null && event.getEntity().getUniqueID().equals(ClientState.getInstance().getEntityVital(-1).getUniqueId()))
 		{
 			if (!event.getEntity().isGlowing())
 			event.getEntity().setGlowing(true);

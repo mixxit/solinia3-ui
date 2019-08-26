@@ -3,6 +3,7 @@ package com.solinia.solinia3ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -14,25 +15,14 @@ public class ClientState {
 	private int selectedSpellSlot = -1;
 	private KeyBinds keyBinds = new KeyBinds();
 	private double castingPercent = 0F;
-	private UUID targetUUID = null;
-	private double targetHealthPercent = 0D;
-	private String targetName = "";
-	private String name;
 	
-	// player vitals
-	private float healthPercent = 0F;
-	private float manaPercent = 0F;
+	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	
     private ClientState(){
 
         if (instance != null){
             throw new RuntimeException("Only accessible via getInstance()");
         }
-    }
-    
-    public String getName()
-    {
-    	return this.name;
     }
     
     public KeyBinds getKeyBinds()
@@ -52,31 +42,10 @@ public class ClientState {
         return instance;
     }
     
-    public float getHealthPercent()
-    {
-    	return this.healthPercent;
-    }
-    
-    public float getManaPercent()
-    {
-    	return this.manaPercent;
-    }
-    
-    
     
     public void setSelectedSpellSlot(int spellSlotId)
     {
     	this.selectedSpellSlot = spellSlotId;
-    }
-    
-    public void setTargetHealthPercent(double targetHealthPercent)
-    {
-    	this.targetHealthPercent = targetHealthPercent;
-    }
-    
-    public double getTargetHealthPercent()
-    {
-    	return this.targetHealthPercent;
     }
     
     public int getSelectedSpellSlot()
@@ -256,33 +225,13 @@ public class ClientState {
 		return this.castingPercent;
 	}
 	
-	public String getTargetName()
-	{
-		return this.targetName;
-	}
-	
-	public void setTargetUUID(UUID targetUUID) {
-		this.targetUUID = targetUUID;
-	}
-	
-	public UUID getTargetUUID()
-	{
-		return this.targetUUID;
+	public EntityVital getEntityVital(int partyMember) {
+		return this.entityVitals.get(partyMember);
 	}
 
-	public void setEntityVitals(int partyMember, float healthPercent, float manaPercent, UUID uniqueId, String name) {
-		if (partyMember == 0)
-		{
-			this.healthPercent = healthPercent;
-			this.manaPercent = manaPercent;
-			this.name = name;
-		}
-		
-		if (partyMember == -1)
-		{
-			this.targetHealthPercent = healthPercent;
-			this.targetUUID = uniqueId;
-			this.targetName = name;
-		}
+	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, UUID uniqueId, String name) {
+		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,uniqueId,name);
+		System.out.println("Setting entity vital: " + partyMember + " : " + name);
+		this.entityVitals.put(partyMember,entityVital);
 	}
 }

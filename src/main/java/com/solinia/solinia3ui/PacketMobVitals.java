@@ -39,14 +39,22 @@ public class PacketMobVitals implements ISoliniaPacket {
 		if (!data.contains("^"))
 			throw new InvalidPacketException("Packet data is wrong format");
 
-		String[] dataArray = data.split("\\^");
+		String[] dataArray = data.split("\\^",-1);
+		System.out.println("Mob Vitals: " + dataArray.length + " " + data);
 		if (dataArray.length < 4)
 			throw new InvalidPacketException("Packet data missing elements");
 		
 		int partyMember = Integer.parseInt(dataArray[0]);
 		float healthPercent = Float.parseFloat(dataArray[1]);
 		float manaPercent = Float.parseFloat(dataArray[2]);
-		UUID uniqueId = UUID.fromString(dataArray[3]);
+		UUID uniqueId = null;
+		try
+		{
+			uniqueId = UUID.fromString(dataArray[3]);
+		} catch (Exception e)
+		{
+			// not valid UUID (ie null
+		}
 		String name = dataArray[4];
 		
 		this.partyMember = partyMember;
@@ -84,10 +92,14 @@ public class PacketMobVitals implements ISoliniaPacket {
 	public String toPacketData()
 	{
 		String packetData = "";
+		String uniqueString = "";
+		if (this.getUniqueId() != null)
+			uniqueString = this.getUniqueId().toString();
+		
 		packetData += getPartyMember() 
 				+ "^" + getHealthPercent() 
 				+ "^" + getManaPercent()
-				+ "^" + getUniqueId().toString()
+				+ "^" + uniqueString
 				+ "^" + getName();
 		return packetData;
 	}
@@ -99,7 +111,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
-		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVitals(this.partyMember, this.healthPercent, this.manaPercent, this.uniqueId, this.name));
+		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.uniqueId, this.name));
 		context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
 	}
