@@ -33,7 +33,7 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
 	
 	public void fromPacketData(String data) throws InvalidPacketException
 	{
-		System.out.println("Found spell page:" + data);
+		//System.out.println("Found spell page:" + data);
 		if (data == null)
 			throw new InvalidPacketException("Packet data is empty");
 
