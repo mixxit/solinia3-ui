@@ -81,24 +81,45 @@ public class GuiCharacterText extends AbstractGui {
 	        GL11.glScalef(mSize,mSize,mSize);
         }
         
-        /*
-        if (ClientState.getInstance().getPartyWindow() != null)
-        {
-        	verticalPosition += increment;
-            if (verticalPosition >= maxVerticalPosition) {
-               return;
-            }
-            
-        	GL11.glScalef(fontHeight,fontHeight,fontHeight);
-            mSize = (float)Math.pow(fontHeight,-1);
-        	String targetText = "Party"; 
-        	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
-	        int horizontalTextPosition = scaledWidth - lengthOfText;
-	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(15*fontHeight);
-	        Minecraft.getInstance().fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
-	        GL11.glScalef(mSize,mSize,mSize);
+        verticalPosition += increment;
+        if (verticalPosition >= maxVerticalPosition) {
+           return;
         }
         
+    	GL11.glScalef(fontHeight,fontHeight,fontHeight);
+        mSize = (float)Math.pow(fontHeight,-1);
+    	String targetText = "Party"; 
+    	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
+        int horizontalTextPosition = scaledWidth - lengthOfText;
+        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(15*fontHeight);
+        Minecraft.getInstance().fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
+        GL11.glScalef(mSize,mSize,mSize);
+        
+        for(int i = 1; i <= 5; i++)
+        {
+        	if (ClientState.getInstance().getEntityVital(i) != null && ClientState.getInstance().getEntityVital(i).getUniqueId() != null)
+        	{
+        		GL11.glScalef(fontHeight,fontHeight,fontHeight);
+                mSize = (float)Math.pow(fontHeight,-1);
+            	String memberText = ClientState.getInstance().getEntityVital(i).getName(); 
+            	int memberlengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(memberText)*fontHeight);
+    	        int mhorizontalTextPosition = scaledWidth - memberlengthOfText;
+    	        int mvertitalTextPosition = verticalPosition + (progressBarDistances*3) + (int)(15*fontHeight);
+    	        Minecraft.getInstance().fontRenderer.drawStringWithShadow(memberText, Math.round(mhorizontalTextPosition / fontHeight),Math.round(mvertitalTextPosition / fontHeight), 16777215);
+    	        GL11.glScalef(mSize,mSize,mSize);
+    	        
+    	    	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+    	        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition + (progressBarDistances*6), Color.RED, (float) (ClientState.getInstance().getEntityVital(i).getHealthPercent()), overlayType, progressBarWidth);
+    	        Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+    	        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*7), Color.BLUE, (float) (ClientState.getInstance().getEntityVital(i).getManaPercent()), overlayType, progressBarWidth);
+    	        
+    	        verticalPosition += increment;
+                if (verticalPosition >= maxVerticalPosition) {
+                   break;
+                }
+        	}
+        }
+        /*
         if (ClientState.getInstance().getPartyWindow() != null && ClientState.getInstance().getPartyWindow().PartyMembers != null && ClientState.getInstance().getPartyWindow().PartyMembers.size() > 0)
         {
         	for(int p = 0; p < ClientState.getInstance().getPartyWindow().PartyMembers.size(); p++)
@@ -126,8 +147,7 @@ public class GuiCharacterText extends AbstractGui {
                    break;
                 }
         	}
-        }
-        */
+        }*/
 	}
 	
 	private void renderSpellbar(int x, int y, Color color, float percent, int overlayType, int progressBarWidth)

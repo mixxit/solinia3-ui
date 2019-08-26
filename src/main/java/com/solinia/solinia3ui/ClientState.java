@@ -231,7 +231,7 @@ public class ClientState {
 
 	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, UUID uniqueId, String name) {
 		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,uniqueId,name);
-		System.out.println("Setting entity vital: " + partyMember + " : " + name);
+		//System.out.println("Setting entity vital: " + partyMember + " : " + name);
 		this.entityVitals.put(partyMember,entityVital);
 	}
 }
