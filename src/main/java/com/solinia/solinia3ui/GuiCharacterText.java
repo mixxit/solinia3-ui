@@ -26,9 +26,8 @@ public class GuiCharacterText extends AbstractGui {
 		int scaledWidth = Minecraft.getInstance().mainWindow.getScaledWidth();
         int verticalPosition = 65;
         int progressBarWidth = 80;
-        int lines = 1;
         int progressBarDistances = 4;
-        int increment = 12;
+        int increment = 16;
     	float fontHeight = 0.5f;
         String playerName = ClientState.getInstance().getName();
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -37,6 +36,7 @@ public class GuiCharacterText extends AbstractGui {
         int lengthOfText1 = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(playerName)*fontHeight);
         int horizontalTextPosition1 = scaledWidth - lengthOfText1;
         int vertitalTextPosition1 = verticalPosition - (int)(10*fontHeight);
+        int maxVerticalPosition = Minecraft.getInstance().mainWindow.getScaledHeight();
         Minecraft.getInstance().fontRenderer.drawStringWithShadow(playerName, Math.round(horizontalTextPosition1 / fontHeight),Math.round(vertitalTextPosition1 / fontHeight), 16777215);
         GL11.glScalef(mSize,mSize,mSize);
     	int overlayType = 0;
@@ -62,14 +62,50 @@ public class GuiCharacterText extends AbstractGui {
 	        GL11.glScalef(mSize,mSize,mSize);
         }
         
-
-        for (int lineno = 0; lineno < lines; lineno++)
+        if (ClientState.getInstance().getPartyWindow() != null)
         {
-        	
-	            verticalPosition += increment;
-            if (verticalPosition >= Minecraft.getInstance().mainWindow.getScaledHeight() / 3) {
-               break;
+        	verticalPosition += increment;
+            if (verticalPosition >= maxVerticalPosition) {
+               return;
             }
+            
+        	GL11.glScalef(fontHeight,fontHeight,fontHeight);
+            mSize = (float)Math.pow(fontHeight,-1);
+        	String targetText = "Party"; 
+        	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
+	        int horizontalTextPosition = scaledWidth - lengthOfText;
+	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(15*fontHeight);
+	        Minecraft.getInstance().fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
+	        GL11.glScalef(mSize,mSize,mSize);
+        }
+        
+        if (ClientState.getInstance().getPartyWindow() != null && ClientState.getInstance().getPartyWindow().PartyMembers != null && ClientState.getInstance().getPartyWindow().PartyMembers.size() > 0)
+        {
+        	for(int p = 0; p < ClientState.getInstance().getPartyWindow().PartyMembers.size(); p++)
+        	{
+        		PartyWindowPlayer partyMember = ClientState.getInstance().getPartyWindow().PartyMembers.get(p);
+        		if (partyMember == null)
+        			continue;
+        		
+        		GL11.glScalef(fontHeight,fontHeight,fontHeight);
+                mSize = (float)Math.pow(fontHeight,-1);
+            	String targetText = partyMember.Name; 
+            	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
+    	        int horizontalTextPosition = scaledWidth - lengthOfText;
+    	        int vertitalTextPosition = verticalPosition + (progressBarDistances*3) + (int)(15*fontHeight);
+    	        Minecraft.getInstance().fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
+    	        GL11.glScalef(mSize,mSize,mSize);
+    	        
+    	    	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+    	        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition + (progressBarDistances*6), Color.RED, (float) (partyMember.HealthPercent), overlayType, progressBarWidth);
+    	        Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+    	        this.renderSpellbar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*7), Color.BLUE, (float) (partyMember.ManaPercent), overlayType, progressBarWidth);
+    	        
+    	        verticalPosition += increment;
+                if (verticalPosition >= maxVerticalPosition) {
+                   break;
+                }
+        	}
         }
 	}
 	
