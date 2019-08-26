@@ -1,12 +1,7 @@
 package com.solinia.solinia3ui;
 
-import ca.weblite.objc.Client;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.client.util.InputMappings.Type;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.client.settings.KeyModifier;
 
 public class Solinia3UIKeyBinding extends net.minecraft.client.settings.KeyBinding {
 	public Solinia3UIKeyBinding(KeyBinding key)

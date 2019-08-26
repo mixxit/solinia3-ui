@@ -32,18 +32,18 @@ public class GuiSpellbook extends Screen {
 	private Button closeBookButton;
 	
 	private String screenTitle = "Spellbook";
-	private SpellBookData _spellbookData;
+	private SpellbookPage _SpellbookPage;
 	public static final ResourceLocation spellbookUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbook.png" );
 
-	public GuiSpellbook(ITextComponent textComponent, SpellBookData spellBookData) {
+	public GuiSpellbook(ITextComponent textComponent, SpellbookPage SpellbookPage) {
 		super(textComponent);
-		this._spellbookData = spellBookData;
+		this._SpellbookPage = SpellbookPage;
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks)
     {
-		if (this._spellbookData == null)
+		if (this._SpellbookPage == null)
 		{
 			ClientState.getInstance().setSelectedSpellSlot(-1);
 			// TODO Auto-generated method stub
@@ -65,7 +65,7 @@ public class GuiSpellbook extends Screen {
 	
 	public void loadGui()
 	{
-		if (this._spellbookData == null)
+		if (this._SpellbookPage == null)
 		{
 			ClientState.getInstance().setSelectedSpellSlot(-1);
 			// TODO Auto-generated method stub
@@ -78,33 +78,33 @@ public class GuiSpellbook extends Screen {
 		
 		this.buttons.clear();
 		
-		int previousPageNo = this._spellbookData.PageNo - 1;
+		int previousPageNo = this._SpellbookPage.PageNo - 1;
 		if (previousPageNo < 0)
 			previousPageNo = 0;
 
-		int nextPageNo = this._spellbookData.PageNo + 1;
+		int nextPageNo = this._SpellbookPage.PageNo + 1;
 
 		//Page 1
 		this.addButton(this.leftPageButton = new Button(baseX + 5,baseY + 70,20,20, "< " + previousPageNo, new GuiSpellChangePageButtonPressable()));
 		
-		this.addButton(this.spellItemButton1 = new GuiSpellIconButton(baseX + 41,baseY + 13,20,20,this._spellbookData.getNewIcon(1)+"^"+this._spellbookData.getSpellName(1), new GuiSpellIconButtonPressable(1,this._spellbookData.getSpellId(1))));
-		this.addButton(this.spellItemButton2 = new GuiSpellIconButton(baseX + 87,baseY + 13,20,20,this._spellbookData.getNewIcon(2)+"^"+this._spellbookData.getSpellName(2), new GuiSpellIconButtonPressable(2,this._spellbookData.getSpellId(2))));
-		this.addButton(this.spellItemButton3 = new GuiSpellIconButton(baseX + 41,baseY + 50,20,20,this._spellbookData.getNewIcon(3)+"^"+this._spellbookData.getSpellName(3), new GuiSpellIconButtonPressable(3,this._spellbookData.getSpellId(3))));
-		this.addButton(this.spellItemButton4 = new GuiSpellIconButton(baseX + 87,baseY + 50,20,20,this._spellbookData.getNewIcon(4)+"^"+this._spellbookData.getSpellName(4), new GuiSpellIconButtonPressable(4,this._spellbookData.getSpellId(4))));
-		this.addButton(this.spellItemButton5 = new GuiSpellIconButton(baseX + 41,baseY + 86,20,20,this._spellbookData.getNewIcon(5)+"^"+this._spellbookData.getSpellName(5), new GuiSpellIconButtonPressable(5,this._spellbookData.getSpellId(5))));
-		this.addButton(this.spellItemButton6 = new GuiSpellIconButton(baseX + 87,baseY + 86,20,20,this._spellbookData.getNewIcon(6)+"^"+this._spellbookData.getSpellName(6), new GuiSpellIconButtonPressable(6,this._spellbookData.getSpellId(6))));
-		this.addButton(this.spellItemButton7 = new GuiSpellIconButton(baseX + 41,baseY + 122,20,20,this._spellbookData.getNewIcon(7)+"^"+this._spellbookData.getSpellName(7), new GuiSpellIconButtonPressable(7,this._spellbookData.getSpellId(7))));
-		this.addButton(this.spellItemButton8 = new GuiSpellIconButton(baseX + 87,baseY + 122,20,20,this._spellbookData.getNewIcon(8)+"^"+this._spellbookData.getSpellName(8), new GuiSpellIconButtonPressable(8,this._spellbookData.getSpellId(8))));
+		this.addButton(this.spellItemButton1 = new GuiSpellIconButton(baseX + 41,baseY + 13,20,20,this._SpellbookPage.getSlotNewIcon(1)+"^"+this._SpellbookPage.getSlotName(1), new GuiSpellIconButtonPressable(1,this._SpellbookPage.getSlotId(1))));
+		this.addButton(this.spellItemButton2 = new GuiSpellIconButton(baseX + 87,baseY + 13,20,20,this._SpellbookPage.getSlotNewIcon(2)+"^"+this._SpellbookPage.getSlotName(2), new GuiSpellIconButtonPressable(2,this._SpellbookPage.getSlotId(2))));
+		this.addButton(this.spellItemButton3 = new GuiSpellIconButton(baseX + 41,baseY + 50,20,20,this._SpellbookPage.getSlotNewIcon(3)+"^"+this._SpellbookPage.getSlotName(3), new GuiSpellIconButtonPressable(3,this._SpellbookPage.getSlotId(3))));
+		this.addButton(this.spellItemButton4 = new GuiSpellIconButton(baseX + 87,baseY + 50,20,20,this._SpellbookPage.getSlotNewIcon(4)+"^"+this._SpellbookPage.getSlotName(4), new GuiSpellIconButtonPressable(4,this._SpellbookPage.getSlotId(4))));
+		this.addButton(this.spellItemButton5 = new GuiSpellIconButton(baseX + 41,baseY + 86,20,20,this._SpellbookPage.getSlotNewIcon(5)+"^"+this._SpellbookPage.getSlotName(5), new GuiSpellIconButtonPressable(5,this._SpellbookPage.getSlotId(5))));
+		this.addButton(this.spellItemButton6 = new GuiSpellIconButton(baseX + 87,baseY + 86,20,20,this._SpellbookPage.getSlotNewIcon(6)+"^"+this._SpellbookPage.getSlotName(6), new GuiSpellIconButtonPressable(6,this._SpellbookPage.getSlotId(6))));
+		this.addButton(this.spellItemButton7 = new GuiSpellIconButton(baseX + 41,baseY + 122,20,20,this._SpellbookPage.getSlotNewIcon(7)+"^"+this._SpellbookPage.getSlotName(7), new GuiSpellIconButtonPressable(7,this._SpellbookPage.getSlotId(7))));
+		this.addButton(this.spellItemButton8 = new GuiSpellIconButton(baseX + 87,baseY + 122,20,20,this._SpellbookPage.getSlotNewIcon(8)+"^"+this._SpellbookPage.getSlotName(8), new GuiSpellIconButtonPressable(8,this._SpellbookPage.getSlotId(8))));
 		
 		//Page 2
-		this.addButton(this.spellItemButton9 = new GuiSpellIconButton(baseX + 148,baseY + 13,20,20,this._spellbookData.getNewIcon(9)+"^"+this._spellbookData.getSpellName(9), new GuiSpellIconButtonPressable(9,this._spellbookData.getSpellId(9))));
-		this.addButton(this.spellItemButton10 = new GuiSpellIconButton(baseX + 193,baseY + 13,20,20,this._spellbookData.getNewIcon(10)+"^"+this._spellbookData.getSpellName(10), new GuiSpellIconButtonPressable(10,this._spellbookData.getSpellId(10))));
-		this.addButton(this.spellItemButton11 = new GuiSpellIconButton(baseX + 148,baseY + 50,20,20,this._spellbookData.getNewIcon(11)+"^"+this._spellbookData.getSpellName(11), new GuiSpellIconButtonPressable(11,this._spellbookData.getSpellId(11))));
-		this.addButton(this.spellItemButton12 = new GuiSpellIconButton(baseX + 193,baseY + 50,20,20,this._spellbookData.getNewIcon(12)+"^"+this._spellbookData.getSpellName(12), new GuiSpellIconButtonPressable(12,this._spellbookData.getSpellId(12))));
-		this.addButton(this.spellItemButton13 = new GuiSpellIconButton(baseX + 148,baseY + 86,20,20,this._spellbookData.getNewIcon(13)+"^"+this._spellbookData.getSpellName(13), new GuiSpellIconButtonPressable(13,this._spellbookData.getSpellId(13))));
-		this.addButton(this.spellItemButton14 = new GuiSpellIconButton(baseX + 193,baseY + 86,20,20,this._spellbookData.getNewIcon(14)+"^"+this._spellbookData.getSpellName(14), new GuiSpellIconButtonPressable(14,this._spellbookData.getSpellId(14))));
-		this.addButton(this.spellItemButton15 = new GuiSpellIconButton(baseX + 148,baseY + 122,20,20,this._spellbookData.getNewIcon(15)+"^"+this._spellbookData.getSpellName(15), new GuiSpellIconButtonPressable(15,this._spellbookData.getSpellId(15))));
-		this.addButton(this.spellItemButton16 = new GuiSpellIconButton(baseX + 193,baseY + 122,20,20,this._spellbookData.getNewIcon(16)+"^"+this._spellbookData.getSpellName(16), new GuiSpellIconButtonPressable(16,this._spellbookData.getSpellId(16))));
+		this.addButton(this.spellItemButton9 = new GuiSpellIconButton(baseX + 148,baseY + 13,20,20,this._SpellbookPage.getSlotNewIcon(9)+"^"+this._SpellbookPage.getSlotName(9), new GuiSpellIconButtonPressable(9,this._SpellbookPage.getSlotId(9))));
+		this.addButton(this.spellItemButton10 = new GuiSpellIconButton(baseX + 193,baseY + 13,20,20,this._SpellbookPage.getSlotNewIcon(10)+"^"+this._SpellbookPage.getSlotName(10), new GuiSpellIconButtonPressable(10,this._SpellbookPage.getSlotId(10))));
+		this.addButton(this.spellItemButton11 = new GuiSpellIconButton(baseX + 148,baseY + 50,20,20,this._SpellbookPage.getSlotNewIcon(11)+"^"+this._SpellbookPage.getSlotName(11), new GuiSpellIconButtonPressable(11,this._SpellbookPage.getSlotId(11))));
+		this.addButton(this.spellItemButton12 = new GuiSpellIconButton(baseX + 193,baseY + 50,20,20,this._SpellbookPage.getSlotNewIcon(12)+"^"+this._SpellbookPage.getSlotName(12), new GuiSpellIconButtonPressable(12,this._SpellbookPage.getSlotId(12))));
+		this.addButton(this.spellItemButton13 = new GuiSpellIconButton(baseX + 148,baseY + 86,20,20,this._SpellbookPage.getSlotNewIcon(13)+"^"+this._SpellbookPage.getSlotName(13), new GuiSpellIconButtonPressable(13,this._SpellbookPage.getSlotId(13))));
+		this.addButton(this.spellItemButton14 = new GuiSpellIconButton(baseX + 193,baseY + 86,20,20,this._SpellbookPage.getSlotNewIcon(14)+"^"+this._SpellbookPage.getSlotName(14), new GuiSpellIconButtonPressable(14,this._SpellbookPage.getSlotId(14))));
+		this.addButton(this.spellItemButton15 = new GuiSpellIconButton(baseX + 148,baseY + 122,20,20,this._SpellbookPage.getSlotNewIcon(15)+"^"+this._SpellbookPage.getSlotName(15), new GuiSpellIconButtonPressable(15,this._SpellbookPage.getSlotId(15))));
+		this.addButton(this.spellItemButton16 = new GuiSpellIconButton(baseX + 193,baseY + 122,20,20,this._SpellbookPage.getSlotNewIcon(16)+"^"+this._SpellbookPage.getSlotName(16), new GuiSpellIconButtonPressable(16,this._SpellbookPage.getSlotId(16))));
 
 		this.addButton(this.closeBookButton = new Button(baseX + 223,baseY + 3,10,10, "x", new GuiSpellCloseBookButtonPressable()));
 		
@@ -112,6 +112,6 @@ public class GuiSpellbook extends Screen {
 	}
 
 	public int getSelectedSpellId() {
-		return this._spellbookData.getSpellId(ClientState.getInstance().getSelectedSpellSlot());
+		return this._SpellbookPage.getSlotId(ClientState.getInstance().getSelectedSpellSlot());
 	}
 }

@@ -2,13 +2,8 @@ package com.solinia.solinia3ui;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -122,9 +117,9 @@ public class RenderGuiHandler {
 		for(int i = 0; i < memorisedButtons.size(); i++)
 		{
 			int slot = (i+1);
-			if (ClientState.getInstance().getMemorisedSpells().getSpellIcon(slot) > 0)
+			if (ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot) > 0)
 			{
-				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getNewIcon(slot)+"^"+Integer.toString(slot));
+				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot));
 				//this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,memorisedSpells.getNewIcon(slot)+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 			} else {
 				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
