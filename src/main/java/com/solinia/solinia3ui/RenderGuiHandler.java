@@ -102,7 +102,7 @@ public class RenderGuiHandler {
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onRenderCharacterText(RenderGameOverlayEvent.Post event)
+	public void onRenderCharacterText(RenderGameOverlayEvent.Text event)
 	{
 		if (event.isCanceled())
 			return;
