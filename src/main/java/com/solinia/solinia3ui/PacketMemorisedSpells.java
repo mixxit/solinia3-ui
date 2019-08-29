@@ -94,7 +94,6 @@ public class PacketMemorisedSpells implements ISoliniaPacket {
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
 		context.get().enqueueWork(() -> ClientState.getInstance().setMemorisedSpells(this.memorisedSpells));
-		//context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
 	}
 
