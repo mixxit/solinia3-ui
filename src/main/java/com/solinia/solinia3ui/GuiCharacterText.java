@@ -36,9 +36,12 @@ public class GuiCharacterText extends AbstractGui {
     	{
     		if (ClientState.getInstance().getEntityVital(0).getName() != null)
     			playerName = ClientState.getInstance().getEntityVital(0).getName();
+    		
     		playerHealth = ClientState.getInstance().getEntityVital(0).getHealthPercent();
     		playerMana = ClientState.getInstance().getEntityVital(0).getManaPercent();
     	}
+    	
+    	
         
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);

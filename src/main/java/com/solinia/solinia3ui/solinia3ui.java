@@ -93,8 +93,8 @@ public class solinia3ui {
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 		ClientState.getInstance().getKeyBinds().registerKeyBinds();
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.VITALS, PacketMobVitals.class, PacketMobVitals::encode, PacketMobVitals::new, PacketMobVitals::handle);
+		channelToClient.registerMessage(Solinia3UIPacketDiscriminators.SPELLBOOKPAGE, PacketOpenSpellbook.class, PacketOpenSpellbook::encode, PacketOpenSpellbook::new, PacketOpenSpellbook::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CASTINGPERCENT, PacketCastingPercent.class, PacketCastingPercent::encode, PacketCastingPercent::new, PacketCastingPercent::handle);
-        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.SPELLBOOKPAGE, PacketOpenSpellbook.class, PacketOpenSpellbook::encode, PacketOpenSpellbook::new, PacketOpenSpellbook::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.MEMORISEDSPELLS, PacketMemorisedSpells.class, PacketMemorisedSpells::encode, PacketMemorisedSpells::new, PacketMemorisedSpells::handle);
 	}
 
