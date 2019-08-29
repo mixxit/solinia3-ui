@@ -112,7 +112,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
 		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.uniqueId, this.name));
-		context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
+		//context.get().enqueueWork(() -> Minecraft.getInstance().player.resetCooldown());
     	context.get().setPacketHandled(true);
 	}
 }
