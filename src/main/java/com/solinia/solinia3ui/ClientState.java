@@ -112,6 +112,8 @@ public class ClientState {
 	
 	public void attemptUseModKeybinds() {
 		KeyBinds keyBinds = getKeyBinds();
+		if (keyBinds.hail != null && keyBinds.hail.isKeyDown())
+			hail();
 		if (keyBinds.targetnearestnpc != null && keyBinds.targetnearestnpc.isKeyDown())
 			targetNearestNpc();
 		if (keyBinds.toggleautoattack != null && keyBinds.toggleautoattack.isKeyDown())
@@ -156,6 +158,11 @@ public class ClientState {
 			openSpellbook();
 	}
 	
+	private boolean hail() {
+		Minecraft.getInstance().player.sendChatMessage("/say HAIL");
+		return true;
+	}
+
 	private boolean openSpellbook() {
 		Minecraft.getInstance().player.sendChatMessage("/openspellbook");
 		solinia3ui.LOGGER.info("Opening Spell Book");

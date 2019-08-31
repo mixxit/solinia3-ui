@@ -1,4 +1,5 @@
 {
+  "key.hail": "Hail target",
   "key.targetnearestnpc": "Target nearest npc",
   "key.toggleautoattack": "Toggle AutoAttack",
   "key.targetself": "Target self",
