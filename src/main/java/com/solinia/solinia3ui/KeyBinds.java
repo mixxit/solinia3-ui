@@ -29,9 +29,11 @@ public class KeyBinds
     public Solinia3UIKeyBinding consider;
     public Solinia3UIKeyBinding targetpet;
     public Solinia3UIKeyBinding openspellbook;
+    public Solinia3UIKeyBinding hail;
  
     public void registerKeyBinds()
     {
+    	hail = new Solinia3UIKeyBinding("key.hail", KeyConflictContext.IN_GAME,KeyModifier.NONE, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.categories.solinia");
     	targetnearestnpc = new Solinia3UIKeyBinding("key.targetnearestnpc", KeyConflictContext.IN_GAME,KeyModifier.CONTROL, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.categories.solinia");
     	toggleautoattack = new Solinia3UIKeyBinding("key.toggleautoattack", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_Z, "key.categories.solinia");
     	canceltarget = new Solinia3UIKeyBinding("key.canceltarget", KeyConflictContext.IN_GAME, KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_GRAVE_ACCENT, "key.categories.solinia");
@@ -54,6 +56,7 @@ public class KeyBinds
        	consider = new Solinia3UIKeyBinding("key.consider", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_C, "key.categories.solinia");
        	openspellbook = new Solinia3UIKeyBinding("key.openspellbook", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_K, "key.categories.solinia");
         
+        ClientRegistry.registerKeyBinding(hail);
         ClientRegistry.registerKeyBinding(targetnearestnpc);
         ClientRegistry.registerKeyBinding(toggleautoattack);
         ClientRegistry.registerKeyBinding(targetself);
