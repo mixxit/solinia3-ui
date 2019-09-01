@@ -31,6 +31,7 @@ public class solinia3ui {
 	public static final Logger LOGGER = LogManager.getLogger();
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
+	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
 	
@@ -56,6 +57,7 @@ public class solinia3ui {
 
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
+		MinecraftForge.EVENT_BUS.register(renderInventoryHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
 		MinecraftForge.EVENT_BUS.register(renderLivingHandler);
 	}
