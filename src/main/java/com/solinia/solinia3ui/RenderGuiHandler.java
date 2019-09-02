@@ -104,17 +104,12 @@ public class RenderGuiHandler {
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onRenderCharacterText(RenderGameOverlayEvent.Text event)
+	public void onRenderGameOverlay(RenderGameOverlayEvent.Text event)
 	{
 		if (event.isCanceled())
 			return;
 		
 		new GuiCharacterText();
-	}
-
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onRenderSpellbar(RenderGameOverlayEvent.Post event) {
-		if (event.isCanceled() || event.getType() != ElementType.FOOD) { return; }
 		
 		for(int i = 0; i < memorisedButtons.size(); i++)
 		{
