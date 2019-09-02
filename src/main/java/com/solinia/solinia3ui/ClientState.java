@@ -7,6 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.client.model.ItemLayerModel.Loader;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 public class ClientState {
 
@@ -240,5 +244,17 @@ public class ClientState {
 		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,uniqueId,name);
 		//System.out.println("Setting entity vital: " + partyMember + " : " + name);
 		this.entityVitals.put(partyMember,entityVital);
+	}
+
+	public String getModVersion() throws Exception {
+		for (ModInfo mod : ModList.get().getMods())
+		{
+			if (!mod.getModId().equals("solinia3ui"))
+				continue;
+			
+			return mod.getVersion().toString();
+		}
+		
+		throw new Exception("Mod not found");
 	}
 }

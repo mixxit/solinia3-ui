@@ -8,6 +8,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -34,6 +35,7 @@ public class solinia3ui {
 	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler();
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
+	private EntityEventHandler entityEventHandler = new EntityEventHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -60,6 +62,7 @@ public class solinia3ui {
 		MinecraftForge.EVENT_BUS.register(renderInventoryHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
 		MinecraftForge.EVENT_BUS.register(renderLivingHandler);
+		MinecraftForge.EVENT_BUS.register(entityEventHandler);
 	}
 	
 	public void onPacketData(final ServerCustomPayloadEvent event) {
