@@ -51,6 +51,8 @@ public class RenderGuiHandler {
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onMouseClickEvent(MouseClickedEvent.Post event)
 	{
+		System.out.println("Clicked " + event.getGui());
+
 		if (event.isCanceled())
 			return;
 		
