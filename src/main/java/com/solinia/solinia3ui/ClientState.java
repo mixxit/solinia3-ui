@@ -163,66 +163,66 @@ public class ClientState {
 	}
 	
 	private boolean hail() {
-		Minecraft.getInstance().player.sendChatMessage("/say HAIL");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:say HAIL");
 		return true;
 	}
 
 	private boolean openSpellbook() {
-		Minecraft.getInstance().player.sendChatMessage("/openspellbook");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook");
 		solinia3ui.LOGGER.info("Opening Spell Book");
 		return true;
 	}
 	
 	private boolean toggleSitStand() {
-		Minecraft.getInstance().player.sendChatMessage("/sit");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:sit");
 		solinia3ui.LOGGER.info("Sitting");
 		return true;
 	}
 
 	private boolean targetPet() {
-		Minecraft.getInstance().player.sendChatMessage("/target pet");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target pet");
 		solinia3ui.LOGGER.info("Targetting pet");
 		return true;
 	}
 
 	private boolean consider() {
-		Minecraft.getInstance().player.sendChatMessage("/consider");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:consider");
 		solinia3ui.LOGGER.info("Considering");
 		return true;
 	}
 
 	private boolean castSpell(int i) {
-		Minecraft.getInstance().player.sendChatMessage("/castslot " + i);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:castslot " + i);
 		solinia3ui.LOGGER.info("Casting spell slot " + i);
 		return true;
 	}
 
 	private boolean targetTeamMember(int i) {
-		Minecraft.getInstance().player.sendChatMessage("/target " + i);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target " + i);
 		solinia3ui.LOGGER.info("Targetting team member " + i);
 		return true;
 	}
 
 	private boolean targetSelf() {
-		Minecraft.getInstance().player.sendChatMessage("/target self");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target self");
 		solinia3ui.LOGGER.info("Chat message sent");
 		return true;
 	}
 
 	private boolean cancelTarget() {
-		Minecraft.getInstance().player.sendChatMessage("/target clear");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target clear");
 		solinia3ui.LOGGER.info("Clearing target");
 		return true;
 	}
 
 	private boolean toggleAutoAttack() {
-		Minecraft.getInstance().player.sendChatMessage("/autoattack");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:autoattack");
 		solinia3ui.LOGGER.info("Auto attacking");
 		return true;
 	}
 
 	private boolean targetNearestNpc() {
-		Minecraft.getInstance().player.sendChatMessage("/target nearestnpc");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target nearestnpc");
 		solinia3ui.LOGGER.info("Targetting nearest npc");
 		return true;
 	}

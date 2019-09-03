@@ -72,7 +72,7 @@ public class RenderGuiHandler {
 	}
 	
 	private void removeSpellSlot(int memorisedSpellSlot) {
-		Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + 0);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + 0);
 	}
 
 
@@ -87,7 +87,7 @@ public class RenderGuiHandler {
 			if (selectedSpellid < 1)
 				return; 
 		
-			Minecraft.getInstance().player.sendChatMessage("/memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
 		} else {
 			removeSpellSlot(memorisedSpellSlot);
 		}

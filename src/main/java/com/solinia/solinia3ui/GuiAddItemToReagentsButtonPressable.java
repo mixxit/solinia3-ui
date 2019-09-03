@@ -11,9 +11,9 @@ public class GuiAddItemToReagentsButtonPressable implements IPressable {
 		ItemStack activeItemStack = Minecraft.getInstance().player.getActiveItemStack();
 		if (activeItemStack == null)
 		{
-			Minecraft.getInstance().player.sendChatMessage("/reagent");
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:reagent");
 		} else {
-			Minecraft.getInstance().player.sendChatMessage("/reagent addcursor");			
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:reagent addcursor");			
 		}
 	}
 }

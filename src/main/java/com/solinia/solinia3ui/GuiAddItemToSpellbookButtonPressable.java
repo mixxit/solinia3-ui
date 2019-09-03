@@ -13,9 +13,9 @@ public class GuiAddItemToSpellbookButtonPressable implements IPressable {
 		ItemStack activeItemStack = Minecraft.getInstance().player.getActiveItemStack();
 		if (activeItemStack == null)
 		{
-			Minecraft.getInstance().player.sendChatMessage("/spellbook");
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:spellbook");
 		} else {
-			Minecraft.getInstance().player.sendChatMessage("/spellbook addcursor");			
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:spellbook addcursor");			
 		}
 	}
 

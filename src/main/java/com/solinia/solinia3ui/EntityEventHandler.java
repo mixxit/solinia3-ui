@@ -28,7 +28,7 @@ public class EntityEventHandler {
 	private void SendPluginVersion() {
 		try {
 			System.out.println("/iamversion " + ClientState.getInstance().getModVersion());
-			Minecraft.getInstance().player.sendChatMessage("/iamversion " + ClientState.getInstance().getModVersion());
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:iamversion " + ClientState.getInstance().getModVersion());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
