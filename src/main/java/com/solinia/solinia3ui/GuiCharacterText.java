@@ -15,7 +15,7 @@ public class GuiCharacterText extends AbstractGui {
 	   
 	public GuiCharacterText()
 	{
-		//render();
+		render();
 	}
 	
 	public void renderEntityHpAndMana(String entityName, float entityHp, float entityMana, int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
