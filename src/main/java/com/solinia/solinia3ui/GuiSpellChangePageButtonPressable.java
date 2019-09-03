@@ -31,6 +31,6 @@ public class GuiSpellChangePageButtonPressable implements Button.IPressable {
 		}
 		
 		Minecraft.getInstance().player.closeScreen();
-		Minecraft.getInstance().player.sendChatMessage("/openspellbook " + page);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook " + page);
 	}
 }
