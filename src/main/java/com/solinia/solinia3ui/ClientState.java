@@ -21,6 +21,7 @@ public class ClientState {
 	private double castingPercent = 0F;
 	
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
+	private EquipSlots equipSlots;
 	
     private ClientState(){
 
@@ -256,5 +257,12 @@ public class ClientState {
 		}
 		
 		throw new Exception("Mod not found");
+	}
+
+	public void setEquipSlots(EquipSlots equipSlots) {
+		this.equipSlots = equipSlots;
+	}
+	public EquipSlots getEquipSlots() {
+		return this.equipSlots;
 	}
 }
