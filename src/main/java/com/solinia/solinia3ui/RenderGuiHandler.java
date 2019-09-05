@@ -24,8 +24,6 @@ public class RenderGuiHandler {
 	
 	public ConcurrentHashMap<Integer,Button> memorisedButtons = new ConcurrentHashMap<Integer,Button>();
 	
-	public static final ResourceLocation spellbarUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbar.png" );
-
 	public RenderGuiHandler()
 	{
 		int baseX = 0;
