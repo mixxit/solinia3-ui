@@ -1,9 +1,6 @@
 package com.solinia.solinia3ui;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
@@ -15,7 +12,6 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiInventorySlotButton extends Button {
-
 	public GuiInventorySlotButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
 	}

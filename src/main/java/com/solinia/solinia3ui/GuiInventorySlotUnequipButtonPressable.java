@@ -5,23 +5,22 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.Button.IPressable;
 import net.minecraft.item.ItemStack;
 
-public class GuiInventorySlotButtonPressable implements IPressable {
+public class GuiInventorySlotUnequipButtonPressable implements IPressable {
 	private int slotId;
 	
-	public GuiInventorySlotButtonPressable(int slotId)
+	public GuiInventorySlotUnequipButtonPressable(int slotId)
 	{
 		this.slotId = slotId;
 	}
 	
 	@Override
 	public void onPress(Button button) {
-		ItemStack activeItemStack = Minecraft.getInstance().player.inventory.getItemStack();
-		if (activeItemStack == null || activeItemStack.isEmpty())
-		{
-			System.out.println("Recieved onPress for empty item stack");
-		} else {
-			System.out.println("Recieved onPress for item stack");
-			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip equip");			
+		try {
+			System.out.println("Received click for unequip slot: " + this.getSlotName());
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip unequip " + this.getSlotName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
