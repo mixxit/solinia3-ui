@@ -1,9 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.solinia.solinia3ui.ItemStackUtils;
 
+import junit.framework.Assert;
 import net.minecraft.item.ItemStack;
 
 public class ItemStackUtilsTests {
@@ -14,7 +13,7 @@ public class ItemStackUtilsTests {
 		
 		ItemStack itemStack = ItemStackUtils.convertBase64JsonToItemStack(sampleItem);
 		
-        assertEquals(expectedName, itemStack.getDisplayName().getString());
+        Assert.assertEquals(expectedName, itemStack.getDisplayName().getString());
     }
 	
 }
