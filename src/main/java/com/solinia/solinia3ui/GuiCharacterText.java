@@ -101,7 +101,7 @@ public class GuiCharacterText extends AbstractGui {
         
         // Pet
         if (ClientState.getInstance().getEntityVital(-2) != null && ClientState.getInstance().getEntityVital(-2).getName() != null && 
-    			!ClientState.getInstance().getEntityVital(-2).getName().equals(""))
+    			!ClientState.getInstance().getEntityVital(-2).getName().isEmpty())
         {
         	String entityName = "";
     		if (ClientState.getInstance().getEntityVital(-2).getName() != null)
@@ -146,7 +146,7 @@ public class GuiCharacterText extends AbstractGui {
         {
         	if (ClientState.getInstance().getEntityVital(i) == null || 
         			ClientState.getInstance().getEntityVital(i).getName() == null || 
-        			ClientState.getInstance().getEntityVital(i).getName().equals("")
+        			ClientState.getInstance().getEntityVital(i).getName().isEmpty()
         			)
         		continue;
         		

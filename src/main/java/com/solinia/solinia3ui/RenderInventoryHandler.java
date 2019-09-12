@@ -2,11 +2,17 @@ package com.solinia.solinia3ui;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -21,6 +27,13 @@ public class RenderInventoryHandler {
 	{
 	}
 	
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void onRenderGameOverlay(RenderGameOverlayEvent.Text event)
+	{
+		if (event.isCanceled())
+			return;
+	}
+	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onRenderGui(InitGuiEvent.Post event) {
 		if (!(event.getGui() instanceof InventoryScreen))
@@ -28,15 +41,8 @@ public class RenderInventoryHandler {
 
 		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width,20,width,width,"Spell",new GuiAddItemToSpellbookButtonPressable()));
 		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width,40,width,width,"Reagent",new GuiAddItemToReagentsButtonPressable()));
-
-		/*for(int i = 0; i < inventoryButtons.size(); i++)
-		{
-			inventoryButtons.get(i).render(Minecraft.getInstance().mainWindow.getScaledWidth()-width,inventoryButtons.size()*i,1);
-		}*/
-		
 		// Inventory slots
 		// fingers
-		
 		event.addWidget(new GuiInventorySlotButton(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,20,width,width,"0",new GuiInventorySlotButtonPressable(0)));
 		//shoulders
 		event.addWidget(new GuiInventorySlotButton(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,45,width,width,"1",new GuiInventorySlotButtonPressable(1)));

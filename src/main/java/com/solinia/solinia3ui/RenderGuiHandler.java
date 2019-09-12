@@ -34,7 +34,7 @@ public class RenderGuiHandler {
 			int slot = (i+1);
 			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
-		
+
 	}
 	
 	

@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 public class GuiAddItemToReagentsButtonPressable implements IPressable {
 	@Override
 	public void onPress(Button button) {
-		ItemStack activeItemStack = Minecraft.getInstance().player.getActiveItemStack();
-		if (activeItemStack == null)
+		ItemStack activeItemStack = Minecraft.getInstance().player.inventory.getItemStack();
+		if (activeItemStack == null || activeItemStack.isEmpty())
 		{
 			Minecraft.getInstance().player.sendChatMessage("/solinia3core:reagent");
 		} else {

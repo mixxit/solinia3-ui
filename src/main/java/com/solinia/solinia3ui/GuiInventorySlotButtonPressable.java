@@ -15,12 +15,44 @@ public class GuiInventorySlotButtonPressable implements IPressable {
 	
 	@Override
 	public void onPress(Button button) {
-		ItemStack activeItemStack = Minecraft.getInstance().player.getActiveItemStack();
-		if (activeItemStack == null)
+		ItemStack activeItemStack = Minecraft.getInstance().player.inventory.getItemStack();
+		if (activeItemStack == null || activeItemStack.isEmpty())
 		{
-			//Minecraft.getInstance().player.sendChatMessage("/solinia3core:reagent");
+			System.out.println("Recieved onPress for empty item stack");
+			try {
+				Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip unequip " + this.getSlotName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		} else {
-			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip addcursor");			
+			System.out.println("Recieved onPress for item stack");
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip equip");			
+		}
+	}
+	
+	public String getSlotName() throws Exception
+	{
+		switch(this.slotId)
+		{
+		case 0:
+			return "FINGERS";
+		case 1:
+			return "SHOULDERS";
+		case 2:
+			return "NECK";
+		case 3:
+			return "EARS";
+		case 4:
+			return "FOREARMS";
+		case 5:
+			return "ARMS";
+		case 6:
+			return "HANDS";
+		case 7:
+			return "WAIST";
+			default:
+				throw new Exception("Unknown slot");
 		}
 	}
 }
