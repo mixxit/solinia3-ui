@@ -59,5 +59,27 @@ public class RenderInventoryHandler {
 		//waist
 		event.addWidget(new GuiInventorySlotButton(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,195,width,width,"7",new GuiInventorySlotButtonPressable(7)));
 
+		// close buttons
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width,20,width,width,"Spell",new GuiAddItemToSpellbookButtonPressable()));
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width,40,width,width,"Reagent",new GuiAddItemToReagentsButtonPressable()));
+		// Inventory slots
+		// fingers
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,20,5,5,"x",new GuiInventorySlotUnequipButtonPressable(0)));
+		//shoulders
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,45,5,5,"x",new GuiInventorySlotUnequipButtonPressable(1)));
+		//neckl
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,70,5,5,"x",new GuiInventorySlotUnequipButtonPressable(2)));
+		//ears
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,95,5,5,"x",new GuiInventorySlotUnequipButtonPressable(3)));
+		//forearms
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,120,5,5,"x",new GuiInventorySlotUnequipButtonPressable(4)));
+		//arms
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,145,5,5,"x",new GuiInventorySlotUnequipButtonPressable(5)));
+		//hands
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,170,5,5,"x",new GuiInventorySlotUnequipButtonPressable(6)));
+		//waist
+		event.addWidget(new Button(Minecraft.getInstance().mainWindow.getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(7)));
+
+		
 	}
 }
