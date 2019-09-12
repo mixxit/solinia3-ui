@@ -28,7 +28,7 @@ public class GuiInventorySlotButton extends Button {
 		if (!this.visible)
 			return;
 		
-		if (getMessage().equals(""))
+		if (getMessage().isEmpty())
 			return;
 		
 		String displayIconStr = this.getMessage();
@@ -62,6 +62,53 @@ public class GuiInventorySlotButton extends Button {
 		String displayString = getSlotNameById(this.slotIcon);
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 
+		if (ClientState.getInstance() == null || ClientState.getInstance().getEquipSlots() == null)
+			return;
+				
+		net.minecraft.client.renderer.ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+		
+		renderSlotIcon(this.slotIcon);
+		
+	}
+	
+	public void renderSlotIcon(int slotId)
+	{
+		switch(slotId)
+		{
+			case 0:
+				if (ClientState.getInstance().getEquipSlots().getFingersItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getFingersItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,20);
+				break;
+			case 1:
+				if (ClientState.getInstance().getEquipSlots().getShouldersItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getShouldersItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,45);
+				break;
+			case 2:
+				if (ClientState.getInstance().getEquipSlots().getNeckItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getNeckItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,70);
+			case 3:
+				if (ClientState.getInstance().getEquipSlots().getEarsItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getEarsItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,95);
+				break;
+			case 4:
+				if (ClientState.getInstance().getEquipSlots().getForearmsItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getForearmsItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,120);
+				break;
+			case 5:
+				if (ClientState.getInstance().getEquipSlots().getArmsItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getArmsItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,145);
+				break;
+			case 6:
+				if (ClientState.getInstance().getEquipSlots().getHandsItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getHandsItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,170);
+				break;
+			case 7:
+				if (ClientState.getInstance().getEquipSlots().getWaistItemStack() != null)
+					Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getWaistItemStack(),Minecraft.getInstance().mainWindow.getScaledWidth()-width*3,195);
+				break;
+			default:
+				break;
+		}
 	}
 	
 	private Point getSlotIconPosition(int slotIconId) {
