@@ -1,14 +1,13 @@
 package com.solinia.solinia3ui;
 
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -21,8 +20,11 @@ public class RenderGuiHandler {
 	public static final int hotbarCount = 8;
 	
 	public static final int memorisedSpellSize = 20;
+	public static final int effectSize = 10;
+	public static final int effectSlotLimit = 20;
 	
 	public ConcurrentHashMap<Integer,Button> memorisedButtons = new ConcurrentHashMap<Integer,Button>();
+	public ConcurrentHashMap<Integer,Button> effectSlotButtons = new ConcurrentHashMap<Integer,Button>();
 	
 	public RenderGuiHandler()
 	{
@@ -35,6 +37,31 @@ public class RenderGuiHandler {
 			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
 
+		int startX = Minecraft.getInstance().mainWindow.getScaledWidth()-(effectSize*6);
+		int startY = 20-effectSize;
+		int rowSize = 5;
+		
+		int currentRow = 1;
+		int currentColumn = 1;
+		for(int i = 0; i < effectSlotLimit; i++)
+		{
+			int slot = (i+1);
+			
+			int positionOfIconX = ((startX-effectSize)+(currentColumn*effectSize));
+			int positionOfIconY = ((startY-effectSize)+(currentRow*effectSize));
+			System.out.println("POSSETUP" + i + "^" + currentRow + "^" + currentColumn + ":" + positionOfIconX + "," + positionOfIconY);
+			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+Integer.toString(slot), new GuiEffectButtonPressable(slot)));
+			
+			if (currentColumn < rowSize)
+			{
+				currentColumn++;
+			}
+			else
+			{
+				currentColumn = 1;
+				currentRow++;
+			}
+		}
 	}
 	
 	
@@ -101,6 +128,16 @@ public class RenderGuiHandler {
 		return -1;
 	}
 	
+	private int getEffectSlotByMouseCoords(int mouseX, int mouseY) {
+		for (int i = 0; i < effectSlotButtons.size(); i++)
+		{
+			if (effectSlotButtons.get(i).isMouseOver(mouseX, mouseY))
+				return (i+1);
+			
+		}
+		return -1;
+	}
+	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderGameOverlay(RenderGameOverlayEvent.Text event)
 	{
@@ -115,12 +152,27 @@ public class RenderGuiHandler {
 			if (ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot) > 0)
 			{
 				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot));
-				//this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,16,16,memorisedSpells.getNewIcon(slot)+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 			} else {
 				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
 			}
 			
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
+		}
+		
+		int i = 0;
+		for(Entry<Integer, EffectSlot> effectSlots : ClientState.getInstance().getEffects().getSlots().entrySet())
+		{
+			int slot = (i+1);
+			if (effectSlots.getValue() != null)
+			{
+				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+Integer.toString(slot));
+			} else {
+				effectSlotButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
+			}
+			
+			effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
+			
+			i++;
 		}
 	}
 }

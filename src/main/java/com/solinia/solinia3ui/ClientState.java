@@ -22,6 +22,7 @@ public class ClientState {
 	
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	private EquipSlots equipSlots;
+	private Effects effects = new Effects();
 	
     private ClientState(){
 
@@ -61,12 +62,21 @@ public class ClientState {
 	public void setMemorisedSpells(MemorisedSpells memorisedSpells) {
 		this.memorisedSpells = memorisedSpells;
 	}
+
+	public void setEffects(Effects effects) {
+		this.effects = effects;
+	}
 	
 	public MemorisedSpells getMemorisedSpells()
 	{
 		return this.memorisedSpells;
 	}
 
+	public Effects getEffects()
+	{
+		return this.effects;
+	}
+	
 	public boolean isModKeyBind() {
 		KeyBinds keyBinds = getKeyBinds();
 		if (keyBinds.targetnearestnpc != null && keyBinds.targetnearestnpc.isKeyDown())
