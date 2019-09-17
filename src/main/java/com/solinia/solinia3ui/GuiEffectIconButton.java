@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import org.lwjgl.opengl.GL11;
 
@@ -13,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 
 public class GuiEffectIconButton extends Button {
 	protected static final ResourceLocation SPELLSSMALL01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1small.png");
@@ -23,12 +25,41 @@ public class GuiEffectIconButton extends Button {
 	protected static final ResourceLocation SPELLSSMALL06 = new ResourceLocation( "solinia3ui", "textures/gui/spells6small.png");
 	protected static final ResourceLocation SPELLSSMALL07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7small.png");
 	private int spellIcon;
+	private int spellId;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 
 	public GuiEffectIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
+		
+		setSpellIconAndId(text);
 	}
 	
+	public void setSpellIconAndId(String text)
+	{
+		String displayIconStr = text.split("\\^",-1)[0];
+		String spellStr = text.split("\\^",-1)[1];
+		
+		try
+		{
+			this.spellIcon = Integer.parseInt(displayIconStr);
+			this.spellId = Integer.parseInt(spellStr);
+		} catch (Exception e)
+		{
+			return;
+		}
+	}
+	
+	@Override
+	 public void setMessage(String message) {
+		super.setMessage(message);
+		
+		this.setSpellIconAndId(message);
+	}
+	
+	public int getSpellId()
+	{
+		return this.spellId;
+	}
 	
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
@@ -37,16 +68,6 @@ public class GuiEffectIconButton extends Button {
 		
 		if (!getMessage().contains("^"))
 			return;
-		
-		
-		String displayIconStr = this.getMessage().split("\\^",-1)[0];
-		try
-		{
-			this.spellIcon = Integer.parseInt(displayIconStr);
-		} catch (Exception e)
-		{
-			return;
-		}
 		
 		int j = 14737632;
 		if (packedFGColor != 0) {

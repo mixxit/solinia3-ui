@@ -49,8 +49,7 @@ public class RenderGuiHandler {
 			
 			int positionOfIconX = ((startX-effectSize)+(currentColumn*effectSize));
 			int positionOfIconY = ((startY-effectSize)+(currentRow*effectSize));
-			System.out.println("POSSETUP" + i + "^" + currentRow + "^" + currentColumn + ":" + positionOfIconX + "," + positionOfIconY);
-			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+Integer.toString(slot), new GuiEffectButtonPressable(slot)));
+			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+-1, new GuiEffectButtonPressable(slot)));
 			
 			if (currentColumn < rowSize)
 			{
@@ -88,10 +87,13 @@ public class RenderGuiHandler {
 			if (event.getButton() != 0)
 			{
 				int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
-				if (memorisedSpellSlot < 1)
-					return; 
+				if (memorisedSpellSlot > 0)
+					removeSpellSlot(memorisedSpellSlot);
 				
-				removeSpellSlot(memorisedSpellSlot);
+				GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+				if (effectSlotButton != null)
+					removeEffectSpellId(effectSlotButton.getSpellId());
+				
 			}
 		}
 	}
@@ -100,6 +102,9 @@ public class RenderGuiHandler {
 		Minecraft.getInstance().player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + 0);
 	}
 
+	private void removeEffectSpellId(int spellId) {
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:effects remove " + spellId);
+	}
 
 	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y, int button) {
 		int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(x), (int)Math.round(y));
@@ -128,14 +133,16 @@ public class RenderGuiHandler {
 		return -1;
 	}
 	
-	private int getEffectSlotByMouseCoords(int mouseX, int mouseY) {
+	private GuiEffectIconButton getEffectSlotButtonByMouseCoords(int mouseX, int mouseY) {
 		for (int i = 0; i < effectSlotButtons.size(); i++)
 		{
-			if (effectSlotButtons.get(i).isMouseOver(mouseX, mouseY))
-				return (i+1);
+			if (effectSlotButtons.get(i).isMouseOver(mouseX, mouseY) && effectSlotButtons.get(i) instanceof GuiEffectIconButton)
+			{
+				return (GuiEffectIconButton)effectSlotButtons.get(i);
+			}
 			
 		}
-		return -1;
+		return null;
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -162,12 +169,11 @@ public class RenderGuiHandler {
 		int i = 0;
 		for(Entry<Integer, EffectSlot> effectSlots : ClientState.getInstance().getEffects().getSlots().entrySet())
 		{
-			int slot = (i+1);
 			if (effectSlots.getValue() != null)
 			{
-				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+Integer.toString(slot));
+				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId);
 			} else {
-				effectSlotButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
+				effectSlotButtons.get(i).setMessage(-1+"^"+-1);
 			}
 			
 			effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
