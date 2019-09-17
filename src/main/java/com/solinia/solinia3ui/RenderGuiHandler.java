@@ -89,12 +89,14 @@ public class RenderGuiHandler {
 				int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
 				if (memorisedSpellSlot > 0)
 					removeSpellSlot(memorisedSpellSlot);
-				
-				GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
-				if (effectSlotButton != null)
-					removeEffectSpellId(effectSlotButton.getSpellId());
-				
 			}
+		}
+		
+		if (event.getButton() != 0)
+		{
+			GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+			if (effectSlotButton != null)
+				removeEffectSpellId(effectSlotButton.getSpellId());
 		}
 	}
 	
