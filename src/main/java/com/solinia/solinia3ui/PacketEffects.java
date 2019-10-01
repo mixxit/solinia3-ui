@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBufInputStream;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-public class PacketEffects {
+public class PacketEffects implements ISoliniaPacket {
 	Effects effects = new Effects();
 	
 	PacketEffects(PacketBuffer buf) throws RuntimeException

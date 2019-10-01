@@ -3,7 +3,6 @@ package com.solinia.solinia3ui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.item.ItemStack;
 
 public class GuiInventorySlotUnequipButtonPressable implements IPressable {
 	private int slotId;

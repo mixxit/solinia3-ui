@@ -8,7 +8,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -103,6 +102,7 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.MEMORISEDSPELLS, PacketMemorisedSpells.class, PacketMemorisedSpells::encode, PacketMemorisedSpells::new, PacketMemorisedSpells::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EQUIPSLOTS, PacketEquipSlots.class, PacketEquipSlots::encode, PacketEquipSlots::new, PacketEquipSlots::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EFFECTS, PacketEffects.class, PacketEffects::encode, PacketEffects::new, PacketEffects::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -148,6 +148,13 @@ public class solinia3ui {
 		
 		StringTextComponent textComponent = new StringTextComponent("Test");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, SpellbookPage));
+		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public static void openCharacterCreation(CharacterCreation characterCreation) {
+		// TODO Auto-generated method stub
+		StringTextComponent textComponent = new StringTextComponent("CharacterCreation");
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiCharacterCreation(textComponent, characterCreation));
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
