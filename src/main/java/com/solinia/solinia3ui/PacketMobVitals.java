@@ -6,7 +6,6 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 import io.netty.buffer.ByteBufInputStream;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
