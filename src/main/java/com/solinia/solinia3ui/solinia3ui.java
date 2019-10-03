@@ -152,7 +152,13 @@ public class solinia3ui {
 	}
 
 	public static void openCharacterCreation(CharacterCreation characterCreation) {
-		// TODO Auto-generated method stub
+		if (characterCreation == null)
+			return;
+		
+		// if already in then dont open
+		if (Minecraft.getInstance().currentScreen instanceof GuiCharacterCreation)
+			return;
+		
 		StringTextComponent textComponent = new StringTextComponent("CharacterCreation");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiCharacterCreation(textComponent, characterCreation));
 		Minecraft.getInstance().runImmediately(rn);
