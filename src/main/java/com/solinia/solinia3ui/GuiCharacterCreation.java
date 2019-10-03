@@ -27,7 +27,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.gui.ScrollPanel;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fml.client.gui.GuiModList;
 import net.minecraftforge.fml.loading.StringUtils;
 
 public class GuiCharacterCreation extends Screen {
@@ -114,19 +113,15 @@ public class GuiCharacterCreation extends Screen {
         this.classInfo = new InfoPanel(this.minecraft, infoWidth/2-10, infoHeight+20, 10, 10);
         this.raceInfo = new InfoPanel(this.minecraft, infoWidth/2, infoHeight+20, 10, 10+(infoWidth/2));
         this.personalityInfo = new InfoPanel(this.minecraft, infoWidth, 110, 100, 10);
-
-        //int nextTraitButtonWidth = Math.min(raceInfoWidth/2, 100);
-        //this.addButton(new Button((raceList.getWidth() + 8 + this.width - nextTraitButtonWidth), this.height - 44, nextTraitButtonWidth, 20,
-        //        "Next Trait", b -> createCharacter()));
         
-        this.textForename = new TextFieldWidget(this.getMinecraft().fontRenderer, raceList.getWidth() + 8, this.height - 22, 60, 16, "Forename");
-        this.textForename.setText("Forename");
-        this.textForename.setMaxStringLength(8);
+        this.textForename = new TextFieldWidget(this.getMinecraft().fontRenderer, raceList.getWidth() + 8, this.height - 22, 60, 16, "Name");
+        this.textForename.setText("Name");
+        this.textForename.setMaxStringLength(7);
         children.add(this.textForename);
         
-        this.textLastname = new TextFieldWidget(this.getMinecraft().fontRenderer, raceList.getWidth() + 8 + 60 + 8, this.height - 22, 60, 16, "Lastname");
-        this.textLastname.setText("Lastname");
-        this.textLastname.setMaxStringLength(8);
+        this.textLastname = new TextFieldWidget(this.getMinecraft().fontRenderer, raceList.getWidth() + 8 + 60 + 8, this.height - 22, 60, 16, "Surname");
+        this.textLastname.setText("Surname");
+        this.textLastname.setMaxStringLength(7);
         children.add(this.textLastname);
         
         this.textForename.setFocused2(false);
@@ -185,7 +180,61 @@ public class GuiCharacterCreation extends Screen {
 	}
 
 	private void createCharacter() {
-		createCharacter(raceSelected.getRaceChoice().RaceId, raceSelected.getRaceChoice().ClassId, this.currentGender, this.currentIdeal.id, this.currentTrait1.id, this.currentTrait2.id, this.currentFlaw.id, this.currentBond.id, this.textForename.getText(), this.textLastname.getText());
+		if (!ValidCharacterName())
+		{
+			this.textForename.setText("Invalid");
+			this.textLastname.setText("Name");
+		} else {
+			createCharacter(raceSelected.getRaceChoice().RaceId, raceSelected.getRaceChoice().ClassId, this.currentGender, this.currentIdeal.id, this.currentTrait1.id, this.currentTrait2.id, this.currentFlaw.id, this.currentBond.id, this.textForename.getText(), this.textLastname.getText());
+		}
+	}
+
+	private boolean ValidCharacterName() {
+		if (this.textForename == null || this.textLastname == null)
+			return false;
+		
+		if (this.textForename.getText().equals("") || this.textLastname.getText().equals(""))
+			return false;
+
+		if (this.textForename.getText().equals("Invalid") || this.textLastname.getText().equals("Name"))
+			return false;
+
+		if (this.textForename.getText().equals("Name") || this.textLastname.getText().equals("Surname"))
+			return false;
+		
+		if (this.textForename.getText().equals("Forename") || this.textLastname.getText().equals("Lastname"))
+			return false;
+		
+		if (!IsNewNameValidFormat(this.textForename.getText(),this.textLastname.getText()))
+			return false;
+		
+		return true;
+	}
+	
+	public boolean IsNewNameValidFormat(String forename, String lastname)
+	{
+		boolean isForeNameValid = forename.chars().allMatch(Character::isLetter);
+		boolean isLastNameValid = lastname.chars().allMatch(Character::isLetter);
+		
+		if (!isForeNameValid)
+			return false;
+		
+		if (!isLastNameValid && !lastname.equals(""))
+			return false;
+		
+		String newname = forename;
+		if (!lastname.equals(""))
+			newname = forename + "_" + lastname;
+		
+		final String nametest = newname;
+		
+		if (forename.length() < 3)
+			return false;
+		
+		if (nametest.length() < 3 || nametest.length() > 15)
+			return false;
+		
+		return true;
 	}
 
 	private void nextFlaw() {
