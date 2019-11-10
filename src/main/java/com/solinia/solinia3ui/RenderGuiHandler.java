@@ -70,15 +70,23 @@ public class RenderGuiHandler {
 		if (event.isCanceled())
 			return;
 		
+		if (Minecraft.getInstance().player == null)
+			return;
+
+		
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onMouseClickEvent(MouseClickedEvent.Post event)
 	{
-		System.out.println("Clicked " + event.getGui());
-
 		if (event.isCanceled())
 			return;
+		
+		// not in game check
+		if (Minecraft.getInstance().player == null)
+			return;
+		
+		System.out.println("Clicked " + event.getGui());
 		
 		if (event.getGui() instanceof GuiSpellbook)
 		{
@@ -151,6 +159,9 @@ public class RenderGuiHandler {
 	public void onRenderGameOverlay(RenderGameOverlayEvent.Text event)
 	{
 		if (event.isCanceled())
+			return;
+		
+		if (Minecraft.getInstance().player == null)
 			return;
 		
 		new GuiCharacterText();
