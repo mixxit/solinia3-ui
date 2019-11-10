@@ -609,6 +609,8 @@ public class ClientState {
 			castSpell(8);
 		if (keyBinds.consider != null && keyBinds.consider.isKeyDown())
 			consider();
+		if (keyBinds.petattack != null && keyBinds.petattack.isKeyDown())
+			petattack();
 		if (keyBinds.targetpet != null && keyBinds.targetpet.isKeyDown())
 			targetPet();
 		if (keyBinds.openspellbook != null && keyBinds.openspellbook.isKeyDown())
@@ -646,6 +648,12 @@ public class ClientState {
 		return true;
 	}
 
+	private boolean petattack() {
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:pet attack");
+		solinia3ui.LOGGER.info("Pet attacking");
+		return true;
+	}
+	
 	private boolean consider() {
 		Minecraft.getInstance().player.sendChatMessage("/solinia3core:consider");
 		solinia3ui.LOGGER.info("Considering");
