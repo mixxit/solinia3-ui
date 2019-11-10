@@ -106,7 +106,6 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EQUIPSLOTS, PacketEquipSlots.class, PacketEquipSlots::encode, PacketEquipSlots::new, PacketEquipSlots::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EFFECTS, PacketEffects.class, PacketEffects::encode, PacketEffects::new, PacketEffects::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
-        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.RIGHTCLICKENTITY, PacketRightClickEntity.class, PacketRightClickEntity::encode, PacketRightClickEntity::new, PacketRightClickEntity::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
