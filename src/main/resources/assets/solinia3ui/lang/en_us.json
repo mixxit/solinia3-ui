@@ -23,5 +23,7 @@
   "key.targetpet": "Target pet",
   "key.consider": "Considers the danger of your target",
   "key.categories.solinia": "Solinia Bindings",
+  "key.opencharactercreation": "Create new Character",
+  "key.petattack": "Pet Attack",
   "key.openspellbook": "Open Spellbook"
 }
