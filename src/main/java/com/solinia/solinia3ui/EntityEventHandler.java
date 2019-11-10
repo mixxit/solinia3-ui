@@ -2,6 +2,7 @@ package com.solinia.solinia3ui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -23,6 +24,18 @@ public class EntityEventHandler {
 		
 		System.out.println("Ive joined the world");
 		SendPluginVersion();
+	}
+	
+	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+	public void onEntityInteractEvent(EntityInteract  event)
+	{
+		if (event.isCanceled())
+			return;
+		
+		// not in game check
+		if (Minecraft.getInstance().player == null)
+			return;
+
 	}
 
 	private void SendPluginVersion() {

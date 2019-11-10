@@ -25,6 +25,11 @@ public class RenderInventoryHandler {
 	{
 		if (event.isCanceled())
 			return;
+		
+		// not in game check
+		if (Minecraft.getInstance().player == null)
+			return;
+
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)

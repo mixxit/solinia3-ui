@@ -35,6 +35,7 @@ public class solinia3ui {
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
 	private EntityEventHandler entityEventHandler = new EntityEventHandler();
+	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -62,6 +63,8 @@ public class solinia3ui {
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
 		MinecraftForge.EVENT_BUS.register(renderLivingHandler);
 		MinecraftForge.EVENT_BUS.register(entityEventHandler);
+		MinecraftForge.EVENT_BUS.register(playerEventHandler);
+		
 	}
 	
 	public void onPacketData(final ServerCustomPayloadEvent event) {
@@ -103,6 +106,7 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EQUIPSLOTS, PacketEquipSlots.class, PacketEquipSlots::encode, PacketEquipSlots::new, PacketEquipSlots::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EFFECTS, PacketEffects.class, PacketEffects::encode, PacketEffects::new, PacketEffects::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.RIGHTCLICKENTITY, PacketRightClickEntity.class, PacketRightClickEntity::encode, PacketRightClickEntity::new, PacketRightClickEntity::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
