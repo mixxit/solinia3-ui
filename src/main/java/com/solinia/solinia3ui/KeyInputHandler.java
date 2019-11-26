@@ -56,6 +56,9 @@ public class KeyInputHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 		
+		if (event.getButton() != 1)
+			return;
+		
 		if (event.getAction() != 1)
 			return;
 		
