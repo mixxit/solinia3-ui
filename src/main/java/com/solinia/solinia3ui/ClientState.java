@@ -709,8 +709,8 @@ public class ClientState {
 		return this.entityVitals.get(partyMember);
 	}
 
-	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, UUID uniqueId, String name) {
-		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,uniqueId,name);
+	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, int entityId, String name) {
+		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,entityId,name);
 		//System.out.println("Setting entity vital: " + partyMember + " : " + name);
 		this.entityVitals.put(partyMember,entityVital);
 	}

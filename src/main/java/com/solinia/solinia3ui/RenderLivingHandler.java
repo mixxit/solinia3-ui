@@ -15,7 +15,7 @@ public class RenderLivingHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 		
-		if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getUniqueId() != null && event.getEntity().getUniqueID().equals(ClientState.getInstance().getEntityVital(-1).getUniqueId()))
+		if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getEntityId() > 0 && event.getEntity().getEntityId() == ClientState.getInstance().getEntityVital(-1).getEntityId())
 		{
 			if (!event.getEntity().isGlowing())
 			event.getEntity().setGlowing(true);

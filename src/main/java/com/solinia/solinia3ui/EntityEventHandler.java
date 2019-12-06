@@ -19,7 +19,7 @@ public class EntityEventHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 		
-		if (!event.getEntity().getUniqueID().toString().equals(Minecraft.getInstance().player.getUniqueID().toString()))
+		if (event.getEntity().getEntityId() != Minecraft.getInstance().player.getEntityId())
 			return;
 		
 		System.out.println("Ive joined the world");

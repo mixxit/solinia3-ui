@@ -5,13 +5,13 @@ import java.util.UUID;
 public class EntityVital {
 	float healthPercent = 0.0F;
 	float manaPercent = 0.0F;
-	UUID uniqueId = null;
+	int entityId;
 	String name = "";
 
-	public EntityVital(float healthPercent, float manaPercent, UUID uniqueId, String name) {
+	public EntityVital(float healthPercent, float manaPercent, int entityId, String name) {
 		this.healthPercent = healthPercent;
 		this.manaPercent = manaPercent;
-		this.uniqueId = uniqueId;
+		this.entityId = entityId;
 		this.name = name;
 	}
 	
@@ -20,9 +20,9 @@ public class EntityVital {
 		return this.name;
 	}
 	
-	public UUID getUniqueId()
+	public int getEntityId()
 	{
-		return this.uniqueId;
+		return this.entityId;
 	}
 	
 	public float getManaPercent()
