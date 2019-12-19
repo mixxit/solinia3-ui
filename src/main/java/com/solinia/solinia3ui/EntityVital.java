@@ -1,7 +1,5 @@
 package com.solinia.solinia3ui;
 
-import java.util.UUID;
-
 public class EntityVital {
 	float healthPercent = 0.0F;
 	float manaPercent = 0.0F;

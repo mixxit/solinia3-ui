@@ -2,7 +2,6 @@ package com.solinia.solinia3ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;

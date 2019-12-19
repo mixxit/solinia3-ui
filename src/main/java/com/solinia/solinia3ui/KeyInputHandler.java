@@ -1,32 +1,22 @@
 package com.solinia.solinia3ui;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.items.IItemHandler;
-import org.apache.commons.lang3.ObjectUtils;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 public class KeyInputHandler {
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
@@ -63,11 +53,49 @@ public class KeyInputHandler {
 			return;
 		
 		if (!isInScreen())
-			sendRightClickPacket();
+			tryRightClickNpcAndSendToServer();
 	}
 	
-	private void sendRightClickPacket() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity");
+	private void tryRightClickNpcAndSendToServer() {
+		Entity entity = Minecraft.getInstance().getRenderViewEntity();
+		if (entity != null)
+		{
+			// distance
+			double distance = 200D;
+			boolean flag = false;
+			RayTraceResult raycast = entity.func_213324_a(distance, Minecraft.getInstance().getRenderPartialTicks(), false);
+			if (raycast != null)
+			{
+				Vec3d vec3d = entity.getEyePosition(Minecraft.getInstance().getRenderPartialTicks());
+				double d1 = distance;
+				if (distance > 3.0D)
+					flag = true;
+
+				d1 = d1 * d1;
+				if (raycast != null) {
+		               d1 = raycast.getHitVec().squareDistanceTo(vec3d);
+		            }
+				
+				Vec3d vec3d1 = entity.getLook(1.0F);
+	            Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+	            AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(vec3d1.scale(distance)).grow(1.0D, 1.0D, 1.0D);
+	            EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(entity, vec3d, vec3d2, axisalignedbb, (p_215312_0_) -> {
+	               return !p_215312_0_.isSpectator() && p_215312_0_.canBeCollidedWith();
+	            }, d1);
+				
+	            if (entityraytraceresult != null && entityraytraceresult instanceof EntityRayTraceResult) {
+	                Entity entity1 = entityraytraceresult.getEntity();
+		    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity " + entity1.getEntityId());
+		    	} else {
+		    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+		    	}
+			} else {
+	    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+	    	}
+		} else {
+			Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+		}
+		
 	}
 
 	private boolean isInScreen() {
