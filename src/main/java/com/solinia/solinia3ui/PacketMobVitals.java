@@ -2,7 +2,6 @@ package com.solinia.solinia3ui;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 import io.netty.buffer.ByteBufInputStream;
