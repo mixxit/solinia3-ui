@@ -12,11 +12,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderGuiHandler {
-//	public static final int spellbarDistanceFromLeft = 3;
-//	public static final int spellbarDistanceFromBottom = 16;
-//	public static final int spellbarUiWidth = 16;
-//	public static final int spellbarUiHeight = 16;
-//	public static final int edgePositionX = 0;
 	public static final int hotbarCount = 8;
 	
 	public static final int memorisedSpellSize = 20;

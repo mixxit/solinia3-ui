@@ -20,6 +20,7 @@ public class GuiCharacterText extends AbstractGui {
 	
 	public void renderEntityHpAndMana(String entityName, float entityHp, float entityMana, int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
 	{
+		entityName = entityName + " ["+(int)entityHp+"% HP]";
         //int increment = 16;
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
@@ -60,7 +61,7 @@ public class GuiCharacterText extends AbstractGui {
 
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
     	float mSize = (float)Math.pow(fontHeight,-1);
-    	String targetText = "Target: " + targetName; 
+    	String targetText = "Target: " + targetName+ " ["+(int)ClientState.getInstance().getEntityVital(-1).getHealthPercent()+"% HP]"; 
     	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight);
         int horizontalTextPosition = Minecraft.getInstance().mainWindow.getScaledWidth() - lengthOfText;
         int vertitalTextPosition = verticalPosition + (progressBarDistances*2) + (int)(15*fontHeight);
