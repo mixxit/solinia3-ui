@@ -18,6 +18,25 @@ public class GuiCharacterText extends AbstractGui {
 		render();
 	}
 	
+	public void renderEntityHp(String entityName, float entityHp, int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
+	{
+		entityName = entityName + " ["+(int)entityHp+"% HP]";
+        //int increment = 16;
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+    	GL11.glScalef(fontHeight,fontHeight,fontHeight);
+        float mSize = (float)Math.pow(fontHeight,-1);
+        int lengthOfText1 = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(entityName)*fontHeight);
+        int horizontalTextPosition1 = Minecraft.getInstance().mainWindow.getScaledWidth() - lengthOfText1;
+        int vertitalTextPosition1 = verticalPosition - (int)(10*fontHeight);
+        //int maxVerticalPosition = Minecraft.getInstance().mainWindow.getScaledHeight();
+        Minecraft.getInstance().fontRenderer.drawString(entityName, Math.round(horizontalTextPosition1 / fontHeight),Math.round(vertitalTextPosition1 / fontHeight), 16777215);
+        GL11.glScalef(mSize,mSize,mSize);
+    	
+    	int progressBarHorizontalPosition = Minecraft.getInstance().mainWindow.getScaledWidth() - progressBarWidth;
+    	Minecraft.getInstance().getTextureManager().bindTexture(GUI_BARS_TEXTURES);
+        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, Color.RED, entityHp, overlayType, progressBarWidth);
+	}
+	
 	public void renderEntityHpAndMana(String entityName, float entityHp, float entityMana, int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
 	{
 		entityName = entityName + " ["+(int)entityHp+"% HP]";
@@ -109,9 +128,8 @@ public class GuiCharacterText extends AbstractGui {
     			entityName = ClientState.getInstance().getEntityVital(-2).getName();
     		
     		float entityHealth = ClientState.getInstance().getEntityVital(-2).getHealthPercent();
-    		float entityMana = ClientState.getInstance().getEntityVital(-2).getManaPercent();
 
-    		renderEntityHpAndMana(entityName, entityHealth, entityMana, verticalPosition+35, progressBarDistances, progressBarWidth, overlayType,fontHeight);
+    		renderEntityHp(entityName, entityHealth, verticalPosition+35, progressBarDistances, progressBarWidth, overlayType,fontHeight);
     		
     		if (true)
             {
@@ -156,9 +174,8 @@ public class GuiCharacterText extends AbstractGui {
     			entityName = ClientState.getInstance().getEntityVital(i).getName() + " ["+i+"]";
     		
     		float entityHealth = ClientState.getInstance().getEntityVital(i).getHealthPercent();
-    		float entityMana = ClientState.getInstance().getEntityVital(i).getManaPercent();
 
-    		renderEntityHpAndMana(entityName, entityHealth, entityMana, verticalPosition+(distanceBetweenElements*(i+1)), progressBarDistances, progressBarWidth, overlayType,fontHeight);
+    		renderEntityHp(entityName, entityHealth, verticalPosition+(distanceBetweenElements*(i+1)), progressBarDistances, progressBarWidth, overlayType,fontHeight);
         }
 	}
 	
