@@ -38,6 +38,32 @@ public class solinia3ui {
 	private EntityEventHandler entityEventHandler = new EntityEventHandler();
 	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 	
+	public static final ResourceLocation res_spelcast = new ResourceLocation("solinia3ui", "spelcast");
+	public static final SoundEvent sound_spelcast = new SoundEvent(res_spelcast).setRegistryName("spelcast");
+	public static final ResourceLocation res_spelgdht = new ResourceLocation("solinia3ui", "spelgdht");
+	public static final SoundEvent sound_spelgdht = new SoundEvent(res_spelgdht).setRegistryName("spelgdht");
+	public static final ResourceLocation res_spelhit1 = new ResourceLocation("solinia3ui", "spelhit1");
+	public static final SoundEvent sound_spelhit1 =new SoundEvent(res_spelhit1).setRegistryName("spelhit1");
+	public static final ResourceLocation res_spelhit2 = new ResourceLocation("solinia3ui", "spelhit2");
+	public static final SoundEvent sound_spelhit2 =new SoundEvent(res_spelhit2).setRegistryName("spelhit2");
+	public static final ResourceLocation res_spelhit3 = new ResourceLocation("solinia3ui", "spelhit3");
+	public static final SoundEvent sound_spelhit3 =new SoundEvent(res_spelhit3).setRegistryName("spelhit3");
+	public static final ResourceLocation res_spelhit4 = new ResourceLocation("solinia3ui", "spelhit4");
+	public static final SoundEvent sound_spelhit4 =new SoundEvent(res_spelhit4).setRegistryName("spelhit4");
+	public static final ResourceLocation res_spel1 = new ResourceLocation("solinia3ui", "spell1");
+	public static final SoundEvent sound_spel1 =new SoundEvent(res_spel1).setRegistryName("spell1");
+	public static final ResourceLocation res_spel2 = new ResourceLocation("solinia3ui", "spell2");
+	public static final SoundEvent sound_spel2 =new SoundEvent(res_spel2).setRegistryName("spell2");
+	public static final ResourceLocation res_spel3 = new ResourceLocation("solinia3ui", "spell3");
+	public static final SoundEvent sound_spel3 =new SoundEvent(res_spel3).setRegistryName("spell3");
+	public static final ResourceLocation res_spel4 = new ResourceLocation("solinia3ui", "spell4");
+	public static final SoundEvent sound_spel4 =new SoundEvent(res_spel4).setRegistryName("spell4");
+	public static final ResourceLocation res_spel5 = new ResourceLocation("solinia3ui", "spell5");
+	public static final SoundEvent sound_spel5 =new SoundEvent(res_spel5).setRegistryName("spell5");
+	public static final ResourceLocation res_spelltrav = new ResourceLocation("solinia3ui", "spelltrav");
+	public static final SoundEvent sound_spelltrav =new SoundEvent(res_spelltrav).setRegistryName("spelltrav");
+
+	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
 			.named(new ResourceLocation("solinia3core", "toclient"))
@@ -45,11 +71,6 @@ public class solinia3ui {
             .serverAcceptedVersions(PROTOCOL_VERSION::equals)
             .networkProtocolVersion(() -> PROTOCOL_VERSION)
 .simpleChannel();
-	
-	ResourceLocation location_spelcast = new ResourceLocation("solinia3ui", "spelcast");
-	SoundEvent event_spelcast = new SoundEvent(location_spelcast);
-
-	
 	
 	public solinia3ui() {
 		// Register the setup method for modloading
@@ -112,6 +133,7 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EQUIPSLOTS, PacketEquipSlots.class, PacketEquipSlots::encode, PacketEquipSlots::new, PacketEquipSlots::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EFFECTS, PacketEffects.class, PacketEffects::encode, PacketEffects::new, PacketEffects::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.PLAYSOUNDANIM, PacketPlaySoundAnim.class, PacketPlaySoundAnim::encode, PacketPlaySoundAnim::new, PacketPlaySoundAnim::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -138,25 +160,7 @@ public class solinia3ui {
 		LOGGER.info("HELLO from server starting");
 	}
 	
-	@SubscribeEvent
-	public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
-		final SoundEvent[] soundEvents = {
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelcast")).setRegistryName("spelcast"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelgdht")).setRegistryName("spelgdht"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit1")).setRegistryName("spelhit1"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit2")).setRegistryName("spelhit2"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit3")).setRegistryName("spelhit3"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit4")).setRegistryName("spelhit4"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spel1")).setRegistryName("spel1"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spel2")).setRegistryName("spel2"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spel3")).setRegistryName("spel3"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spel4")).setRegistryName("spel4"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spel5")).setRegistryName("spel5"),
-				new SoundEvent(new ResourceLocation("solinia3ui", "spelltrav")).setRegistryName("spelltrav")
-		};
-		
-		event.getRegistry().registerAll(soundEvents);
-	}
+	
 
 	// You can use EventBusSubscriber to automatically subscribe events on the
 	// contained class (this is subscribing to the MOD
@@ -167,6 +171,26 @@ public class solinia3ui {
 		public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 			// register a new block here
 			LOGGER.info("HELLO from Register Block");
+		}
+		
+		@SubscribeEvent
+		public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
+			final SoundEvent[] soundEvents = {
+					sound_spelcast,
+					sound_spelgdht,
+					sound_spelhit1,
+					sound_spelhit2,
+					sound_spelhit3,
+					sound_spelhit4,
+					sound_spel1,
+					sound_spel2,
+					sound_spel3,
+					sound_spel4,
+					sound_spel5,
+					sound_spelltrav
+			};
+			
+			event.getRegistry().registerAll(soundEvents);
 		}
 	}
 
