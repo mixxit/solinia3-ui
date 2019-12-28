@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -44,6 +45,11 @@ public class solinia3ui {
             .serverAcceptedVersions(PROTOCOL_VERSION::equals)
             .networkProtocolVersion(() -> PROTOCOL_VERSION)
 .simpleChannel();
+	
+	ResourceLocation location_spelcast = new ResourceLocation("solinia3ui", "spelcast");
+	SoundEvent event_spelcast = new SoundEvent(location_spelcast);
+
+	
 	
 	public solinia3ui() {
 		// Register the setup method for modloading
@@ -130,6 +136,26 @@ public class solinia3ui {
 	public void onServerStarting(FMLServerStartingEvent event) {
 		// do something when the server starts
 		LOGGER.info("HELLO from server starting");
+	}
+	
+	@SubscribeEvent
+	public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
+		final SoundEvent[] soundEvents = {
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelcast")).setRegistryName("spelcast"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelgdht")).setRegistryName("spelgdht"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit1")).setRegistryName("spelhit1"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit2")).setRegistryName("spelhit2"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit3")).setRegistryName("spelhit3"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelhit4")).setRegistryName("spelhit4"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spel1")).setRegistryName("spel1"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spel2")).setRegistryName("spel2"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spel3")).setRegistryName("spel3"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spel4")).setRegistryName("spel4"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spel5")).setRegistryName("spel5"),
+				new SoundEvent(new ResourceLocation("solinia3ui", "spelltrav")).setRegistryName("spelltrav")
+		};
+		
+		event.getRegistry().registerAll(soundEvents);
 	}
 
 	// You can use EventBusSubscriber to automatically subscribe events on the
