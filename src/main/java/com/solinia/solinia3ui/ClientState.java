@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
@@ -731,6 +733,9 @@ public class ClientState {
 	}
 	public EquipSlots getEquipSlots() {
 		return this.equipSlots;
+	}
+	public void playSoundAnim(int soundId) {
+		// we dont use this right now
 	}
 
 }

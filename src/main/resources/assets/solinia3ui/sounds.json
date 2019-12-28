@@ -1,0 +1,50 @@
+{
+  "spelcast": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelcast"]
+  },
+  "spelgdht": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelgdht"]
+  },
+  "spelhit1": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelhit1"]
+  },
+  "spelhit2": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelhit2"]
+  },
+  "spelhit3": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelhit3"]
+  },
+  "spelhit4": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelhit4"]
+  },
+  "spell1": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spell1"]
+  },
+  "spell2": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spell2"]
+  },
+  "spell3": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spell3"]
+  },
+  "spell4": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spell4"]
+  },
+  "spell5": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spell5"]
+  },
+  "spelltrav": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  }
+}
