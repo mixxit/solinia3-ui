@@ -2,6 +2,7 @@ package com.solinia.solinia3ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
@@ -17,6 +18,8 @@ public class ClientState {
 	private int selectedSpellSlot = -1;
 	private KeyBinds keyBinds = new KeyBinds();
 	private double castingPercent = 0F;
+	public int zoneId = 0;
+	public String zoneMusic = "";
 	List<Ideal> ideals = generateIdeals();
 	List<Bond> bonds = generateBonds();
 	List<Flaw> flaws = generateFlaws();
@@ -712,7 +715,7 @@ public class ClientState {
 
 	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, int entityId, String name) {
 		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,entityId,name);
-		//System.out.println("Setting entity vital: " + partyMember + " : " + name);
+		//solinia3ui.LOGGER.info("Setting entity vital: " + partyMember + " : " + name);
 		this.entityVitals.put(partyMember,entityVital);
 	}
 
@@ -736,6 +739,42 @@ public class ClientState {
 	}
 	public void playSoundAnim(int soundId) {
 		// we dont use this right now
+	}
+
+	public void setZoneData(int zoneId, String zoneMusic) {
+		solinia3ui.LOGGER.info("Received zone packet: " + this.zoneId);
+		boolean hasZoneChanged = false;
+		if (zoneId != this.zoneId)
+			hasZoneChanged = true;
+		this.zoneId = zoneId;
+		this.zoneMusic = zoneMusic;
+		
+		if (hasZoneChanged)
+			onZoneChange();
+	}
+
+	private void onZoneChange() {
+		if (this.zoneMusic == null || this.zoneMusic.equals("null") || this.zoneMusic.equals(""))
+			return;
+		
+		solinia3ui.LOGGER.info("Seeking path: " + this.zoneMusic);
+		for(SoundEvent event : solinia3ui.soundEvents)
+		{
+			if (!event.getName().getPath().toUpperCase().equals(this.zoneMusic.toUpperCase()))
+				continue;
+			
+			Minecraft.getInstance().player.getEntityWorld().playSound(
+					Minecraft.getInstance().player.posX,
+					Minecraft.getInstance().player.posY,
+					Minecraft.getInstance().player.posZ,
+					event,
+					SoundCategory.MUSIC,
+					1F,
+					1F,
+					false
+					);
+			//Minecraft.getInstance().player.playSound(event, 1F, 1F);
+		}
 	}
 
 }

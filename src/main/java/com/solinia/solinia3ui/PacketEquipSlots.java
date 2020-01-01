@@ -43,7 +43,7 @@ public class PacketEquipSlots implements ISoliniaPacket {
 	
 	public void fromPacketData(String data) throws InvalidPacketException
 	{
-		System.out.println("Received equip slots data: " + data);
+		solinia3ui.LOGGER.info("Received equip slots data: " + data);
 		
 		if (data == null)
 			throw new InvalidPacketException("Packet data is empty");

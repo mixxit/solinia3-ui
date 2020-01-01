@@ -9,7 +9,7 @@ public class GuiAddItemToSpellbookButtonPressable implements IPressable {
 	@Override
 	public void onPress(Button button) {
 		// TODO Auto-generated method stub
-		System.out.println("You clicked the spellbook button");
+		solinia3ui.LOGGER.info("You clicked the spellbook button");
 		ItemStack activeItemStack = Minecraft.getInstance().player.inventory.getItemStack();
 		if (activeItemStack == null || activeItemStack.isEmpty())
 		{

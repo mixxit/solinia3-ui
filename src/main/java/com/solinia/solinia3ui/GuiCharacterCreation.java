@@ -53,7 +53,7 @@ public class GuiCharacterCreation extends Screen {
 	public GuiCharacterCreation(ITextComponent textComponent, CharacterCreation characterCreation) {
 		super(textComponent);
 		this.races = Collections.unmodifiableList(new ArrayList<RaceChoice>(characterCreation.raceChoices.values()));
-		System.out.println("Loading race list of: " + races.size());
+		solinia3ui.LOGGER.info("Loading race list of: " + races.size());
 		this.unsortedRaces = Collections.unmodifiableList(this.races);
 		
 		currentIdeal = ClientState.getInstance().ideals.get(0);
@@ -98,7 +98,7 @@ public class GuiCharacterCreation extends Screen {
         {
             listWidth = Math.max(listWidth,this.getMinecraft().fontRenderer.getStringWidth(race.RaceName + " " + race.ClassName) + 10);
             //listWidth = Math.max(listWidth,this.getMinecraft().fontRenderer.getStringWidth(MavenVersionStringHelper.artifactVersionToString(mod.getVersion())) + 5);
-    		System.out.println("Init with race");
+    		solinia3ui.LOGGER.info("Init with race");
        }
         listWidth = Math.max(Math.min(listWidth, width/3), 100);
         //listWidth += listWidth % numButtons != 0 ? (numButtons - listWidth % numButtons) : 0;
@@ -464,7 +464,7 @@ public class GuiCharacterCreation extends Screen {
 	
 	private void updateCache()
     {
-		System.out.println("Updating cache");
+		solinia3ui.LOGGER.info("Updating cache");
 		
         if (this.raceSelected == null) {
             this.raceInfo.clearInfo();
@@ -557,7 +557,7 @@ public class GuiCharacterCreation extends Screen {
 
         void setInfo(List<String> lines)
         {
-        	System.out.println("Set panel info lines");
+        	solinia3ui.LOGGER.info("Set panel info lines");
             this.lines = resizeContent(lines);
         }
 

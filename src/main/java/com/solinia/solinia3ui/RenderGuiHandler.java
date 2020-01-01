@@ -81,7 +81,7 @@ public class RenderGuiHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 		
-		System.out.println("Clicked " + event.getGui());
+		solinia3ui.LOGGER.info("Clicked " + event.getGui());
 		
 		if (event.getGui() instanceof GuiSpellbook)
 		{

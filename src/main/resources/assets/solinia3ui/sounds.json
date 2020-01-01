@@ -1,50 +1,102 @@
 {
   "spelcast": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelcast"]
+    "sounds": [{ "name": "solinia3ui:spelcast"}]
   },
   "spelgdht": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelgdht"]
+    "sounds": [{ "name": "solinia3ui:spelgdht"}]
   },
   "spelhit1": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelhit1"]
+    "sounds": [{ "name": "solinia3ui:spelhit1"}]
   },
   "spelhit2": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelhit2"]
+    "sounds": [{ "name": "solinia3ui:spelhit2"}]
   },
   "spelhit3": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelhit3"]
+    "sounds": [{ "name": "solinia3ui:spelhit3"}]
   },
   "spelhit4": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelhit4"]
+    "sounds": [{ "name": "solinia3ui:spelhit4"}]
   },
   "spell1": {
     "category": "player",
-    "sounds": [ "solinia3ui:spell1"]
+    "sounds": [{ "name": "solinia3ui:spell1"}]
   },
   "spell2": {
     "category": "player",
-    "sounds": [ "solinia3ui:spell2"]
+    "sounds": [{ "name": "solinia3ui:spell2"}]
   },
   "spell3": {
     "category": "player",
-    "sounds": [ "solinia3ui:spell3"]
+    "sounds": [{ "name": "solinia3ui:spell3"}]
   },
   "spell4": {
     "category": "player",
-    "sounds": [ "solinia3ui:spell4"]
+    "sounds": [{ "name": "solinia3ui:spell4"}]
   },
   "spell5": {
     "category": "player",
-    "sounds": [ "solinia3ui:spell5"]
+    "sounds": [{ "name": "solinia3ui:spell5"}]
   },
   "spelltrav": {
     "category": "player",
-    "sounds": [ "solinia3ui:spelltrav"]
+    "sounds": [{ "name": "solinia3ui:spelltrav"}]
+  },
+  "char_creation": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:char_creation", "stream": true}]
+  },
+  "deathfist_citadel": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:deathfist_citadel", "stream": true}]
+  },
+  "enchanted_lands": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:enchanted_lands", "stream": true}]
+  },
+  "everfrost": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:everfrost", "stream": true}]
+  },
+  "feerott": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:feerott", "stream": true}]
+  },
+  "permafrost": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:permafrost", "stream": true}]
+  },
+  "qeynos": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:qeynos", "stream": true}]
+  },
+  "qeynos_catacombs": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:qeynos_catacombs", "stream": true}]
+  },
+  "runnyeye": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:runnyeye", "stream": true}]
+  },
+  "temple_of_cazicthule": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:temple_of_cazicthule", "stream": true}]
+  },
+  "thundering_steppes": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:thundering_steppes", "stream": true}]
+  },
+  "tower_of_the_drafling": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:tower_of_the_drafling", "stream": true}]
+  },
+  "wailing_caves": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:wailing_caves", "stream": true}]
   }
 }

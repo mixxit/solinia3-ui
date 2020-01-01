@@ -25,7 +25,7 @@ public class ItemStackUtils {
 			return ItemStack.read(nbt);
 		} catch (CommandSyntaxException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Command syntax exception for json: " + json);
+			solinia3ui.LOGGER.info("Command syntax exception for json: " + json);
 			e.printStackTrace();
 		}
 		

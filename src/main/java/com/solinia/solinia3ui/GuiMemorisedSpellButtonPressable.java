@@ -12,7 +12,7 @@ public class GuiMemorisedSpellButtonPressable implements Button.IPressable {
 	@Override
 	public void onPress(Button button) {
 		// TODO Auto-generated method stub
-		System.out.println("You clicked memorised slot Id: " + slotId);
+		solinia3ui.LOGGER.info("You clicked memorised slot Id: " + slotId);
 	}
 
 
