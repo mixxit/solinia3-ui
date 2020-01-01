@@ -22,7 +22,7 @@ public class KeyInputHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 
-		//System.out.println("DEBUGKEY: " + event.getScanCode() + " " + event.getAction() + " " + event.getKey() + " " + event.getModifiers());
+		//solinia3ui.LOGGER.info("DEBUGKEY: " + event.getScanCode() + " " + event.getAction() + " " + event.getKey() + " " + event.getModifiers());
 		
 		if (event.getAction() != 1)
 			return;

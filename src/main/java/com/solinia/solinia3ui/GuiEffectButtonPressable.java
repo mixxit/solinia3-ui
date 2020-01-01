@@ -13,7 +13,7 @@ public class GuiEffectButtonPressable implements IPressable {
 	@Override
 	public void onPress(Button button) {
 		// TODO Auto-generated method stub
-		System.out.println("You clicked effect slot Id: " + slotId);
+		solinia3ui.LOGGER.info("You clicked effect slot Id: " + slotId);
 	}
 
 }

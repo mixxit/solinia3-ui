@@ -38,7 +38,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 			throw new InvalidPacketException("Packet data is wrong format");
 
 		String[] dataArray = data.split("\\^",-1);
-		//System.out.println("Mob Vitals: " + dataArray.length + " " + data);
+		//solinia3ui.LOGGER.info("Mob Vitals: " + dataArray.length + " " + data);
 		if (dataArray.length < 4)
 			throw new InvalidPacketException("Packet data missing elements");
 		

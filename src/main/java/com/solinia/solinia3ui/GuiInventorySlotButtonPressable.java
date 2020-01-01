@@ -18,9 +18,9 @@ public class GuiInventorySlotButtonPressable implements IPressable {
 		ItemStack activeItemStack = Minecraft.getInstance().player.inventory.getItemStack();
 		if (activeItemStack == null || activeItemStack.isEmpty())
 		{
-			System.out.println("Recieved onPress for empty item stack");
+			solinia3ui.LOGGER.info("Recieved onPress for empty item stack");
 		} else {
-			System.out.println("Recieved onPress for item stack");
+			solinia3ui.LOGGER.info("Recieved onPress for item stack");
 			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip equip");			
 		}
 	}

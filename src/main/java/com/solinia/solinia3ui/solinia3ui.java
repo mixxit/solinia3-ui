@@ -3,9 +3,14 @@ package com.solinia.solinia3ui;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundList;
+import net.minecraft.client.audio.SoundListSerializer;
+import net.minecraft.resources.IResource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,8 +25,31 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkEvent.ServerCustomPayloadEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import io.netty.buffer.ByteBuf;
 
@@ -30,6 +58,7 @@ import io.netty.buffer.ByteBuf;
 public class solinia3ui {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
+	public static final List<SoundEvent> soundEvents = new ArrayList<SoundEvent>();
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler();
@@ -37,32 +66,6 @@ public class solinia3ui {
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
 	private EntityEventHandler entityEventHandler = new EntityEventHandler();
 	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
-	
-	public static final ResourceLocation res_spelcast = new ResourceLocation("solinia3ui", "spelcast");
-	public static final SoundEvent sound_spelcast = new SoundEvent(res_spelcast).setRegistryName("spelcast");
-	public static final ResourceLocation res_spelgdht = new ResourceLocation("solinia3ui", "spelgdht");
-	public static final SoundEvent sound_spelgdht = new SoundEvent(res_spelgdht).setRegistryName("spelgdht");
-	public static final ResourceLocation res_spelhit1 = new ResourceLocation("solinia3ui", "spelhit1");
-	public static final SoundEvent sound_spelhit1 =new SoundEvent(res_spelhit1).setRegistryName("spelhit1");
-	public static final ResourceLocation res_spelhit2 = new ResourceLocation("solinia3ui", "spelhit2");
-	public static final SoundEvent sound_spelhit2 =new SoundEvent(res_spelhit2).setRegistryName("spelhit2");
-	public static final ResourceLocation res_spelhit3 = new ResourceLocation("solinia3ui", "spelhit3");
-	public static final SoundEvent sound_spelhit3 =new SoundEvent(res_spelhit3).setRegistryName("spelhit3");
-	public static final ResourceLocation res_spelhit4 = new ResourceLocation("solinia3ui", "spelhit4");
-	public static final SoundEvent sound_spelhit4 =new SoundEvent(res_spelhit4).setRegistryName("spelhit4");
-	public static final ResourceLocation res_spel1 = new ResourceLocation("solinia3ui", "spell1");
-	public static final SoundEvent sound_spel1 =new SoundEvent(res_spel1).setRegistryName("spell1");
-	public static final ResourceLocation res_spel2 = new ResourceLocation("solinia3ui", "spell2");
-	public static final SoundEvent sound_spel2 =new SoundEvent(res_spel2).setRegistryName("spell2");
-	public static final ResourceLocation res_spel3 = new ResourceLocation("solinia3ui", "spell3");
-	public static final SoundEvent sound_spel3 =new SoundEvent(res_spel3).setRegistryName("spell3");
-	public static final ResourceLocation res_spel4 = new ResourceLocation("solinia3ui", "spell4");
-	public static final SoundEvent sound_spel4 =new SoundEvent(res_spel4).setRegistryName("spell4");
-	public static final ResourceLocation res_spel5 = new ResourceLocation("solinia3ui", "spell5");
-	public static final SoundEvent sound_spel5 =new SoundEvent(res_spel5).setRegistryName("spell5");
-	public static final ResourceLocation res_spelltrav = new ResourceLocation("solinia3ui", "spelltrav");
-	public static final SoundEvent sound_spelltrav =new SoundEvent(res_spelltrav).setRegistryName("spelltrav");
-
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -92,7 +95,64 @@ public class solinia3ui {
 		MinecraftForge.EVENT_BUS.register(entityEventHandler);
 		MinecraftForge.EVENT_BUS.register(playerEventHandler);
 		
+		createSoundEvents();
 	}
+	
+	private void createSoundEvents() {
+		String mod = "solinia3ui";
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"char_creation"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"deathfist_citadel"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"enchanted_lands"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"everfrost"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"feerott"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"permafrost"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"qeynos"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"qeynos_catacombs"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"runnyeye"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"temple_of_cazicthule"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"thundering_steppes"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"tower_of_the_drafling"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"wailing_caves"));
+	}
+	
+	private SoundEvent createSoundEvent(String mod, String name)
+	{
+		ResourceLocation location = new ResourceLocation(mod, name);
+		return new SoundEvent(location);
+	}
+
+	private static final ParameterizedType TYPE = new ParameterizedType()
+    {
+        public Type[] getActualTypeArguments()
+        {
+            return new Type[] {String.class, SoundList.class};
+        }
+        public Type getRawType()
+        {
+            return Map.class;
+        }
+        public Type getOwnerType()
+        {
+            return null;
+        }
+    };
+	
+	protected static Map<String, SoundList> getSoundMap(InputStream stream)
+    {
+        Map map;
+        final Gson GSON = (new GsonBuilder()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
+        
+        try
+        {
+            map = (Map)GSON.fromJson((Reader)(new InputStreamReader(stream)), TYPE);
+        }
+        finally
+        {
+            IOUtils.closeQuietly(stream);
+        }
+
+        return map;
+    }
 	
 	public void onPacketData(final ServerCustomPayloadEvent event) {
 	    final ByteBuf payload = event.getPayload();
@@ -134,6 +194,7 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.EFFECTS, PacketEffects.class, PacketEffects::encode, PacketEffects::new, PacketEffects::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.PLAYSOUNDANIM, PacketPlaySoundAnim.class, PacketPlaySoundAnim::encode, PacketPlaySoundAnim::new, PacketPlaySoundAnim::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.INZONE, PacketInZone.class, PacketInZone::encode, PacketInZone::new, PacketInZone::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -159,8 +220,6 @@ public class solinia3ui {
 		// do something when the server starts
 		LOGGER.info("HELLO from server starting");
 	}
-	
-	
 
 	// You can use EventBusSubscriber to automatically subscribe events on the
 	// contained class (this is subscribing to the MOD
@@ -175,23 +234,26 @@ public class solinia3ui {
 		
 		@SubscribeEvent
 		public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
-			final SoundEvent[] soundEvents = {
-					sound_spelcast,
-					sound_spelgdht,
-					sound_spelhit1,
-					sound_spelhit2,
-					sound_spelhit3,
-					sound_spelhit4,
-					sound_spel1,
-					sound_spel2,
-					sound_spel3,
-					sound_spel4,
-					sound_spel5,
-					sound_spelltrav
-			};
-			
-			event.getRegistry().registerAll(soundEvents);
+			for(SoundEvent soundEvent : solinia3ui.soundEvents)
+			{
+				event.getRegistry().register(soundEvent);
+				solinia3ui.LOGGER.info("Registered new Sound: " + soundEvent.getName());
+			}
 		}
+		/*
+		@ForgeSubscribe
+		public void onBackgroundSound(PlayBackgroundMusicEvent par1PlayBackgroundMusicEvent) {
+			SoundPoolEntry var1 = par1PlayBackgroundMusicEvent.manager.soundPoolMusic.getRandomSoundFromSoundPool("ml.outdoor");
+
+			if(var1 != null) {
+				solinia3ui.LOGGER.info("Play!");
+				par1PlayBackgroundMusicEvent.result = par1PlayBackgroundMusicEvent.manager.soundPoolMusic.getRandomSoundFromSoundPool("ml.outdoor");
+			} else {
+				solinia3ui.LOGGER.info("Load!");
+				par1PlayBackgroundMusicEvent.manager.soundPoolMusic.addSound("ml/outdoor.ogg", new File(Minecraft.getMinecraft().getMinecraftDir(), "resources/MusicLoops/Outdoor.ogg"));
+				this.onBackgroundSound(par1PlayBackgroundMusicEvent);
+			}
+		}*/
 	}
 
 	

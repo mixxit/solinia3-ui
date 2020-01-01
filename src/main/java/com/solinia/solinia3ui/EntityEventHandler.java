@@ -22,7 +22,7 @@ public class EntityEventHandler {
 		if (event.getEntity().getEntityId() != Minecraft.getInstance().player.getEntityId())
 			return;
 		
-		System.out.println("Ive joined the world");
+		solinia3ui.LOGGER.info("Ive joined the world");
 		SendPluginVersion();
 	}
 	
@@ -40,7 +40,7 @@ public class EntityEventHandler {
 
 	private void SendPluginVersion() {
 		try {
-			System.out.println("/iamversion " + ClientState.getInstance().getModVersion());
+			solinia3ui.LOGGER.info("/iamversion " + ClientState.getInstance().getModVersion());
 			Minecraft.getInstance().player.sendChatMessage("/solinia3core:iamversion " + ClientState.getInstance().getModVersion());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

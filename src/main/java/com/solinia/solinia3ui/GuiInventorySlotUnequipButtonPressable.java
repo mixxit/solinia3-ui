@@ -15,7 +15,7 @@ public class GuiInventorySlotUnequipButtonPressable implements IPressable {
 	@Override
 	public void onPress(Button button) {
 		try {
-			System.out.println("Received click for unequip slot: " + this.getSlotName());
+			solinia3ui.LOGGER.info("Received click for unequip slot: " + this.getSlotName());
 			Minecraft.getInstance().player.sendChatMessage("/solinia3core:equip unequip " + this.getSlotName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
