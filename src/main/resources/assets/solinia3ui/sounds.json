@@ -46,5 +46,61 @@
   "spelltrav": {
     "category": "player",
     "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "spelltrav": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "char_creation": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "deathfist_citadel": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "enchanted_lands": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "everfrost": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "feerott": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "permafrost": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "qeynos": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "qeynos_catacombs": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "runnyeye": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "temple_of_cazicthule": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "thundering_steppes": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "tower_of_the_drafling": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
+  },
+  "wailing caves": {
+    "category": "player",
+    "sounds": [ "solinia3ui:spelltrav"]
   }
 }
