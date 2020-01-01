@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.ISound.AttenuationType;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.ModList;
@@ -763,16 +766,7 @@ public class ClientState {
 			if (!event.getName().getPath().toUpperCase().equals(this.zoneMusic.toUpperCase()))
 				continue;
 			
-			Minecraft.getInstance().player.getEntityWorld().playSound(
-					Minecraft.getInstance().player.posX,
-					Minecraft.getInstance().player.posY,
-					Minecraft.getInstance().player.posZ,
-					event,
-					SoundCategory.MUSIC,
-					1F,
-					1F,
-					false
-					);
+			Minecraft.getInstance().getSoundHandler().play(SimpleSound.music(event));
 			//Minecraft.getInstance().player.playSound(event, 1F, 1F);
 		}
 	}
