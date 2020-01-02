@@ -2,12 +2,14 @@ package com.solinia.solinia3ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ChannelManager;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISound.AttenuationType;
 import net.minecraft.client.audio.LocatableSound;
@@ -16,6 +18,7 @@ import net.minecraft.client.audio.SoundEngine;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 public class ClientState {
@@ -760,9 +763,39 @@ public class ClientState {
 			onZoneChange();
 	}
 
-	private void onZoneChange() {
-		if (this.zoneMusic == null || this.zoneMusic.equals("null") || this.zoneMusic.equals(""))
+	public void stopMusic()
+	{
+		try
+		{
+		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
+		Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
+		for(ISound sound : playingSounds.keySet())
+		{
+			if (!sound.getCategory().equals(SoundCategory.MUSIC))
+				continue;
+			
+			soundEngine.sndHandler.stop(sound);
+		}
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 			return;
+		}
+	}
+	
+	private void onZoneChange() {
+		if (this.zoneId == 0)
+		{
+			stopMusic();
+			return;
+		}
+		
+		if (this.zoneMusic == null || this.zoneMusic.equals("null") || this.zoneMusic.equals(""))
+		{
+			stopMusic();
+			return;
+		}
 		
 		solinia3ui.LOGGER.info("Seeking path: " + this.zoneMusic);
 		for(SoundEvent event : solinia3ui.soundEvents)
