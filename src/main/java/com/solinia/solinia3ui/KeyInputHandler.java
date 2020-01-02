@@ -73,7 +73,7 @@ public class KeyInputHandler {
 				Vec3d vec3d1 = entity.getLook(1.0F);
 	            Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
 	            AxisAlignedBB axisalignedbb = entity.getBoundingBox().expand(vec3d1.scale(distance)).grow(1.0D, 1.0D, 1.0D);
-	            EntityRayTraceResult entityraytraceresult = ProjectileHelper.func_221273_a(entity, vec3d, vec3d2, axisalignedbb, (p_215312_0_) -> {
+	            EntityRayTraceResult entityraytraceresult = ProjectileHelper.rayTraceEntities(entity, vec3d, vec3d2, axisalignedbb, (p_215312_0_) -> {
 	               return !p_215312_0_.isSpectator() && p_215312_0_.canBeCollidedWith();
 	            }, d1);
 				

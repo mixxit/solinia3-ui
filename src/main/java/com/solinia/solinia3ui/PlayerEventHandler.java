@@ -13,6 +13,7 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class PlayerEventHandler {
 	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
@@ -43,8 +44,8 @@ public class PlayerEventHandler {
 		
 		try
 		{
-		SoundEngine soundEngine = (SoundEngine)FieldUtils.readField(Minecraft.getInstance().getSoundHandler(),"sndManager",true);
-		Map<ISound, ChannelManager.Entry> playingSounds = (Map<ISound, ChannelManager.Entry>)FieldUtils.readField(soundEngine,"playingSoundsChannel",true);
+		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
+		Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
 		for(ISound sound : playingSounds.keySet())
 		{
 			if (!sound.getCategory().equals(SoundCategory.MUSIC))
