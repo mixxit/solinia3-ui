@@ -772,7 +772,7 @@ public class ClientState {
 			
 			boolean repeat = true;
 			int repeatTime = 5;
-			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 0.7F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
+			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 1F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
 			
 			Minecraft.getInstance().getSoundHandler().play(sound);
 			//Minecraft.getInstance().player.playSound(event, 1F, 1F);
