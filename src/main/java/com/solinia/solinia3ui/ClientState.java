@@ -770,9 +770,9 @@ public class ClientState {
 			if (!event.getName().getPath().toUpperCase().equals(this.zoneMusic.toUpperCase()))
 				continue;
 			
-			boolean repeat = false;
-			int repeatTime = 0;
-			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 1.0F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
+			boolean repeat = true;
+			int repeatTime = 5;
+			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 0.7F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
 			
 			Minecraft.getInstance().getSoundHandler().play(sound);
 			//Minecraft.getInstance().player.playSound(event, 1F, 1F);

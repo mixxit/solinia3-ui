@@ -20,6 +20,7 @@ public class GuiCharacterText extends AbstractGui {
 	
 	public void renderEntityHp(String entityName, float entityHp, int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
 	{
+		entityHp = entityHp * 100;
 		entityName = entityName + " ["+(int)entityHp+"% HP]";
         //int increment = 16;
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
