@@ -50,9 +50,15 @@ public class PlayerEventHandler {
 			if (!sound.getCategory().equals(SoundCategory.MUSIC))
 				continue;
 			
-			event.setResultSound(null);
-			solinia3ui.LOGGER.info("Currently Playing " + sound.getSoundLocation().getPath() + " so i will ignore request to play " + event.getSound().getSoundLocation().getPath());
-			return;
+			if (sound.getSound().getSoundLocation().equals(event.getSound().getSoundLocation()))
+			{
+				event.setResultSound(null);
+				solinia3ui.LOGGER.info("Currently Playing " + sound.getSoundLocation().getPath() + " so i will ignore request to play " + event.getSound().getSoundLocation().getPath());
+				return;
+			} else {
+				soundEngine.sndHandler.stop(sound);
+			}
+			
 		}
 
 		} catch (Exception e)
