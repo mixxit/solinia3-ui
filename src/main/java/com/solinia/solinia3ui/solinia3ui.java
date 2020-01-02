@@ -116,7 +116,9 @@ public class solinia3ui {
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"commonlands"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"majdul"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"you_walk_this_earth_alone"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"inca_ancient_theme"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"in_the_amazonas"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"south_ro"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"arcstone"));
 	}
 	
 	private SoundEvent createSoundEvent(String mod, String name)

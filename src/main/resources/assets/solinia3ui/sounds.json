@@ -111,8 +111,16 @@
     "category": "music",
     "sounds": [{ "name": "solinia3ui:wailing_caves", "stream": true}]
   },
-  "inca_ancient_theme": {
+  "arcstone": {
     "category": "music",
-    "sounds": [{ "name": "solinia3ui:inca_ancient_theme", "stream": true}]
+    "sounds": [{ "name": "solinia3ui:arcstone", "stream": true}]
+  },
+  "south_ro": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:south_ro", "stream": true}]
+  },
+  "in_the_amazonas": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:in_the_amazonas", "stream": true}]
   }
 }
