@@ -110,5 +110,9 @@
   "wailing_caves": {
     "category": "music",
     "sounds": [{ "name": "solinia3ui:wailing_caves", "stream": true}]
+  },
+  "inca_ancient_theme": {
+    "category": "music",
+    "sounds": [{ "name": "solinia3ui:inca_ancient_theme", "stream": true}]
   }
 }
