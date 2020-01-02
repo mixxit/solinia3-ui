@@ -97,15 +97,15 @@
   },
   "commonlands": {
     "category": "music",
-    "sounds": [{ "name": "solinia3ui:tower_of_the_drafling", "stream": true}]
+    "sounds": [{ "name": "solinia3ui:commonlands", "stream": true}]
   },
   "majdul": {
     "category": "music",
-    "sounds": [{ "name": "solinia3ui:tower_of_the_drafling", "stream": true}]
+    "sounds": [{ "name": "solinia3ui:majdul", "stream": true}]
   },
   "you_walk_this_earth_alone": {
     "category": "music",
-    "sounds": [{ "name": "solinia3ui:tower_of_the_drafling", "stream": true}]
+    "sounds": [{ "name": "solinia3ui:you_walk_this_earth_alone", "stream": true}]
   },
   "wailing_caves": {
     "category": "music",
