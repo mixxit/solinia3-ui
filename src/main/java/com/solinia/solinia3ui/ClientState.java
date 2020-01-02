@@ -812,4 +812,21 @@ public class ClientState {
 		}
 	}
 
+	public void Reset() {
+		this.memorisedSpells = new MemorisedSpells();
+		this.selectedSpellSlot = -1;
+		this.keyBinds = new KeyBinds();
+		this.castingPercent = 0F;
+		this.zoneId = 0;
+		this.zoneMusic = "";
+		this.ideals = generateIdeals();
+		this.bonds = generateBonds();
+		this.flaws = generateFlaws();
+		this.traits = generateTraits();
+		this.oaths = generateOaths();
+		
+		this.entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
+		this.equipSlots = null;
+		this.effects = new Effects();
+	}
 }
