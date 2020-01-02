@@ -22,6 +22,8 @@ public class EntityEventHandler {
 		if (event.getEntity().getEntityId() != Minecraft.getInstance().player.getEntityId())
 			return;
 		
+		ClientState.getInstance().Reset();
+		
 		solinia3ui.LOGGER.info("Ive joined the world");
 		SendPluginVersion();
 	}
