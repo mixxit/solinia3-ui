@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISound.AttenuationType;
+import net.minecraft.client.audio.LocatableSound;
 import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.audio.SoundEngine;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.ModList;
@@ -766,7 +770,11 @@ public class ClientState {
 			if (!event.getName().getPath().toUpperCase().equals(this.zoneMusic.toUpperCase()))
 				continue;
 			
-			Minecraft.getInstance().getSoundHandler().play(SimpleSound.music(event));
+			boolean repeat = false;
+			int repeatTime = 0;
+			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 1.0F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
+			
+			Minecraft.getInstance().getSoundHandler().play(sound);
 			//Minecraft.getInstance().player.playSound(event, 1F, 1F);
 		}
 	}

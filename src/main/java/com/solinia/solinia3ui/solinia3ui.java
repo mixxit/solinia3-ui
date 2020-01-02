@@ -113,6 +113,9 @@ public class solinia3ui {
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"thundering_steppes"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"tower_of_the_drafling"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"wailing_caves"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"commonlands"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"majdul"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"you_walk_this_earth_alone"));
 	}
 	
 	private SoundEvent createSoundEvent(String mod, String name)
