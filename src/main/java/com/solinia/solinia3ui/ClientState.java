@@ -815,7 +815,8 @@ public class ClientState {
 	public void Reset() {
 		this.memorisedSpells = new MemorisedSpells();
 		this.selectedSpellSlot = -1;
-		this.keyBinds = new KeyBinds();
+		//Nope
+		//this.keyBinds = new KeyBinds();
 		this.castingPercent = 0F;
 		this.zoneId = 0;
 		this.zoneMusic = "";
