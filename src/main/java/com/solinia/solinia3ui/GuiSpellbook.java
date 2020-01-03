@@ -41,7 +41,7 @@ public class GuiSpellbook extends Screen {
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks)
+	public void render(int posX, int posY, float partialTicks)
     {
 		if (this._SpellbookPage == null)
 		{
@@ -59,7 +59,7 @@ public class GuiSpellbook extends Screen {
         
         //this.drawDefaultBackground();
         //this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 5, 16777215);
-        super.render(mouseX, mouseY, partialTicks);
+        super.render(posX, posY, partialTicks);
     }
 	
 	

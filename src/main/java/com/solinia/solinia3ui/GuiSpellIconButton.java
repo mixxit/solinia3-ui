@@ -32,7 +32,7 @@ public class GuiSpellIconButton extends Button {
 	
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
+	public void render(int posX, int posY, float partialTicks) {
 		if (!this.visible)
 			return;
 		
@@ -70,7 +70,7 @@ public class GuiSpellIconButton extends Button {
 			}
 		}
 		
-		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
+		this.renderBg(Minecraft.getInstance(), posX, posY);
 		
 		
 		String displayString = "";
