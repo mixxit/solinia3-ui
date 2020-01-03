@@ -81,13 +81,13 @@ public class KeyInputHandler {
 	                Entity entity1 = entityraytraceresult.getEntity();
 		    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity " + entity1.getEntityId());
 		    	} else {
-		    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+		    		//Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
 		    	}
 			} else {
-	    		Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+	    		//Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
 	    	}
 		} else {
-			Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
+			//Minecraft.getInstance().player.sendChatMessage("/solinia3core:rightclickentity 0");
 		}
 		
 	}
