@@ -1,5 +1,7 @@
 package com.solinia.solinia3ui;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,6 +12,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 public class RenderGuiHandler {
 	public static final int hotbarCount = 8;
@@ -18,7 +21,7 @@ public class RenderGuiHandler {
 	public static final int effectSize = 10;
 	public static final int effectSlotLimit = 20;
 	
-	public ConcurrentHashMap<Integer,Button> memorisedButtons = new ConcurrentHashMap<Integer,Button>();
+	public ConcurrentHashMap<Integer,GuiMemSpellIconButton> memorisedButtons = new ConcurrentHashMap<Integer,GuiMemSpellIconButton>();
 	public ConcurrentHashMap<Integer,Button> effectSlotButtons = new ConcurrentHashMap<Integer,Button>();
 	
 	public RenderGuiHandler()
@@ -29,7 +32,7 @@ public class RenderGuiHandler {
 		for(int i = 0; i < hotbarCount; i++)
 		{
 			int slot = (i+1);
-			this.memorisedButtons.put(i,new GuiSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
+			this.memorisedButtons.put(i,new GuiMemSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
 
 		int startX = Minecraft.getInstance().mainWindow.getScaledWidth()-(effectSize*6);
@@ -81,15 +84,14 @@ public class RenderGuiHandler {
 		if (Minecraft.getInstance().player == null)
 			return;
 		
-		solinia3ui.LOGGER.info("Clicked " + event.getGui());
-		
 		if (event.getGui() instanceof GuiSpellbook)
 		{
 			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
 		} else {
+			int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+			solinia3ui.LOGGER.info("Clicked " + memorisedSpellSlot + " " + (int)Math.round(event.getMouseX()) + "," + (int)Math.round(event.getMouseY()));
 			if (event.getButton() != 0)
 			{
-				int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
 				if (memorisedSpellSlot > 0)
 					removeSpellSlot(memorisedSpellSlot);
 			}
@@ -127,6 +129,8 @@ public class RenderGuiHandler {
 			removeSpellSlot(memorisedSpellSlot);
 		}
 	}
+	
+	boolean neverSent = true;
 
 	private int getMemorisedSpellSlotByMouseCoords(int mouseX, int mouseY) {
 		for (int i = 0; i < memorisedButtons.size(); i++)
@@ -166,12 +170,13 @@ public class RenderGuiHandler {
 			int slot = (i+1);
 			if (ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot) > 0)
 			{
-				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot));
+				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot)+"^"+ClientState.getInstance().getMemorisedSpells().getSlotName(slot));
 			} else {
-				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot));
+				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot)+"^"+"");
 			}
 			
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
+			
 		}
 		
 		int i = 0;
@@ -188,5 +193,36 @@ public class RenderGuiHandler {
 			
 			i++;
 		}
+		
+		int height = Minecraft.getInstance().mainWindow.getHeight();
+		int width = Minecraft.getInstance().mainWindow.getWidth();
+
+		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX())/2,(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY())/2);
+		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
+		{
+			if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 3)
+			{
+				String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2]};
+		        List temp = Arrays.asList(text);
+		        int maxTextWidth = 120;
+		        
+		        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX())/2, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY())/2, width, height, maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+			}
+		}
+
+		/*
+		for(int x = 0; x < memorisedButtons.size(); x++)
+		{
+			if (memorisedButtons.get(x).isMouseOverMemorisationButton(Minecraft.getInstance().mouseHelper.getMouseX(), Minecraft.getInstance().mouseHelper.getMouseY()))
+			{
+	
+		        String[] text = {memorisedButtons.get(x).getMessage()};
+		        List temp = Arrays.asList(text);
+		        int maxTextWidth = 80;
+		        
+		        GuiUtils.drawHoveringText(temp, (int)Minecraft.getInstance().mouseHelper.getMouseX(), (int)Minecraft.getInstance().mouseHelper.getMouseY(), width, height, maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+			}
+		}
+		*/
 	}
 }

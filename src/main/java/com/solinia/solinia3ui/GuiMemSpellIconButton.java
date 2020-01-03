@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -12,52 +13,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 
-public class GuiEffectIconButton extends Button {
-	protected static final ResourceLocation SPELLSSMALL01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1small.png");
-	protected static final ResourceLocation SPELLSSMALL02 = new ResourceLocation( "solinia3ui", "textures/gui/spells2small.png");
-	protected static final ResourceLocation SPELLSSMALL03 = new ResourceLocation( "solinia3ui", "textures/gui/spells3small.png");
-	protected static final ResourceLocation SPELLSSMALL04 = new ResourceLocation( "solinia3ui", "textures/gui/spells4small.png");
-	protected static final ResourceLocation SPELLSSMALL05 = new ResourceLocation( "solinia3ui", "textures/gui/spells5small.png");
-	protected static final ResourceLocation SPELLSSMALL06 = new ResourceLocation( "solinia3ui", "textures/gui/spells6small.png");
-	protected static final ResourceLocation SPELLSSMALL07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7small.png");
+public class GuiMemSpellIconButton extends Button {
+
+	protected static final ResourceLocation SPELLS01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1.png");
+	protected static final ResourceLocation SPELLS02 = new ResourceLocation( "solinia3ui", "textures/gui/spells2.png");
+	protected static final ResourceLocation SPELLS03 = new ResourceLocation( "solinia3ui", "textures/gui/spells3.png");
+	protected static final ResourceLocation SPELLS04 = new ResourceLocation( "solinia3ui", "textures/gui/spells4.png");
+	protected static final ResourceLocation SPELLS05 = new ResourceLocation( "solinia3ui", "textures/gui/spells5.png");
+	protected static final ResourceLocation SPELLS06 = new ResourceLocation( "solinia3ui", "textures/gui/spells6.png");
+	protected static final ResourceLocation SPELLS07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7.png");
 	private int spellIcon;
-	private int spellId;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 
-	public GuiEffectIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
+	public GuiMemSpellIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
+	}
 		
-		setSpellIconAndId(text);
-	}
-	
-	public void setSpellIconAndId(String text)
-	{
-		String displayIconStr = text.split("\\^",-1)[0];
-		String spellStr = text.split("\\^",-1)[1];
-		
-		try
-		{
-			this.spellIcon = Integer.parseInt(displayIconStr);
-			this.spellId = Integer.parseInt(spellStr);
-		} catch (Exception e)
-		{
-			return;
-		}
-	}
-	
-	@Override
-	 public void setMessage(String message) {
-		super.setMessage(message);
-		
-		this.setSpellIconAndId(message);
-	}
-	
-	public int getSpellId()
-	{
-		return this.spellId;
-	}
-	
 	@Override
 	public void render(int posX, int posY, float partialTicks) {
 		if (!this.visible)
@@ -65,6 +38,15 @@ public class GuiEffectIconButton extends Button {
 		
 		if (!getMessage().contains("^"))
 			return;
+		
+		String displayIconStr = this.getMessage().split("\\^",-1)[0];
+		try
+		{
+			this.spellIcon = Integer.parseInt(displayIconStr);
+		} catch (Exception e)
+		{
+			return;
+		}
 		
 		int j = 14737632;
 		if (packedFGColor != 0) {
@@ -89,8 +71,21 @@ public class GuiEffectIconButton extends Button {
 		}
 		
 		this.renderBg(Minecraft.getInstance(), posX, posY);
+		
+		String displayString = "";
+		if (this.getMessage().split("\\^",-1).length > 1)
+			displayString = this.getMessage().split("\\^",-1)[1];
+		if (this.isMouseOverMemorisationButton(Minecraft.getInstance().mouseHelper.getMouseX(), Minecraft.getInstance().mouseHelper.getMouseY()))
+		{
+			
+		}
+		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, "ALT+" + displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 	}
 	
+	public boolean isMouseOverMemorisationButton(double mouseX, double mouseY) {
+		return (mouseX >= (double)this.x && mouseY >= (double)this.y && mouseX < (double)(this.x + this.width) && mouseY < (double)(this.y + this.height));
+	}
+
 	public void drawStringCenteredScale(FontRenderer fontRendererIn, String text, int x, int y, float size, int color) {
         GL11.glScalef(size,size,size);
         float mSize = (float)Math.pow(size,-1);
@@ -101,13 +96,13 @@ public class GuiEffectIconButton extends Button {
 	public List<String> getSpellFiles()
 	{
 		List<String> files = new ArrayList<String>();
-		files.add("spells01small.png");
-		files.add("spells02small.png");
-		files.add("spells03small.png");
-		files.add("spells04small.png");
-		files.add("spells05small.png");
-		files.add("spells06small.png");
-		files.add("spells07small.png");
+		files.add("spells01.png");
+		files.add("spells02.png");
+		files.add("spells03.png");
+		files.add("spells04.png");
+		files.add("spells05.png");
+		files.add("spells06.png");
+		files.add("spells07.png");
 		return files;
 	}
 	
@@ -115,20 +110,20 @@ public class GuiEffectIconButton extends Button {
 	{
 		switch (name)
 		{
-			case "spells1small.png":
-				return SPELLSSMALL01;
-			case "spells2small.png":
-				return SPELLSSMALL02;
-			case "spells3small.png":
-				return SPELLSSMALL03;
-			case "spells4small.png":
-				return SPELLSSMALL04;
-			case "spells5small.png":
-				return SPELLSSMALL05;
-			case "spells6small.png":
-				return SPELLSSMALL06;
-			case "spells7small.png":
-				return SPELLSSMALL07;
+			case "spells1.png":
+				return SPELLS01;
+			case "spells2.png":
+				return SPELLS02;
+			case "spells3.png":
+				return SPELLS03;
+			case "spells4.png":
+				return SPELLS04;
+			case "spells5.png":
+				return SPELLS05;
+			case "spells6.png":
+				return SPELLS06;
+			case "spells7.png":
+				return SPELLS07;
 			default:
 				return null;
 			
@@ -138,13 +133,13 @@ public class GuiEffectIconButton extends Button {
     private int _spellIconsPerFile = 36;
 	private static Point _spellIconStart = new Point(0, 0);
     private static Point _spellIconPadding = new Point (0, 0);
-    private static int _spellFileHeightArea = 64;
-    private static int _spellFileWidthArea = 64;
+    private static int _spellFileHeightArea = 128;
+    private static int _spellFileWidthArea = 128;
     
 	public SpellIconLocation setSpellIconResourceLocations() {
 		for (int spellIconSheet = 0; spellIconSheet < 100; spellIconSheet++)
         {
-			ResourceLocation loc = getResourceLocationByString("spells" + (spellIconSheet + 1) + "small.png");
+			ResourceLocation loc = getResourceLocationByString("spells" + (spellIconSheet + 1) + ".png");
 			if (loc == null)
 				continue;
 			

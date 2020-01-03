@@ -20,7 +20,7 @@ public class GuiInventorySlotButton extends Button {
 	private int slotIcon;
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
+	public void render(int posX, int posY, float partialTicks) {
 		if (!this.visible)
 			return;
 		
@@ -54,15 +54,13 @@ public class GuiInventorySlotButton extends Button {
 			this.blit(this.x, this.y, position.y,position.x, this.width, this.width-1);
 		}
 		
-		this.renderBg(Minecraft.getInstance(), mouseX, mouseY);
+		this.renderBg(Minecraft.getInstance(), posX, posY);
 		String displayString = getSlotNameById(this.slotIcon);
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 
 		if (ClientState.getInstance() == null || ClientState.getInstance().getEquipSlots() == null)
 			return;
 				
-		net.minecraft.client.renderer.ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-		
 		renderSlotIcon(this.slotIcon);
 		
 	}
