@@ -109,6 +109,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
+		solinia3ui.LOGGER.info("received new message mob vital");
 		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name));
     	context.get().setPacketHandled(true);
 	}
