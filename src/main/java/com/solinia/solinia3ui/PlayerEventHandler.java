@@ -32,51 +32,69 @@ public class PlayerEventHandler {
 	public void onServerStarting(PlaySoundEvent event) {
 		if (!event.getSound().getCategory().equals(SoundCategory.MUSIC))
 			return;
-		solinia3ui.LOGGER.info("Detected playsound event" + event.getSound().getSoundLocation().getPath());
+		//solinia3ui.LOGGER.info("Detected playsound event" + event.getSound().getSoundLocation().getPath());
 		
 		// cancel vanilla music
 		if (!event.getSound().getSoundLocation().getNamespace().equals("solinia3ui"))
 		{
-			solinia3ui.LOGGER.info("Cancelled vanilla music event" + event.getSound().getSoundLocation().getPath());
+			//solinia3ui.LOGGER.info("Cancelled vanilla music event" + event.getSound().getSoundLocation().getPath());
 			event.setResultSound(null);
 			return;
 		}
+		
+		String zoneMusic = ClientState.getInstance().zoneMusic;
+		boolean isZoneMusicPlaying = !(zoneMusic == null || zoneMusic.equals(""));
 		
 		try
 		{
-		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
-		Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
-		for(ISound sound : playingSounds.keySet())
-		{
-			if (!sound.getCategory().equals(SoundCategory.MUSIC))
-				continue;
+			SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
+			Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
 			
-			if (sound.getSound().getSoundLocation().equals(event.getSound().getSoundLocation()))
+			if (!event.getSound().getSoundLocation().getPath().equals(zoneMusic))
 			{
+				// Why are we trying to play some zone music we are not in?
+				solinia3ui.LOGGER.info("im being asked to play " + event.getSound().getSoundLocation().getPath() + " which is not the zone music " + zoneMusic);
 				event.setResultSound(null);
-				solinia3ui.LOGGER.info("Currently Playing " + sound.getSoundLocation().getPath() + " so i will ignore request to play " + event.getSound().getSoundLocation().getPath());
 				return;
-			} else {
-				soundEngine.sndHandler.stop(sound);
 			}
 			
-		}
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-			return;
-		}
+			for(ISound sound : playingSounds.keySet())
+			{
+				if (!sound.getCategory().equals(SoundCategory.MUSIC))
+					continue;
+				
+				if (!isZoneMusicPlaying)
+				{
+					// No zone music is playing so we should stop all playing music
+					soundEngine.sndHandler.stop(sound);
+					continue;
+				}
+				
+				if (!sound.getSoundLocation().getPath().equals(zoneMusic))
+				{
+					// Why are we trying to play some zone music we are not in?
+					solinia3ui.LOGGER.info("i found playing music " + sound.getSoundLocation().getPath() + " which is not the zone music " + zoneMusic + " so im stopping it");
+					soundEngine.sndHandler.stop(sound);
+					continue;
+				}
+				
+				// if we are being requested to play this sound and it is already playing then just cancel the request and let the play continue
+				if (sound.getSound().getSoundLocation().equals(event.getSound().getSoundLocation()))
+				{
+					event.setResultSound(null);
+					solinia3ui.LOGGER.info("Im already playing " + sound.getSoundLocation().getPath() + " so i will ignore request to play " + event.getSound().getSoundLocation().getPath());
+					return;
+				}
+				
+				
+			}
+	
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				return;
+			}
 		
-		if(Minecraft.getInstance().getSoundHandler().isPlaying(event.getSound()))
-		{
-			event.setResultSound(null);
-			solinia3ui.LOGGER.info("Cancelled event for sound that was already playing" + event.getSound().getSoundLocation().getPath());
-			return;
-		}
-		
-		// do something when the server starts
-		solinia3ui.LOGGER.info("Detected music event" + event.getSound().getSoundLocation().getPath());
 		
 	}
 	
