@@ -2,8 +2,6 @@ package com.solinia.solinia3ui;
 
 import java.util.Map;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ChannelManager;
 import net.minecraft.client.audio.ISound;
