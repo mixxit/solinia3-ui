@@ -5,15 +5,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundList;
 import net.minecraft.client.audio.SoundListSerializer;
-import net.minecraft.resources.IResource;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,13 +26,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkEvent.ServerCustomPayloadEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -40,16 +34,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.solinia.solinia3ui.races.LizardmanEntity;
 
 import io.netty.buffer.ByteBuf;
 
@@ -59,6 +50,7 @@ public class solinia3ui {
 	// Directly reference a log4j logger.
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final List<SoundEvent> soundEvents = new ArrayList<SoundEvent>();
+	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
 	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler();
@@ -86,7 +78,8 @@ public class solinia3ui {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		// load complete
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
-
+		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(renderInventoryHandler);
@@ -191,7 +184,8 @@ public class solinia3ui {
 		// some preinit code
 		LOGGER.info("HELLO FROM PREINIT");
 		LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-		ClientState.getInstance().getKeyBinds().registerKeyBinds();
+		
+		proxy.preInit();
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.VITALS, PacketMobVitals.class, PacketMobVitals::encode, PacketMobVitals::new, PacketMobVitals::handle);
 		channelToClient.registerMessage(Solinia3UIPacketDiscriminators.SPELLBOOKPAGE, PacketOpenSpellbook.class, PacketOpenSpellbook::encode, PacketOpenSpellbook::new, PacketOpenSpellbook::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CASTINGPERCENT, PacketCastingPercent.class, PacketCastingPercent::encode, PacketCastingPercent::new, PacketCastingPercent::handle);
@@ -226,7 +220,7 @@ public class solinia3ui {
 		// do something when the server starts
 		LOGGER.info("HELLO from server starting");
 	}
-
+	
 	// You can use EventBusSubscriber to automatically subscribe events on the
 	// contained class (this is subscribing to the MOD
 	// Event bus for receiving Registry Events)
@@ -237,6 +231,12 @@ public class solinia3ui {
 			// register a new block here
 			LOGGER.info("HELLO from Register Block");
 		}
+		
+		@SubscribeEvent
+	    public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event)
+	    {
+			event.getRegistry().register(EntityType.Builder.<LizardmanEntity>create(LizardmanEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(1f, 1f).build("lizardman").setRegistryName("solinia3ui", "lizardman"));
+	    }
 		
 		@SubscribeEvent
 		public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
