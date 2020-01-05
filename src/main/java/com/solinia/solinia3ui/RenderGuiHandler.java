@@ -194,8 +194,8 @@ public class RenderGuiHandler {
 			i++;
 		}
 		
-		int height = Minecraft.getInstance().mainWindow.getHeight();
-		int width = Minecraft.getInstance().mainWindow.getWidth();
+		int height = Minecraft.getInstance().mainWindow.getScaledWidth();
+		int width = Minecraft.getInstance().mainWindow.getScaledHeight();
 
 		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX())/2,(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY())/2);
 		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
