@@ -1,11 +1,8 @@
 package com.solinia.solinia3ui.races;
 
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.model.RavagerModel;
 import net.minecraft.entity.monster.RavagerEntity;
-import net.minecraft.entity.passive.fish.TropicalFishEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class LizardmanRenderer extends MobRenderer<LizardmanEntity, LizardmanModel>
