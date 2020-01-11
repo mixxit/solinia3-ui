@@ -111,7 +111,29 @@ public class solinia3ui {
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"you_walk_this_earth_alone"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"in_the_amazonas"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"south_ro"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"arcstone"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"descent"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn1"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn2"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn3"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn4"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn5"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn6"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn7"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn8"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"lisg_tavern"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"mermaidstolostboys"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sacred_order"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_beyondgoodandevil"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_eidolon"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_freedom"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_jade"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_littlebigadventure"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_patagonia"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theblackwaltz"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thegatesofsigil"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theillusionist"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theoryofmachines"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thereisaplace"));
 	}
 	
 	private SoundEvent createSoundEvent(String mod, String name)
