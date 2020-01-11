@@ -45,6 +45,7 @@ public class GuiEffectIconButton extends Button {
 			this.spellName = spellName;
 		} catch (Exception e)
 		{
+			e.printStackTrace();
 			return;
 		}
 	}

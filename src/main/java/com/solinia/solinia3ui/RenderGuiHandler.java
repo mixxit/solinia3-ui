@@ -178,23 +178,36 @@ public class RenderGuiHandler {
 			}
 			
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
-			
 		}
 		
 		int i = 0;
-		for(Entry<Integer, EffectSlot> effectSlots : ClientState.getInstance().getEffects().getSlots().entrySet())
+		if (ClientState.getInstance().getEffects().getSlots().entrySet().size() > 0)
 		{
-			if (effectSlots.getValue() != null)
+			for(Entry<Integer, EffectSlot> effectSlots : ClientState.getInstance().getEffects().getSlots().entrySet())
 			{
-				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name);
-			} else {
-				effectSlotButtons.get(i).setMessage(-1+"^^"+-1);
+				if (effectSlots.getValue() != null)
+				{
+					effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name);
+				} else {
+					effectSlotButtons.get(i).setMessage("-1^-1^");
+				}
+				
+				effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
+				
+				i++;
 			}
-			
-			effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
-			
-			i++;
+		} else {
+			for(int es = 0; es < 16; es++)
+			{
+				if (effectSlotButtons.get(es) == null || effectSlotButtons.get(es).getMessage().equals("-1^-1^"))
+					continue;
+				
+				effectSlotButtons.get(es).setMessage("-1^-1^");
+				effectSlotButtons.get(es).render(effectSize*es, 10, 1.0F);
+			}
 		}
+		
+		
 		
 		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
 		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
@@ -210,8 +223,9 @@ public class RenderGuiHandler {
 		}
 		
 		GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
-		if (effectSlotButton != null)
+		if (effectSlotButton != null && effectSlotButton.getSpellName() != null && !effectSlotButton.getSpellName().equals(""))
 		{
+			
 			String[] text = {effectSlotButton.getSpellName()};
 	        List temp = Arrays.asList(text);
 	        int maxTextWidth = 120;
