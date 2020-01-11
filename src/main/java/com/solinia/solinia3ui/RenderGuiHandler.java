@@ -50,7 +50,7 @@ public class RenderGuiHandler {
 			
 			int positionOfIconX = ((startX-effectSize)+(currentColumn*effectSize));
 			int positionOfIconY = ((startY-effectSize)+(currentRow*effectSize));
-			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+-1, new GuiEffectButtonPressable(slot)));
+			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+-1+"^", new GuiEffectButtonPressable(slot)));
 			
 			if (currentColumn < rowSize)
 			{
@@ -186,9 +186,9 @@ public class RenderGuiHandler {
 		{
 			if (effectSlots.getValue() != null)
 			{
-				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId);
+				effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name);
 			} else {
-				effectSlotButtons.get(i).setMessage(-1+"^"+-1);
+				effectSlotButtons.get(i).setMessage(-1+"^^"+-1);
 			}
 			
 			effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
@@ -207,6 +207,16 @@ public class RenderGuiHandler {
 		        
 		        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX())/2, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY())/2, Minecraft.getInstance().mainWindow.getScaledWidth(), Minecraft.getInstance().mainWindow.getScaledHeight(), maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 			}
+		}
+		
+		GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
+		if (effectSlotButton != null)
+		{
+			String[] text = {effectSlotButton.getSpellName()};
+	        List temp = Arrays.asList(text);
+	        int maxTextWidth = 120;
+	        
+	        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX())/2, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY())/2, Minecraft.getInstance().mainWindow.getScaledWidth(), Minecraft.getInstance().mainWindow.getScaledHeight(), maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 		}
 	}
 }
