@@ -266,7 +266,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn1": {
+	"eqn1": {
 		"category": "music",
 		"sounds": [
 			{
@@ -275,7 +275,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn2": {
+	"eqn2": {
 		"category": "music",
 		"sounds": [
 			{
@@ -284,7 +284,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn3": {
+	"eqn3": {
 		"category": "music",
 		"sounds": [
 			{
@@ -293,7 +293,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn4": {
+	"eqn4": {
 		"category": "music",
 		"sounds": [
 			{
@@ -302,7 +302,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn5": {
+	"eqn5": {
 		"category": "music",
 		"sounds": [
 			{
@@ -311,7 +311,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn6": {
+	"eqn6": {
 		"category": "music",
 		"sounds": [
 			{
@@ -320,7 +320,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn7": {
+	"eqn7": {
 		"category": "music",
 		"sounds": [
 			{
@@ -329,7 +329,7 @@
 			}
 		]
 	},
-	"solinia3ui:eqn8": {
+	"eqn8": {
 		"category": "music",
 		"sounds": [
 			{
@@ -338,7 +338,7 @@
 			}
 		]
 	},
-	"solinia3ui:lisg_tavern": {
+	"lisg_tavern": {
 		"category": "music",
 		"sounds": [
 			{
@@ -347,7 +347,7 @@
 			}
 		]
 	},
-	"solinia3ui:mermaidstolostboys": {
+	"mermaidstolostboys": {
 		"category": "music",
 		"sounds": [
 			{
@@ -356,7 +356,7 @@
 			}
 		]
 	},
-	"solinia3ui:sacred_order": {
+	"sacred_order": {
 		"category": "music",
 		"sounds": [
 			{
@@ -365,7 +365,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_beyondgoodandevil": {
+	"sb_beyondgoodandevil": {
 		"category": "music",
 		"sounds": [
 			{
@@ -374,7 +374,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_eidolon": {
+	"sb_eidolon": {
 		"category": "music",
 		"sounds": [
 			{
@@ -383,7 +383,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_freedom": {
+	"sb_freedom": {
 		"category": "music",
 		"sounds": [
 			{
@@ -392,7 +392,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_jade": {
+	"sb_jade": {
 		"category": "music",
 		"sounds": [
 			{
@@ -401,7 +401,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_littlebigadventure": {
+	"sb_littlebigadventure": {
 		"category": "music",
 		"sounds": [
 			{
@@ -410,7 +410,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_patagonia": {
+	"sb_patagonia": {
 		"category": "music",
 		"sounds": [
 			{
@@ -419,7 +419,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_theblackwaltz": {
+	"sb_theblackwaltz": {
 		"category": "music",
 		"sounds": [
 			{
@@ -428,7 +428,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_thegatesofsigil": {
+	"sb_thegatesofsigil": {
 		"category": "music",
 		"sounds": [
 			{
@@ -437,7 +437,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_theillusionist": {
+	"sb_theillusionist": {
 		"category": "music",
 		"sounds": [
 			{
@@ -446,7 +446,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_theoryofmachines": {
+	"sb_theoryofmachines": {
 		"category": "music",
 		"sounds": [
 			{
@@ -455,7 +455,7 @@
 			}
 		]
 	},
-	"solinia3ui:sb_thereisaplace": {
+	"sb_thereisaplace": {
 		"category": "music",
 		"sounds": [
 			{
