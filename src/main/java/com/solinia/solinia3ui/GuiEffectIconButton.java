@@ -25,6 +25,7 @@ public class GuiEffectIconButton extends Button {
 	private int spellId;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 	private String spellName;
+	private String spellTicksLeft;
 
 	public GuiEffectIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
@@ -37,12 +38,14 @@ public class GuiEffectIconButton extends Button {
 		String displayIconStr = text.split("\\^",-1)[0];
 		String spellStr = text.split("\\^",-1)[1];
 		String spellName = text.split("\\^",-1)[2];
+		String spellTicksLeft = text.split("\\^",-1)[3];
 		
 		try
 		{
 			this.spellIcon = Integer.parseInt(displayIconStr);
 			this.spellId = Integer.parseInt(spellStr);
 			this.spellName = spellName;
+			this.setSpellTicksLeft(spellTicksLeft);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -179,5 +182,13 @@ public class GuiEffectIconButton extends Button {
         }
 		
 		return null;
+	}
+
+	public String getSpellTicksLeft() {
+		return spellTicksLeft;
+	}
+
+	public void setSpellTicksLeft(String spellTicksLeft) {
+		this.spellTicksLeft = spellTicksLeft;
 	}
 }

@@ -45,6 +45,15 @@ public class MemorisedSpells {
 	public int SpellSlot7NewIcon;
 	public int SpellSlot8NewIcon;
 
+	public int SpellSlot1Level;
+	public int SpellSlot2Level;
+	public int SpellSlot3Level;
+	public int SpellSlot4Level;
+	public int SpellSlot5Level;
+	public int SpellSlot6Level;
+	public int SpellSlot7Level;
+	public int SpellSlot8Level;
+	
 	public MemorisedSpells() {
 		// TODO Auto-generated constructor stub
 	}
@@ -228,8 +237,40 @@ public class MemorisedSpells {
 				return 0;
 		}
 	}
+	
+	public int getSlotLevel(int slot) {
+		switch(slot)
+		{
+			case 1:
+				return SpellSlot1Level;
+			
+			case 2:
+				return SpellSlot2Level;
+			
+			case 3:
+				return SpellSlot3Level;
+			
+			case 4:
+				return SpellSlot4Level;
+			
+			case 5:
+				return SpellSlot5Level;
+			
+			case 6:
+				return SpellSlot6Level;
+			
+			case 7:
+				return SpellSlot7Level;
+			
+			case 8:
+				return SpellSlot8Level;
+				
+			default:
+				return 0;
+		}
+	}
 
-	public void setSlot(int spellSlot, int id, int icon, int newIcon, int memIcon, String name) {
+	public void setSlot(int spellSlot, int id, int icon, int newIcon, int memIcon, String name, int level) {
 		switch(spellSlot)
 		{
 			case 1:
@@ -238,6 +279,7 @@ public class MemorisedSpells {
 				SpellSlot1Icon = icon;
 				SpellSlot1MemIcon = memIcon;
 				SpellSlot1NewIcon = newIcon;
+				SpellSlot1Level = level;
 			break;
 			case 2:
 				SpellSlot2Id = id;
@@ -245,6 +287,7 @@ public class MemorisedSpells {
 				SpellSlot2Icon = icon;
 				SpellSlot2MemIcon = memIcon;
 				SpellSlot2NewIcon = newIcon;
+				SpellSlot2Level = level;
 			break;
 			case 3:
 				SpellSlot3Id = id;
@@ -252,6 +295,7 @@ public class MemorisedSpells {
 				SpellSlot3Icon = icon;
 				SpellSlot3MemIcon = memIcon;
 				SpellSlot3NewIcon = newIcon;
+				SpellSlot3Level = level;
 			break;
 			case 4:
 				SpellSlot4Id = id;
@@ -259,6 +303,7 @@ public class MemorisedSpells {
 				SpellSlot4Icon = icon;
 				SpellSlot4MemIcon = memIcon;
 				SpellSlot4NewIcon = newIcon;
+				SpellSlot4Level = level;
 			break;
 			case 5:
 				SpellSlot5Id = id;
@@ -266,6 +311,7 @@ public class MemorisedSpells {
 				SpellSlot5Icon = icon;
 				SpellSlot5MemIcon = memIcon;
 				SpellSlot5NewIcon = newIcon;
+				SpellSlot5Level = level;
 			break;
 			case 6:
 				SpellSlot6Id = id;
@@ -273,6 +319,7 @@ public class MemorisedSpells {
 				SpellSlot6Icon = icon;
 				SpellSlot6MemIcon = memIcon;
 				SpellSlot6NewIcon = newIcon;
+				SpellSlot6Level = level;
 			break;
 			case 7:
 				SpellSlot7Id = id;
@@ -280,6 +327,7 @@ public class MemorisedSpells {
 				SpellSlot7Icon = icon;
 				SpellSlot7MemIcon = memIcon;
 				SpellSlot7NewIcon = newIcon;
+				SpellSlot7Level = level;
 			break;
 			case 8:
 				SpellSlot8Id = id;
@@ -287,6 +335,7 @@ public class MemorisedSpells {
 				SpellSlot8Icon = icon;
 				SpellSlot8MemIcon = memIcon;
 				SpellSlot8NewIcon = newIcon;
+				SpellSlot8Level = level;
 			break;
 			default:
 				return;

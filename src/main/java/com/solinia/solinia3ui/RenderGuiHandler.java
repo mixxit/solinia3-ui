@@ -50,7 +50,7 @@ public class RenderGuiHandler {
 			
 			int positionOfIconX = ((startX-effectSize)+(currentColumn*effectSize));
 			int positionOfIconY = ((startY-effectSize)+(currentRow*effectSize));
-			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+-1+"^", new GuiEffectButtonPressable(slot)));
+			this.effectSlotButtons.put(i,new GuiEffectIconButton(positionOfIconX,positionOfIconY,effectSize,effectSize,-1+"^"+-1+"^"+"0"+"^"+"0", new GuiEffectButtonPressable(slot)));
 			
 			if (currentColumn < rowSize)
 			{
@@ -172,9 +172,9 @@ public class RenderGuiHandler {
 			int slot = (i+1);
 			if (ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot) > 0)
 			{
-				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot)+"^"+ClientState.getInstance().getMemorisedSpells().getSlotName(slot));
+				memorisedButtons.get(i).setMessage(ClientState.getInstance().getMemorisedSpells().getSlotNewIcon(slot)+"^"+Integer.toString(slot)+"^"+ClientState.getInstance().getMemorisedSpells().getSlotName(slot)+"^"+ClientState.getInstance().getMemorisedSpells().getSlotLevel(slot));
 			} else {
-				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot)+"^"+"");
+				memorisedButtons.get(i).setMessage(-1+"^"+Integer.toString(slot)+"^"+"^");
 			}
 			
 			memorisedButtons.get(i).render(memorisedSpellSize*i, 0, 1.0F);
@@ -187,9 +187,9 @@ public class RenderGuiHandler {
 			{
 				if (effectSlots.getValue() != null)
 				{
-					effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name);
+					effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name+"^"+effectSlots.getValue().TicksLeft+"^");
 				} else {
-					effectSlotButtons.get(i).setMessage("-1^-1^");
+					effectSlotButtons.get(i).setMessage("-1^-1^0^0^");
 				}
 				
 				effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
@@ -199,10 +199,10 @@ public class RenderGuiHandler {
 		} else {
 			for(int es = 0; es < 16; es++)
 			{
-				if (effectSlotButtons.get(es) == null || effectSlotButtons.get(es).getMessage().equals("-1^-1^"))
+				if (effectSlotButtons.get(es) == null || effectSlotButtons.get(es).getMessage().equals("-1^-1^0^0^"))
 					continue;
 				
-				effectSlotButtons.get(es).setMessage("-1^-1^");
+				effectSlotButtons.get(es).setMessage("-1^-1^0^0^");
 				effectSlotButtons.get(es).render(effectSize*es, 10, 1.0F);
 			}
 		}
@@ -212,9 +212,9 @@ public class RenderGuiHandler {
 		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
 		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
 		{
-			if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 3)
+			if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 4)
 			{
-				String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2]};
+				String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2],"Level: " + memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[3],"Right click to remove"};
 		        List temp = Arrays.asList(text);
 		        int maxTextWidth = 120;
 		        
@@ -223,12 +223,12 @@ public class RenderGuiHandler {
 		}
 		
 		GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
-		if (effectSlotButton != null && effectSlotButton.getSpellName() != null && !effectSlotButton.getSpellName().equals(""))
+		if (effectSlotButton != null && effectSlotButton.getSpellName() != null && !effectSlotButton.getSpellName().equals("") && !effectSlotButton.getSpellName().equals("0"))
 		{
 			
-			String[] text = {effectSlotButton.getSpellName()};
+			String[] text = {effectSlotButton.getSpellName(), "Ticks: " + effectSlotButton.getSpellTicksLeft(),"Right click to dismiss"};
 	        List temp = Arrays.asList(text);
-	        int maxTextWidth = 120;
+	        int maxTextWidth = 140;
 	        
 	        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()), Minecraft.getInstance().mainWindow.getScaledWidth(), Minecraft.getInstance().mainWindow.getScaledHeight(), maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 		}
