@@ -148,10 +148,10 @@ public class GuiCharacterText extends AbstractGui {
             {
     	        GL11.glScalef(fontHeight,fontHeight,fontHeight);
     	        float mSize = (float)Math.pow(fontHeight,-1);
-    	    	String targetText = "Pet:"; 
-    	    	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight)+69;
+    	    	String targetText = "Pet CTRL-P"; 
+    	    	int lengthOfText = (int)(Minecraft.getInstance().fontRenderer.getStringWidth(targetText)*fontHeight)+51;
     	        int horizontalTextPosition = Minecraft.getInstance().mainWindow.getScaledWidth() - lengthOfText;
-    	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(43*fontHeight);
+    	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(45*fontHeight);
     	        Minecraft.getInstance().fontRenderer.drawString(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
     	        GL11.glScalef(mSize,mSize,mSize);
             }
