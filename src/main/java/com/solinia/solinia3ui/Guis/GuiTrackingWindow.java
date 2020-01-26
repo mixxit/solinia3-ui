@@ -1,10 +1,7 @@
 package com.solinia.solinia3ui.Guis;
 
-import static net.minecraft.util.StringUtils.stripControlCodes;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -12,24 +9,19 @@ import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.solinia3ui;
-import com.solinia.solinia3ui.Guis.GuiTrackingWindow.InfoPanel;
-import com.solinia.solinia3ui.Guis.GuiTrackingWindow.SortType;
 import com.solinia.solinia3ui.Models.TrackingChoice;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.RenderComponentsUtil;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.list.ExtendedList;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.gui.ScrollPanel;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fml.loading.StringUtils;
 
 public class GuiTrackingWindow extends Screen {
 	
@@ -39,9 +31,8 @@ public class GuiTrackingWindow extends Screen {
 	private GuiTrackingTextList.RowEntry trackingSelected = null;
 	private final List<TrackingChoice> unsortedTrackingChoices;
 	private int listWidth;
-    private SortType sortType = SortType.A_TO_Z;
     private int buttonMargin = 1;
-    private boolean sortedRaces = false;
+    private boolean sortedTrackingChoices = false;
 
 	public GuiTrackingWindow(ITextComponent textComponent, List<TrackingChoice> trackingChoices) {
 		super(textComponent);
@@ -54,28 +45,6 @@ public class GuiTrackingWindow extends Screen {
     {
         this.trackingSelected = entry == this.trackingSelected ? null : entry;
         updateCache();
-    }
-	
-    public enum SortType implements Comparator<TrackingChoice>
-    {
-        A_TO_Z{ @Override protected int compare(String name1, String name2){ return name1.compareTo(name2); }};
-
-        Button button;
-        @Override
-		public int compare(TrackingChoice o1, TrackingChoice o2) {
-            String name1 = StringUtils.toLowerCase(stripControlCodes(o1.Name));
-            String name2 = StringUtils.toLowerCase(stripControlCodes(o2.Name));
-            return compare(name1, name2);
-        }
-        
-        protected int compare(String name1, String name2) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		String getButtonText() {
-            return I18n.format(StringUtils.toLowerCase(name()));
-        }
     }
     
 	@Override
@@ -99,18 +68,20 @@ public class GuiTrackingWindow extends Screen {
         int createButtonWidth = Math.min(infoWidth/2, 100);
         
         this.addButton(new Button(trackingList.getWidth() + 8 + 60 + 8 + 60 + 8, this.height - 24, createButtonWidth, 20,
-                "Create Character", b -> createCharacter()));
+                "Track Target", b -> trackTarget()));
 
         children.add(trackingList);
-        
-        resortRaces(SortType.A_TO_Z);
         updateCache();
     }
 		
 
-	private void createCharacter() {
-		//Minecraft.getInstance().player.sendChatMessage("/solinia3core:createcharacterfull " + raceid + " " + classid + " " + gender + " " + idealid + " " + firsttraitid + " " + secondtraitid + " " + flawid + " " + bondid + " " + forename + " " + lastname);
-		//Minecraft.getInstance().player.closeScreen();
+	private void trackTarget() {
+		if (this.trackingSelected == null || this.trackingSelected.getTrackingChoiceId() == null || this.trackingSelected.getTrackingChoice().equals(""))
+			return;
+		
+		System.out.println("Tracking target: " + this.trackingSelected.getTrackingChoiceId());
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:track " + this.trackingSelected.getTrackingChoiceId());
+		Minecraft.getInstance().player.closeScreen();
 	}
 
 	public <T extends ExtendedList.AbstractListEntry<T>> void buildTrackingList(Consumer<T> listViewConsumer, Function<TrackingChoice, T> newEntry)
@@ -130,6 +101,7 @@ public class GuiTrackingWindow extends Screen {
 		solinia3ui.LOGGER.info("Updating cache");
         TextFormatting colour = TextFormatting.WHITE;
         
+        if (trackingSelected != null && trackingSelected.getTrackingChoice() != null)
         if (trackingSelected.getTrackingChoice().Color.equals("RED"))
         	colour = TextFormatting.RED;
     }
@@ -139,36 +111,22 @@ public class GuiTrackingWindow extends Screen {
     {
         trackingList.setSelected(trackingSelected);
 
-        if (!sortedRaces)
+        if (!sortedTrackingChoices)
         {
-            reloadRaces();
-            trackingchoices.sort(sortType);
+            reloadTrackingChoices();
             trackingList.refreshList();
             if (trackingSelected != null)
             {
-            	trackingSelected = trackingList.children().stream().filter(e -> e.getTrackingChoiceId().equals(trackingSelected.getTrackingChoiceId())).findFirst().orElse(null);
+            	trackingSelected = trackingList.children().stream().filter(e -> ((Integer)e.getTrackingChoice().Distance).equals((Integer)trackingSelected.getTrackingChoice().Distance)).findFirst().orElse(null);
                 updateCache();
             }
-            sortedRaces = true;
+            sortedTrackingChoices = true;
         }
     }
 	
-	private void reloadRaces()
+	private void reloadTrackingChoices()
     {
         this.trackingchoices = this.unsortedTrackingChoices.stream().collect(Collectors.toList());
-    }
-	
-	
-	private void resortRaces(SortType newSort)
-    {
-        this.sortType = newSort;
-
-        for (SortType sort : SortType.values())
-        {
-            if (sort.button != null)
-                sort.button.active = sortType != sort;
-        }
-        sortedRaces = false;
     }
 	
 	class InfoPanel extends ScrollPanel {

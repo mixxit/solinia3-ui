@@ -1,6 +1,5 @@
 package com.solinia.solinia3ui.Guis;
 
-import com.solinia.solinia3ui.Guis.GuiRaceTextList.RaceEntry;
 import com.solinia.solinia3ui.Models.TrackingChoice;
 
 import net.minecraft.client.gui.FontRenderer;

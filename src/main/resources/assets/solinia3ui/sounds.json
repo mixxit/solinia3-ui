@@ -463,5 +463,122 @@
 				"stream": true
 			}
 		]
+	},
+	"bs_instinct": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:bs_instinct",
+				"stream": true
+			}
+		]
+	},
+	"per_augury": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:per_augury",
+				"stream": true
+			}
+		]
+	},
+	"per_desert": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:per_desert",
+				"stream": true
+			}
+		]
+	},
+	"per_wuxia": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:per_wuxia",
+				"stream": true
+			}
+		]
+	},
+	"sb_encounter": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:sb_encounter",
+				"stream": true
+			}
+		]
+	},
+	"sb_fury": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:sb_fury",
+				"stream": true
+			}
+		]
+	},
+	"sb_marchofmidnight": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:sb_marchofmidnight",
+				"stream": true
+			}
+		]
+	},
+	"sb_soar": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:sb_soar",
+				"stream": true
+			}
+		]
+	},
+	"sb_thingsthatkeepushere": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:sb_thingsthatkeepushere",
+				"stream": true
+			}
+		]
+	},
+	"tl_peacefulsanctuary": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:tl_peacefulsanctuary",
+				"stream": true
+			}
+		]
+	},
+	"wb_lightindarkplaces": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:wb_lightindarkplaces",
+				"stream": true
+			}
+		]
+	},
+	"wb_spacesbetween": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:wb_spacesbetween",
+				"stream": true
+			}
+		]
+	},
+	"wb_thefall": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "solinia3ui:wb_thefall",
+				"stream": true
+			}
+		]
 	}
 }
