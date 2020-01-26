@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.solinia.solinia3ui.Models.AlignmentType;
+import com.solinia.solinia3ui.Models.Bond;
+import com.solinia.solinia3ui.Models.Effects;
+import com.solinia.solinia3ui.Models.EntityVital;
+import com.solinia.solinia3ui.Models.Flaw;
+import com.solinia.solinia3ui.Models.Ideal;
+import com.solinia.solinia3ui.Models.KeyBinds;
+import com.solinia.solinia3ui.Models.MemorisedSpells;
+import com.solinia.solinia3ui.Models.Oath;
+import com.solinia.solinia3ui.Models.Trait;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ChannelManager;
 import net.minecraft.client.audio.ISound;
@@ -25,11 +36,11 @@ public class ClientState {
 	private double castingPercent = 0F;
 	public int zoneId = 0;
 	public String zoneMusic = "";
-	List<Ideal> ideals = generateIdeals();
-	List<Bond> bonds = generateBonds();
-	List<Flaw> flaws = generateFlaws();
-	List<Trait> traits = generateTraits();
-	List<Oath> oaths = generateOaths();
+	public List<Ideal> ideals = generateIdeals();
+	public List<Bond> bonds = generateBonds();
+	public List<Flaw> flaws = generateFlaws();
+	public List<Trait> traits = generateTraits();
+	public List<Oath> oaths = generateOaths();
 	
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	private EquipSlots equipSlots;

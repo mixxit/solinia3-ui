@@ -1,8 +1,6 @@
 package com.solinia.solinia3ui.races;
 
 import net.minecraft.client.renderer.model.ModelBox;
-import net.minecraft.entity.monster.RavagerEntity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 

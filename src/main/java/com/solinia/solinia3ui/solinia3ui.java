@@ -40,6 +40,20 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.solinia.solinia3ui.Guis.GuiCharacterCreation;
+import com.solinia.solinia3ui.Guis.GuiSpellbook;
+import com.solinia.solinia3ui.Guis.GuiTrackingWindow;
+import com.solinia.solinia3ui.Handlers.EntityEventHandler;
+import com.solinia.solinia3ui.Handlers.KeyInputHandler;
+import com.solinia.solinia3ui.Handlers.PlayerEventHandler;
+import com.solinia.solinia3ui.Handlers.RenderGuiHandler;
+import com.solinia.solinia3ui.Handlers.RenderInventoryHandler;
+import com.solinia.solinia3ui.Handlers.RenderLivingHandler;
+import com.solinia.solinia3ui.Models.CharacterCreation;
+import com.solinia.solinia3ui.Models.ClientProxy;
+import com.solinia.solinia3ui.Models.Solinia3UIKeyBinding;
+import com.solinia.solinia3ui.Models.SpellbookPage;
+import com.solinia.solinia3ui.Models.TrackingChoice;
 import com.solinia.solinia3ui.races.LizardmanEntity;
 
 import io.netty.buffer.ByteBuf;
@@ -217,6 +231,7 @@ public class solinia3ui {
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.CHARCREATION, PacketOpenCharacterCreation.class, PacketOpenCharacterCreation::encode, PacketOpenCharacterCreation::new, PacketOpenCharacterCreation::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.PLAYSOUNDANIM, PacketPlaySoundAnim.class, PacketPlaySoundAnim::encode, PacketPlaySoundAnim::new, PacketPlaySoundAnim::handle);
         channelToClient.registerMessage(Solinia3UIPacketDiscriminators.INZONE, PacketInZone.class, PacketInZone::encode, PacketInZone::new, PacketInZone::handle);
+        channelToClient.registerMessage(Solinia3UIPacketDiscriminators.TRACKING, PacketTrackingChoices.class, PacketTrackingChoices::encode, PacketTrackingChoices::new, PacketTrackingChoices::handle);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -304,6 +319,22 @@ public class solinia3ui {
 		
 		StringTextComponent textComponent = new StringTextComponent("CharacterCreation");
 		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiCharacterCreation(textComponent, characterCreation));
+		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public static void openTrackingWindow(List<TrackingChoice> trackingChoices) {
+		System.out.println("received tracking message");
+
+		
+		if (trackingChoices == null)
+			return;
+		
+		// if already in then dont open
+		if (Minecraft.getInstance().currentScreen instanceof GuiTrackingWindow)
+			return;
+		
+		StringTextComponent textComponent = new StringTextComponent("Tracking");
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiTrackingWindow(textComponent, trackingChoices));
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
