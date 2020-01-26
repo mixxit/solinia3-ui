@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import com.solinia.solinia3ui.Models.EffectSlot;
+import com.solinia.solinia3ui.Models.Effects;
+import com.solinia.solinia3ui.Models.ISoliniaPacket;
+
 import io.netty.buffer.ByteBufInputStream;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
