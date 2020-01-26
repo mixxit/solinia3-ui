@@ -806,8 +806,10 @@ public class ClientState {
 		solinia3ui.LOGGER.info("Seeking path: " + this.zoneMusic);
 		for(SoundEvent event : solinia3ui.soundEvents)
 		{
+			solinia3ui.LOGGER.info("Found " + event.getName().getPath().toUpperCase());
 			if (!event.getName().getPath().toUpperCase().equals(this.zoneMusic.toUpperCase()))
 				continue;
+			
 			
 			boolean repeat = true;
 			int repeatTime = 5;

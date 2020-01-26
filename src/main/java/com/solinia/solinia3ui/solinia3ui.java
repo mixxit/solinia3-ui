@@ -148,6 +148,19 @@ public class solinia3ui {
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theillusionist"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theoryofmachines"));
 		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thereisaplace"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"bs_instinct"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_augury"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_desert"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_wuxia"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_encounter"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_fury"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_marchofmidnight"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_soar"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thingsthatkeepushere"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"tl_peacefulsanctuary"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_lightindarkplaces"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_spacesbetween"));
+		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_thefall"));
 	}
 	
 	private SoundEvent createSoundEvent(String mod, String name)
