@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.Models.SpellIconLocation;
 
@@ -26,9 +27,11 @@ public class GuiSpellIconButton extends Button {
 	protected static final ResourceLocation SPELLS07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7.png");
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
-
-	public GuiSpellIconButton(int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
+	Minecraft minecraft;
+	
+	public GuiSpellIconButton(Minecraft minecraft, int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
+		this.minecraft = minecraft;
 	}
 	
 	
@@ -78,7 +81,15 @@ public class GuiSpellIconButton extends Button {
 		if (this.getMessage().split("\\^",-1).length > 1)
 			displayString = this.getMessage().split("\\^",-1)[1];
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
-
+	}
+	
+	public boolean IsMouseOverButton()
+	{
+		return this.isMouseOver(
+				(int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),
+				(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
+			
+	
 	}
 	
 	public void drawStringCenteredScale(FontRenderer fontRendererIn, String text, int x, int y, float size, int color) {

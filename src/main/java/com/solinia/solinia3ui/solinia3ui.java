@@ -66,11 +66,11 @@ public class solinia3ui {
 	public static final List<SoundEvent> soundEvents = new ArrayList<SoundEvent>();
 	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
-	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler();
-	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler();
+	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler(Minecraft.getInstance());
+	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler(Minecraft.getInstance());
 	private KeyInputHandler keyInputHandler = new KeyInputHandler();
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
-	private EntityEventHandler entityEventHandler = new EntityEventHandler();
+	private EntityEventHandler entityEventHandler = new EntityEventHandler(Minecraft.getInstance());
 	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
@@ -184,6 +184,11 @@ public class solinia3ui {
             return null;
         }
     };
+    
+    public RenderInventoryHandler getRenderInventoryHandler()
+    {
+    	return this.renderInventoryHandler;
+    }
 	
 	protected static Map<String, SoundList> getSoundMap(InputStream stream)
     {

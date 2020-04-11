@@ -58,7 +58,10 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
 			int MemIcon = Integer.parseInt(spellArray[4]);
 			String Name = spellArray[5];
 			int Level = Integer.parseInt(spellArray[6]);
-			this.spellbookPage.setSpellSlot(slotNo,Id,Icon,NewIcon,MemIcon,Name,Level);
+			String slotDescription = "";
+			if (dataArray[i].split("\\|",-1).length > 7)
+				slotDescription = spellArray[7];
+			this.spellbookPage.setSpellSlot(slotNo,Id,Icon,NewIcon,MemIcon,Name,Level,slotDescription);
 		}
 	}
 	
@@ -76,7 +79,9 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
 					+ "|" + this.spellbookPage.getSlotNewIcon(i)
 					+ "|" + this.spellbookPage.getSlotMemIcon(i)
 					+ "|" + this.spellbookPage.getSlotName(i)
-					+ "|" + this.spellbookPage.getSlotLevel(i);
+					+ "|" + this.spellbookPage.getSlotLevel(i)
+					+ "|" + this.spellbookPage.getSlotDescription(i)
+				;
 		}
 		return packetData;
 	}
