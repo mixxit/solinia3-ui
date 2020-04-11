@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.io.DataInputStream;
 import java.io.IOException;
+
+import com.solinia.solinia3ui.InvalidPacketException;
+import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.ISoliniaPacket;
 import com.solinia.solinia3ui.Models.TrackingChoice;
 

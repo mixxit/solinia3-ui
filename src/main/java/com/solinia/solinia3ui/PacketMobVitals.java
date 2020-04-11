@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.function.Supplier;
 
+import com.solinia.solinia3ui.ClientState;
+import com.solinia.solinia3ui.InvalidPacketException;
+import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.ISoliniaPacket;
 
 import io.netty.buffer.ByteBufInputStream;
@@ -16,6 +19,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	private float manaPercent = 0F;
 	private int entityId = 0;
 	private String name = "";
+	private int level = 0;
 	
 	PacketMobVitals(PacketBuffer buf) throws RuntimeException
     {
@@ -56,12 +60,14 @@ public class PacketMobVitals implements ISoliniaPacket {
 			// not valid int (ie null
 		}
 		String name = dataArray[4];
+		int level = Integer.parseInt(dataArray[5]);
 		
 		this.partyMember = partyMember;
 		this.healthPercent = healthPercent;
 		this.manaPercent = manaPercent;
 		this.entityId = entityId;
 		this.name = name;
+		this.level = level;
 	}
 	
 	public int getPartyMember()
@@ -89,6 +95,11 @@ public class PacketMobVitals implements ISoliniaPacket {
 		return this.name;
 	}
 	
+	public int getLevel()
+	{
+		return this.level;
+	}
+	
 	public String toPacketData()
 	{
 		String packetData = "";
@@ -100,7 +111,9 @@ public class PacketMobVitals implements ISoliniaPacket {
 				+ "^" + getHealthPercent() 
 				+ "^" + getManaPercent()
 				+ "^" + uniqueString
-				+ "^" + getName();
+				+ "^" + getName()
+				+ "^" + getLevel()
+				;
 		return packetData;
 	}
 	
@@ -112,7 +125,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
 		solinia3ui.LOGGER.info("received new message mob vital");
-		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name));
+		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name, this.level));
     	context.get().setPacketHandled(true);
 	}
 }
