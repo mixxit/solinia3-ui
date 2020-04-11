@@ -33,9 +33,10 @@ public class RenderGuiHandler {
 	
 	public ConcurrentHashMap<Integer,GuiMemSpellIconButton> memorisedButtons = new ConcurrentHashMap<Integer,GuiMemSpellIconButton>();
 	public ConcurrentHashMap<Integer,Button> effectSlotButtons = new ConcurrentHashMap<Integer,Button>();
-	
-	public RenderGuiHandler()
+	Minecraft minecraft;
+	public RenderGuiHandler(Minecraft minecraft)
 	{
+		this.minecraft = minecraft;
 		int baseX = 0;
         int baseY = 0;
         
@@ -47,7 +48,7 @@ public class RenderGuiHandler {
 			this.memorisedButtons.put(i,new GuiMemSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
 
-		int startX = Minecraft.getInstance().mainWindow.getScaledWidth()-(effectSize*6);
+		int startX = this.minecraft.mainWindow.getScaledWidth()-(effectSize*6);
 		int startY = 20-effectSize;
 		int rowSize = 5;
 		
@@ -80,7 +81,7 @@ public class RenderGuiHandler {
 		if (event.isCanceled())
 			return;
 		
-		if (Minecraft.getInstance().player == null)
+		if (this.minecraft.player == null)
 			return;
 
 		
@@ -93,7 +94,7 @@ public class RenderGuiHandler {
 			return;
 		
 		// not in game check
-		if (Minecraft.getInstance().player == null)
+		if (this.minecraft.player == null)
 			return;
 		
 		if (event.getGui() instanceof GuiSpellbook)
@@ -117,11 +118,11 @@ public class RenderGuiHandler {
 	}
 	
 	private void removeSpellSlot(int memorisedSpellSlot) {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + 0);
+		this.minecraft.player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + 0);
 	}
 
 	private void removeEffectSpellId(int spellId) {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:effects remove " + spellId);
+		this.minecraft.player.sendChatMessage("/solinia3core:effects remove " + spellId);
 	}
 
 	private void handleMainScreenClickWithSpellbookOpen(GuiSpellbook spellBook, double x, double y, int button) {
@@ -135,7 +136,7 @@ public class RenderGuiHandler {
 			if (selectedSpellid < 1)
 				return; 
 		
-			Minecraft.getInstance().player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
+			this.minecraft.player.sendChatMessage("/solinia3core:memorisespell " + memorisedSpellSlot + " " + selectedSpellid);
 		} else {
 			removeSpellSlot(memorisedSpellSlot);
 		}
@@ -171,10 +172,10 @@ public class RenderGuiHandler {
 		if (event.isCanceled())
 			return;
 		
-		if (Minecraft.getInstance().player == null)
+		if (this.minecraft.player == null)
 			return;
 		
-		new GuiCharacterText();
+		new GuiCharacterText(minecraft);
 		
 		for(int i = 0; i < memorisedButtons.size(); i++)
 		{
@@ -216,9 +217,8 @@ public class RenderGuiHandler {
 			}
 		}
 		
-		
-		
-		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
+		// Render mem slot hover
+		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
 		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
 		{
 			if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 4)
@@ -227,11 +227,12 @@ public class RenderGuiHandler {
 		        List temp = Arrays.asList(text);
 		        int maxTextWidth = 120;
 		        
-		        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()), Minecraft.getInstance().mainWindow.getScaledWidth(), Minecraft.getInstance().mainWindow.getScaledHeight(), maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+		        GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 			}
 		}
 		
-		GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()));
+		// Render effects hover
+		GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
 		if (effectSlotButton != null && effectSlotButton.getSpellName() != null && !effectSlotButton.getSpellName().equals("") && !effectSlotButton.getSpellName().equals("0"))
 		{
 			
@@ -239,7 +240,7 @@ public class RenderGuiHandler {
 	        List temp = Arrays.asList(text);
 	        int maxTextWidth = 140;
 	        
-	        GuiUtils.drawHoveringText(temp, (int)Math.round(Minecraft.getInstance().mouseHelper.getMouseX() * (double)Minecraft.getInstance().mainWindow.getScaledWidth() / (double)Minecraft.getInstance().mainWindow.getWidth()),(int)Math.round(Minecraft.getInstance().mouseHelper.getMouseY() * (double)Minecraft.getInstance().mainWindow.getScaledHeight() / (double)Minecraft.getInstance().mainWindow.getHeight()), Minecraft.getInstance().mainWindow.getScaledWidth(), Minecraft.getInstance().mainWindow.getScaledHeight(), maxTextWidth, Minecraft.getInstance().fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+	        GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 		}
 	}
 }

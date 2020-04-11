@@ -10,6 +10,11 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EntityEventHandler {
+	Minecraft minecraft;
+	public EntityEventHandler(Minecraft minecraft)
+	{
+		this.minecraft = minecraft;
+	}
 	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
 	public void onGui(EntityJoinWorldEvent event)
 	{
@@ -19,10 +24,10 @@ public class EntityEventHandler {
 		if (event.getEntity() == null)
 			return;
 		
-		if (Minecraft.getInstance().player == null)
+		if (this.minecraft.player == null)
 			return;
 		
-		if (event.getEntity().getEntityId() != Minecraft.getInstance().player.getEntityId())
+		if (event.getEntity().getEntityId() != this.minecraft.player.getEntityId())
 			return;
 		
 		ClientState.getInstance().Reset();
@@ -38,7 +43,7 @@ public class EntityEventHandler {
 			return;
 		
 		// not in game check
-		if (Minecraft.getInstance().player == null)
+		if (this.minecraft.player == null)
 			return;
 
 	}
@@ -46,7 +51,7 @@ public class EntityEventHandler {
 	private void SendPluginVersion() {
 		try {
 			solinia3ui.LOGGER.info("/iamversion " + ClientState.getInstance().getModVersion());
-			Minecraft.getInstance().player.sendChatMessage("/solinia3core:iamversion " + ClientState.getInstance().getModVersion());
+			this.minecraft.player.sendChatMessage("/solinia3core:iamversion " + ClientState.getInstance().getModVersion());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

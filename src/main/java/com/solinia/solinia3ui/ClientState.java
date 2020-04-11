@@ -45,7 +45,10 @@ public class ClientState {
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	private EquipSlots equipSlots;
 	private Effects effects = new Effects();
-    private ClientState(){
+	private Minecraft minecraft;
+	
+    private ClientState(Minecraft minecraft){
+    	this.minecraft = minecraft;
 
         if (instance != null){
             throw new RuntimeException("Only accessible via getInstance()");
@@ -501,7 +504,7 @@ public class ClientState {
           
             synchronized (ClientState.class) {
             	if (instance == null) 
-            		instance = new ClientState();
+            		instance = new ClientState(Minecraft.getInstance());
             }
         }
 
@@ -640,78 +643,78 @@ public class ClientState {
 	}
 	
 	private boolean hail() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:say HAIL");
+		this.minecraft.player.sendChatMessage("/solinia3core:say HAIL");
 		return true;
 	}
 
 	private boolean openSpellbook() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook");
+		this.minecraft.player.sendChatMessage("/solinia3core:openspellbook");
 		solinia3ui.LOGGER.info("Opening Spell Book");
 		return true;
 	}
 
 	private boolean openCharacterCreation() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:opencharcreation");
+		this.minecraft.player.sendChatMessage("/solinia3core:opencharcreation");
 		solinia3ui.LOGGER.info("Opening Character Creation");
 		return true;
 	}
 	
 	private boolean toggleSitStand() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:sit");
+		this.minecraft.player.sendChatMessage("/solinia3core:sit");
 		solinia3ui.LOGGER.info("Sitting");
 		return true;
 	}
 
 	private boolean targetPet() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target pet");
+		this.minecraft.player.sendChatMessage("/solinia3core:target pet");
 		solinia3ui.LOGGER.info("Targetting pet");
 		return true;
 	}
 
 	private boolean petattack() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:pet attack");
+		this.minecraft.player.sendChatMessage("/solinia3core:pet attack");
 		solinia3ui.LOGGER.info("Pet attacking");
 		return true;
 	}
 	
 	private boolean consider() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:consider");
+		this.minecraft.player.sendChatMessage("/solinia3core:consider");
 		solinia3ui.LOGGER.info("Considering");
 		return true;
 	}
 
 	private boolean castSpell(int i) {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:castslot " + i);
+		this.minecraft.player.sendChatMessage("/solinia3core:castslot " + i);
 		solinia3ui.LOGGER.info("Casting spell slot " + i);
 		return true;
 	}
 
 	private boolean targetTeamMember(int i) {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target " + i);
+		this.minecraft.player.sendChatMessage("/solinia3core:target " + i);
 		solinia3ui.LOGGER.info("Targetting team member " + i);
 		return true;
 	}
 
 	private boolean targetSelf() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target self");
+		this.minecraft.player.sendChatMessage("/solinia3core:target self");
 		solinia3ui.LOGGER.info("Chat message sent");
 		return true;
 	}
 
 	private boolean cancelTarget() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target clear");
+		this.minecraft.player.sendChatMessage("/solinia3core:target clear");
 		solinia3ui.LOGGER.info("Clearing target");
 		return true;
 	}
 
 	private boolean toggleAutoAttack() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:autoattack");
+		this.minecraft.player.sendChatMessage("/solinia3core:autoattack");
 		solinia3ui.LOGGER.info("Auto attacking");
 		return true;
 	}
 
 	private boolean targetNearestNpc() {
-		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target nearestnpc");
+		this.minecraft.player.sendChatMessage("/solinia3core:target nearestnpc");
 		solinia3ui.LOGGER.info("Targetting nearest npc");
 		return true;
 	}
@@ -773,7 +776,7 @@ public class ClientState {
 	{
 		try
 		{
-		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
+		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, this.minecraft.getSoundHandler(), "field_147694_f");
 		Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
 		for(ISound sound : playingSounds.keySet())
 		{
@@ -815,8 +818,8 @@ public class ClientState {
 			int repeatTime = 5;
 			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 1F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
 			
-			Minecraft.getInstance().getSoundHandler().play(sound);
-			//Minecraft.getInstance().player.playSound(event, 1F, 1F);
+			this.minecraft.getSoundHandler().play(sound);
+			//this.minecraft.player.playSound(event, 1F, 1F);
 		}
 	}
 
