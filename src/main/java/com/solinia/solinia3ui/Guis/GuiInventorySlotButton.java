@@ -87,7 +87,7 @@ public class GuiInventorySlotButton extends Button {
 
 	      for(ITextComponent itextcomponent : list) {
 	    	  
-	         list1.add(itextcomponent.getFormattedText().replace("Â", ""));
+	         list1.add(itextcomponent.getFormattedText()/*.replace("Â", "")*/);
 	      }
 	      
 		screen.renderTooltip(list1,
