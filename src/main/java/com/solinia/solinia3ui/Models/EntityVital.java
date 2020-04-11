@@ -5,12 +5,14 @@ public class EntityVital {
 	float manaPercent = 0.0F;
 	int entityId;
 	String name = "";
+	int level = 0;
 
-	public EntityVital(float healthPercent, float manaPercent, int entityId, String name) {
+	public EntityVital(float healthPercent, float manaPercent, int entityId, String name, int level) {
 		this.healthPercent = healthPercent;
 		this.manaPercent = manaPercent;
 		this.entityId = entityId;
 		this.name = name;
+		this.level = level;
 	}
 	
 	public String getName()
@@ -21,6 +23,11 @@ public class EntityVital {
 	public int getEntityId()
 	{
 		return this.entityId;
+	}
+	
+	public int getLevel()
+	{
+		return this.level;
 	}
 	
 	public float getManaPercent()

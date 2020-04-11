@@ -1,5 +1,7 @@
 package com.solinia.solinia3ui.Guis;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -8,7 +10,8 @@ import com.solinia.solinia3ui.ClientState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.BossInfo.Color;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.BossInfo;
 
 public class GuiCharacterText extends AbstractGui {
 	private static final ResourceLocation GUI_BARS_TEXTURES = new ResourceLocation("textures/gui/bars.png");
@@ -40,7 +43,7 @@ public class GuiCharacterText extends AbstractGui {
     	
     	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, Color.RED, entityHp, overlayType, progressBarWidth);
+        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, BossInfo.Color.RED, entityHp, overlayType, progressBarWidth);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         this.minecraft.fontRenderer.drawString(hp, Math.round(horizontalTextPosition1 / fontHeight),Math.round(vertitalTextPosition1 / fontHeight)+12, 16777215);
         GL11.glScalef(mSize,mSize,mSize);
@@ -63,9 +66,9 @@ public class GuiCharacterText extends AbstractGui {
     	
     	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, Color.RED, entityHp, overlayType, progressBarWidth);
+        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, BossInfo.Color.RED, entityHp, overlayType, progressBarWidth);
         this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*1), Color.BLUE, entityMana, overlayType, progressBarWidth);
+        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*1), BossInfo.Color.BLUE, entityMana, overlayType, progressBarWidth);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         this.minecraft.fontRenderer.drawString(hp, Math.round(horizontalTextPosition1 / fontHeight)+15,Math.round(vertitalTextPosition1 / fontHeight)+12, 16777215);
         GL11.glScalef(mSize,mSize,mSize);
@@ -75,33 +78,183 @@ public class GuiCharacterText extends AbstractGui {
 	{
     	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), Color.YELLOW, (float) ClientState.getInstance().getCastingPercent(), overlayType, progressBarWidth);
+        this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), BossInfo.Color.YELLOW, (float) ClientState.getInstance().getCastingPercent(), overlayType, progressBarWidth);
 	}
 	
 	public void renderTarget(int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType, float fontHeight)
 	{
+    	int mylevel = 0;
+    	int theirlevel = 0;
 		String targetName = "None";
-    	if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getName() != null)
-    		targetName = ClientState.getInstance().getEntityVital(-1).getName();
-    	
+		
+		if (ClientState.getInstance().getEntityVital(0) != null)
+    	{
+			if (ClientState.getInstance().getEntityVital(0).getLevel() > 0)
+				mylevel = ClientState.getInstance().getEntityVital(0).getLevel();
+    	}
+		
     	if (ClientState.getInstance().getEntityVital(-1) != null)
     	{
+        	if (ClientState.getInstance().getEntityVital(-1).getName() != null)
+        		targetName = ClientState.getInstance().getEntityVital(-1).getName();
+
+        	if (ClientState.getInstance().getEntityVital(-1).getLevel() > 0)
+        		theirlevel = ClientState.getInstance().getEntityVital(-1).getLevel();
+        	
         	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
             this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
-            this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), Color.RED, (float) (ClientState.getInstance().getEntityVital(-1).getHealthPercent()), overlayType, progressBarWidth);
+            this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), BossInfo.Color.RED, (float) (ClientState.getInstance().getEntityVital(-1).getHealthPercent()), overlayType, progressBarWidth);
     	}
+    	
+    	TextFormatting con = this.getLevelCon(mylevel, theirlevel);
 
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
     	float mSize = (float)Math.pow(fontHeight,-1);
     	String hp = "["+(int)(ClientState.getInstance().getEntityVital(-1).getHealthPercent()*100)+"% HP]";
+    	
     	String targetText = "Target: " + targetName; 
     	int lengthOfText = (int)(this.minecraft.fontRenderer.getStringWidth(targetText)*fontHeight);
         int horizontalTextPosition = this.minecraft.mainWindow.getScaledWidth() - lengthOfText;
         int vertitalTextPosition = verticalPosition + (progressBarDistances*2) + (int)(15*fontHeight);
-        this.minecraft.fontRenderer.drawString(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
+        this.minecraft.fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), con.getColor());
         this.minecraft.fontRenderer.drawString(hp, Math.round(horizontalTextPosition / fontHeight)+15,Math.round(vertitalTextPosition / fontHeight)+12, 16777215);
         GL11.glScalef(mSize,mSize,mSize);
 	}
+	
+	public static TextFormatting getLevelCon(int mylevel, int iOtherLevel) {
+		TextFormatting conlevel = TextFormatting.WHITE;
+
+		int diff = iOtherLevel - mylevel;
+
+		if (diff == 0)
+			return TextFormatting.WHITE;
+		else if (diff >= 1 && diff <= 2)
+			return TextFormatting.YELLOW;
+		else if (diff >= 3)
+			return TextFormatting.RED;
+
+		if (mylevel <= 8) {
+			if (diff <= -4)
+				conlevel = TextFormatting.GRAY;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 9) {
+			if (diff <= -6)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -4)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 13) {
+			if (diff <= -7)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -5)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 15) {
+			if (diff <= -7)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -5)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 17) {
+			if (diff <= -8)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -6)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 21) {
+			if (diff <= -9)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -7)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 25) {
+			if (diff <= -10)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -8)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 29) {
+			if (diff <= -11)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -9)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 31) {
+			if (diff <= -12)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -9)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 33) {
+			if (diff <= -13)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -10)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 37) {
+			if (diff <= -14)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -11)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 41) {
+			if (diff <= -16)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -12)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 45) {
+			if (diff <= -17)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -13)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 49) {
+			if (diff <= -18)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -14)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 53) {
+			if (diff <= -19)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -15)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else if (mylevel <= 55) {
+			if (diff <= -20)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -15)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		} else {
+			if (diff <= -21)
+				conlevel = TextFormatting.GRAY;
+			else if (diff <= -16)
+				conlevel = TextFormatting.AQUA;
+			else
+				conlevel = TextFormatting.BLUE;
+		}
+
+		return conlevel;
+	}
+
 	
 	public void render()
 	{
@@ -194,7 +347,7 @@ public class GuiCharacterText extends AbstractGui {
         }
 	}
 	
-	private void renderProgressBar(int x, int y, Color color, float percent, int overlayType, int progressBarWidth)
+	private void renderProgressBar(int x, int y, BossInfo.Color color, float percent, int overlayType, int progressBarWidth)
 	{
 		int width = 50;
 		float progressBarWidthMultiplier = 81.0F;
