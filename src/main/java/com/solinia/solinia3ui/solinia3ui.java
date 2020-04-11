@@ -341,7 +341,7 @@ public class solinia3ui {
 	}
 
 	public static void openTrackingWindow(List<TrackingChoice> trackingChoices) {
-		System.out.println("received tracking message");
+		//System.out.println("received tracking message");
 
 		
 		if (trackingChoices == null)
