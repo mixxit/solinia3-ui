@@ -76,10 +76,17 @@ public class GuiInventorySlotButton extends Button {
 	
 	public void tryRenderItemStackHover(Screen screen, ItemStack itemStack)
 	{
+		if (itemStack == null)
+			return;
+		
+		try
+		{
+		
 		List<ITextComponent> list = itemStack.getTooltip(this.minecraft.player, this.minecraft.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 	      List<String> list1 = Lists.newArrayList();
 
 	      for(ITextComponent itextcomponent : list) {
+	    	  
 	         list1.add(itextcomponent.getFormattedText().replace("Â", ""));
 	      }
 	      
@@ -87,6 +94,10 @@ public class GuiInventorySlotButton extends Button {
 					-300+(int)Math.round(minecraft.mouseHelper.getMouseX() * (double)minecraft.mainWindow.getScaledWidth() / (double)minecraft.mainWindow.getWidth()),
 					-75+(int)Math.round(minecraft.mouseHelper.getMouseY() * (double)minecraft.mainWindow.getScaledHeight() / (double)minecraft.mainWindow.getHeight())
 				);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	public boolean IsMouseOverButton()
 	{
