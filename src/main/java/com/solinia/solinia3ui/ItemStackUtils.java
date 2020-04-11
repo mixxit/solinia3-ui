@@ -2,8 +2,8 @@ package com.solinia.solinia3ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-
-import org.apache.commons.codec.binary.Base64;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
@@ -15,8 +15,15 @@ import net.minecraft.nbt.JsonToNBT;
 public class ItemStackUtils {
 	
 	public static ItemStack convertBase64JsonToItemStack(String base64) {
-		String json = new String(Base64.decodeBase64(base64.getBytes()));
-		return convertJsonToItemStack(json);
+		try {
+			String json = new String(Base64.getDecoder().decode(base64),"utf-8");
+			//String json = new String(base64.(base64.getBytes()));
+			return convertJsonToItemStack(json);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
 
 	public static ItemStack convertJsonToItemStack(String json) {
@@ -35,9 +42,17 @@ public class ItemStackUtils {
 	public static String convertItemStackToBase64(ItemStack itemStack)
 	{
 		String json = convertItemStackToJson(itemStack);
-        byte[] encodedBytes = Base64.encodeBase64(json.getBytes());
-        return new String(encodedBytes);
-	}
+
+		try {
+			String encodedBytes = Base64.getEncoder().encodeToString(json.getBytes("utf-8"));
+		    return encodedBytes;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+    }
 	
 	public static String convertItemStackToJson(ItemStack itemStack) {
 		CompoundNBT nbt = itemStack.serializeNBT();
