@@ -85,13 +85,21 @@ public class GuiSpellbook extends Screen {
 	    		      /*for(ITextComponent itextcomponent : list) {
 	    		         list1.add(itextcomponent.getFormattedText().replace("Â", ""));
 	    		      }*/
-	    		      list1.add(button.getMessage().split("\\^",-1)[1]);
-	    		      list1.add("Level: " + button.getMessage().split("\\^",-1)[2]);
-	    		      if (button.getMessage().split("\\^",-1).length > 3)
-	    		    	  list1.add(button.getMessage().split("\\^",-1)[3]);
-    		    	  list1.add("-------------------");
-    		    	  list1.add("To memorise, left click this icon then");
-    		    	  list1.add("left click in a memory slot in the top left");
+	    		      if (button.getMessage().split("\\^",-1)[1].equals("null"))
+	    		      {
+		    		      list1.add("This is an empty spell slot");
+		    		      list1.add("Drop spell books into the spell");
+		    		      list1.add("button in your inventory to");
+		    		      list1.add("write new spells into here");
+	    		      } else {
+		    		      list1.add(button.getMessage().split("\\^",-1)[1]);
+		    		      list1.add("Level: " + button.getMessage().split("\\^",-1)[2]);
+		    		      if (button.getMessage().split("\\^",-1).length > 3)
+		    		    	  list1.add(button.getMessage().split("\\^",-1)[3]);
+	    		    	  list1.add("-------------------");
+	    		    	  list1.add("To memorise, left click this icon then");
+	    		    	  list1.add("left click in a memory slot in the top left");
+	    		      }
 	    		      
 	    			minecraft.currentScreen.renderTooltip(list1,
 	    						(int)Math.round(minecraft.mouseHelper.getMouseX() * (double)minecraft.mainWindow.getScaledWidth() / (double)minecraft.mainWindow.getWidth()),
