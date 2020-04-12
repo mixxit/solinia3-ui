@@ -193,7 +193,7 @@ public class GuiTrackingWindow extends Screen {
                 if (line != null)
                 {
                     GlStateManager.enableBlend();
-                    GuiTrackingWindow.this.font.drawStringWithShadow(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
+                    GuiTrackingWindow.this.font.drawString(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
                     GlStateManager.disableAlphaTest();
                     GlStateManager.disableBlend();
                 }

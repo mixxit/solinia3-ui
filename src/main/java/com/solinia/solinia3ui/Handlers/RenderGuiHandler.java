@@ -100,21 +100,15 @@ public class RenderGuiHandler {
 		if (event.getGui() instanceof GuiSpellbook)
 		{
 			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
-		} else {
-			int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
-			if (event.getButton() != 0)
-			{
-				if (memorisedSpellSlot > 0)
-					removeSpellSlot(memorisedSpellSlot);
-			}
-		}
-		
+		} 
+		System.out.println(event.getGui());
 		if (event.getButton() != 0)
 		{
 			GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
 			if (effectSlotButton != null)
 				removeEffectSpellId(effectSlotButton.getSpellId());
 		}
+		
 	}
 	
 	private void removeSpellSlot(int memorisedSpellSlot) {
@@ -217,18 +211,20 @@ public class RenderGuiHandler {
 			}
 		}
 		
-		// Render mem slot hover
-		int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
-		if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
+		if (minecraft.currentScreen instanceof GuiSpellbook)
 		{
-			if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 4)
-			{
-				String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2],"Level: " + memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[3],"Right click to remove"};
-		        List temp = Arrays.asList(text);
-		        int maxTextWidth = 120;
-		        
-		        GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
-			}
+			// Render mem slot hover
+		    int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
+		    if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
+		    {
+		    	if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 4)
+		    	{
+		    	String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2],"Level: " + memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[3],"Right click to remove"};
+		    		List temp = Arrays.asList(text);
+		    		int maxTextWidth = 120;
+		    		GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+		    	}
+		    }
 		}
 		
 		// Render effects hover

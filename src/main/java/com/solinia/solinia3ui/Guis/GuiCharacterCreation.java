@@ -191,6 +191,8 @@ public class GuiCharacterCreation extends Screen {
 			this.textForename.setText("Invalid");
 			this.textLastname.setText("Name");
 		} else {
+			if (raceSelected == null || raceSelected.getRaceChoice() == null)
+				return;
 			createCharacter(raceSelected.getRaceChoice().RaceId, raceSelected.getRaceChoice().ClassId, this.currentGender, this.currentIdeal.id, this.currentTrait1.id, this.currentTrait2.id, this.currentFlaw.id, this.currentBond.id, this.textForename.getText(), this.textLastname.getText());
 		}
 	}
@@ -619,7 +621,7 @@ public class GuiCharacterCreation extends Screen {
                 if (line != null)
                 {
                     GlStateManager.enableBlend();
-                    GuiCharacterCreation.this.font.drawStringWithShadow(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
+                    GuiCharacterCreation.this.font.drawString(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
                     GlStateManager.disableAlphaTest();
                     GlStateManager.disableBlend();
                 }

@@ -104,13 +104,6 @@ public class GuiEffectIconButton extends Button {
 		this.renderBg(Minecraft.getInstance(), posX, posY);
 	}
 	
-	public void drawStringCenteredScale(FontRenderer fontRendererIn, String text, int x, int y, float size, int color) {
-        GL11.glScalef(size,size,size);
-        float mSize = (float)Math.pow(size,-1);
-        this.drawCenteredString(fontRendererIn,text,Math.round(x / size),Math.round(y / size),color);
-        GL11.glScalef(mSize,mSize,mSize);
-    }
-	
 	public List<String> getSpellFiles()
 	{
 		List<String> files = new ArrayList<String>();

@@ -260,6 +260,9 @@ public class GuiCharacterText extends AbstractGui {
 	{
 		if (this.minecraft.player == null)
 			return;
+		
+		/*if (true)
+			return;*/
 
     	float fontHeight = 0.5f;
         int progressBarDistances = 4;

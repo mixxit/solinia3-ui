@@ -1,5 +1,6 @@
 package com.solinia.solinia3ui.Guis;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -12,6 +13,7 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 public class GuiSpellbook extends Screen {
 	protected final int xSize = 256;
