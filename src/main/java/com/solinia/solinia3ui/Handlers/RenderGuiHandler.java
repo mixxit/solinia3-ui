@@ -100,8 +100,8 @@ public class RenderGuiHandler {
 		if (event.getGui() instanceof GuiSpellbook)
 		{
 			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
-		} 
-		System.out.println(event.getGui());
+		}
+		
 		if (event.getButton() != 0)
 		{
 			GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
