@@ -135,17 +135,17 @@ public class GuiCharacterCreation extends Screen {
         this.textForename.setCanLoseFocus(true);
         this.textLastname.setCanLoseFocus(true);
         
-        int personalityButtonWidth = 60;
+        int personalityButtonWidth = this.getMinecraft().fontRenderer.getStringWidth("XXXXXXXXXX");
         this.addButton(this.nextIdeal = new Button(6, this.height - 72, personalityButtonWidth, 20,
-                "Ideal >", b -> nextIdeal()));
+                "Ideal", b -> nextIdeal()));
         this.addButton(this.nextGender = new Button(6 + personalityButtonWidth + 5, this.height - 72, personalityButtonWidth, 20,
-                "Gender >", b -> nextGender()));
-        this.addButton(this.nextTrait = new Button(6, this.height - 48, personalityButtonWidth, 20,"1st Trait >", b -> nextFirstTrait()));
-        this.addButton(this.nextTrait2 = new Button(6 + personalityButtonWidth + 5 , this.height - 48, personalityButtonWidth, 20,"2nd Trait >", b -> nextSecondTrait()));
+                "Gender", b -> nextGender()));
+        this.addButton(this.nextTrait = new Button(6, this.height - 48, personalityButtonWidth, 20,"Trait 1", b -> nextFirstTrait()));
+        this.addButton(this.nextTrait2 = new Button(6 + personalityButtonWidth + 5 , this.height - 48, personalityButtonWidth, 20,"Trait 2", b -> nextSecondTrait()));
         this.addButton(this.nextBond = new Button(6 + personalityButtonWidth + 5 , this.height - 24, personalityButtonWidth, 20,
-                "Bond >", b -> nextBond()));
+                "Bond", b -> nextBond()));
         this.addButton(this.nextFlaw = new Button(6, this.height - 24, personalityButtonWidth, 20,
-                "Flaw >", b -> nextFlaw()));
+                "Flaw", b -> nextFlaw()));
         
         int createButtonWidth = Math.min(infoWidth/2, 100);
         
@@ -191,6 +191,8 @@ public class GuiCharacterCreation extends Screen {
 			this.textForename.setText("Invalid");
 			this.textLastname.setText("Name");
 		} else {
+			if (raceSelected == null || raceSelected.getRaceChoice() == null)
+				return;
 			createCharacter(raceSelected.getRaceChoice().RaceId, raceSelected.getRaceChoice().ClassId, this.currentGender, this.currentIdeal.id, this.currentTrait1.id, this.currentTrait2.id, this.currentFlaw.id, this.currentBond.id, this.textForename.getText(), this.textLastname.getText());
 		}
 	}
@@ -619,7 +621,7 @@ public class GuiCharacterCreation extends Screen {
                 if (line != null)
                 {
                     GlStateManager.enableBlend();
-                    GuiCharacterCreation.this.font.drawStringWithShadow(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
+                    GuiCharacterCreation.this.font.drawString(line.getFormattedText(), left + 4, relativeY, 0xFFFFFF);
                     GlStateManager.disableAlphaTest();
                     GlStateManager.disableBlend();
                 }

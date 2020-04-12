@@ -75,17 +75,9 @@ public class GuiMemSpellIconButton extends Button {
 		String displayString = "";
 		if (this.getMessage().split("\\^",-1).length > 1)
 			displayString = this.getMessage().split("\\^",-1)[1];
-		if (this.isMouseOverMemorisationButton(Minecraft.getInstance().mouseHelper.getMouseX(), Minecraft.getInstance().mouseHelper.getMouseY()))
-		{
-			
-		}
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, "ALT+" + displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 	}
 	
-	public boolean isMouseOverMemorisationButton(double mouseX, double mouseY) {
-		return (mouseX >= (double)this.x && mouseY >= (double)this.y && mouseX < (double)(this.x + this.width) && mouseY < (double)(this.y + this.height));
-	}
-
 	public void drawStringCenteredScale(FontRenderer fontRendererIn, String text, int x, int y, float size, int color) {
         GL11.glScalef(size,size,size);
         float mSize = (float)Math.pow(size,-1);
