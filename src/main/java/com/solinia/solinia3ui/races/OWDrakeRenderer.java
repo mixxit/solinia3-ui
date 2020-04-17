@@ -10,8 +10,8 @@ import com.solinia.solinia3ui.solinia3ui;
 
 public class OWDrakeRenderer extends AbstractDragonRenderer<OWDrakeEntity>
 {
-	private static final ResourceLocation MALE_COM = new ResourceLocation(solinia3ui.MOD_ID, "textures/entity/OWDrake/male_com.png");
-	private static final ResourceLocation CHILD_COM = new ResourceLocation(solinia3ui.MOD_ID, "textures/entity/OWDrake/child_com.png");
+	private static final ResourceLocation MALE_COM = new ResourceLocation(solinia3ui.MOD_ID, "textures/entity/owdrake/male_com.png");
+	private static final ResourceLocation CHILD_COM = new ResourceLocation(solinia3ui.MOD_ID, "textures/entity/owdrake/child_com.png");
 
     public OWDrakeRenderer(EntityRendererManager manager)
     {
