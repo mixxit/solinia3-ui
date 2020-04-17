@@ -65,6 +65,7 @@ public class solinia3ui {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final List<SoundEvent> soundEvents = new ArrayList<SoundEvent>();
 	public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	public static String MOD_ID = "solinia3ui";
 	
 	private RenderGuiHandler renderGuiHandler = new RenderGuiHandler(Minecraft.getInstance());
 	private RenderInventoryHandler renderInventoryHandler = new RenderInventoryHandler(Minecraft.getInstance());
@@ -106,61 +107,60 @@ public class solinia3ui {
 	}
 	
 	private void createSoundEvents() {
-		String mod = "solinia3ui";
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"char_creation"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"deathfist_citadel"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"enchanted_lands"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"everfrost"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"feerott"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"permafrost"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"qeynos"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"qeynos_catacombs"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"runnyeye"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"temple_of_cazicthule"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"thundering_steppes"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"tower_of_the_drafling"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"wailing_caves"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"commonlands"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"majdul"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"you_walk_this_earth_alone"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"in_the_amazonas"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"south_ro"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"descent"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn1"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn2"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn3"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn4"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn5"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn6"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn7"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"eqn8"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"lisg_tavern"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"mermaidstolostboys"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sacred_order"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_beyondgoodandevil"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_eidolon"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_freedom"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_jade"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_littlebigadventure"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_patagonia"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theblackwaltz"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thegatesofsigil"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theillusionist"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_theoryofmachines"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thereisaplace"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"bs_instinct"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_augury"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_desert"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"per_wuxia"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_encounter"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_fury"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_marchofmidnight"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_soar"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"sb_thingsthatkeepushere"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"tl_peacefulsanctuary"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_lightindarkplaces"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_spacesbetween"));
-		solinia3ui.soundEvents.add(createSoundEvent(mod,"wb_thefall"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"char_creation"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"deathfist_citadel"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"enchanted_lands"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"everfrost"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"feerott"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"permafrost"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"qeynos"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"qeynos_catacombs"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"runnyeye"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"temple_of_cazicthule"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"thundering_steppes"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"tower_of_the_drafling"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"wailing_caves"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"commonlands"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"majdul"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"you_walk_this_earth_alone"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"in_the_amazonas"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"south_ro"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"descent"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn1"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn2"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn3"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn4"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn5"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn6"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn7"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"eqn8"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"lisg_tavern"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"mermaidstolostboys"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sacred_order"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_beyondgoodandevil"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_eidolon"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_freedom"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_jade"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_littlebigadventure"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_patagonia"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_theblackwaltz"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_thegatesofsigil"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_theillusionist"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_theoryofmachines"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_thereisaplace"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"bs_instinct"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"per_augury"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"per_desert"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"per_wuxia"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_encounter"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_fury"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_marchofmidnight"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_soar"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"sb_thingsthatkeepushere"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"tl_peacefulsanctuary"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"wb_lightindarkplaces"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"wb_spacesbetween"));
+		solinia3ui.soundEvents.add(createSoundEvent(solinia3ui.MOD_ID,"wb_thefall"));
 	}
 	
 	private SoundEvent createSoundEvent(String mod, String name)
@@ -290,7 +290,7 @@ public class solinia3ui {
 		@SubscribeEvent
 	    public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event)
 	    {
-			event.getRegistry().register(EntityType.Builder.<LizardmanEntity>create(LizardmanEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(1f, 1f).build("lizardman").setRegistryName("solinia3ui", "lizardman"));
+			event.getRegistry().register(EntityType.Builder.<LizardmanEntity>create(LizardmanEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(1f, 1f).build("lizardman").setRegistryName(solinia3ui.MOD_ID, "lizardman"));
 	    }
 		
 		@SubscribeEvent

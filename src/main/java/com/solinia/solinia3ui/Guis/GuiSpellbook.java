@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.solinia.solinia3ui.ClientState;
+import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.SpellbookPage;
 
 import net.minecraft.client.Minecraft;
@@ -42,7 +43,7 @@ public class GuiSpellbook extends Screen {
 	
 	private String screenTitle = "Spellbook";
 	private SpellbookPage _SpellbookPage;
-	public static final ResourceLocation spellbookUi = new ResourceLocation( "solinia3ui", "textures/gui/spellbook.png" );
+	public static final ResourceLocation spellbookUi = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spellbook.png" );
 
 	public GuiSpellbook(ITextComponent textComponent, SpellbookPage SpellbookPage) {
 		super(textComponent);

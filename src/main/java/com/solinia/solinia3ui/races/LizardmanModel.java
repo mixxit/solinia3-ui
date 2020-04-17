@@ -1,10 +1,10 @@
 package com.solinia.solinia3ui.races;
 
 import net.minecraft.client.renderer.model.ModelBox;
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import WolfShotz.Wyrmroost.util.entityutils.client.model.AdvancedLivingEntityModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 
-public class LizardmanModel extends EntityModel<LizardmanEntity> {
+public class LizardmanModel extends AdvancedLivingEntityModel<LizardmanEntity> {
 	private final RendererModel rightleg;
 	private final RendererModel bone;
 	private final RendererModel bone3;
@@ -194,5 +194,23 @@ public class LizardmanModel extends EntityModel<LizardmanEntity> {
 		RendererModel.rotateAngleX = x;
 		RendererModel.rotateAngleY = y;
 		RendererModel.rotateAngleZ = z;
+	}
+	
+	@Override
+	public void setRotationAngles(LizardmanEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+		/*//setToInitPose();
+		limbSwing = entityIn.ticksExisted;
+		limbSwingAmount = 0.5f;
+		
+		float globalSpeed = 0.3f;
+		float globalHeight = 1; // how high to bob up and down
+		float globalDegree = 1; // how far back and forth to move
+		
+		boolean smoothBounceInsteadOfNormalBounce = false;
+		
+		
+		// We will make the entire body shift up and down
+		bob(this.parts.get("body"), 1*globalSpeed, 2*globalDegree, smoothBounceInsteadOfNormalBounce, limbSwing, limbSwingAmount);*/
 	}
 }

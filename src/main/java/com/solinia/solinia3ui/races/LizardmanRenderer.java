@@ -1,5 +1,7 @@
 package com.solinia.solinia3ui.races;
 
+import com.solinia.solinia3ui.solinia3ui;
+
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.entity.monster.RavagerEntity;
@@ -7,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class LizardmanRenderer extends MobRenderer<LizardmanEntity, LizardmanModel>
 {
-	private static final ResourceLocation field_217778_a = new ResourceLocation("solinia3ui", "textures/entity/lizardman/lizardman.png");
+	private static final ResourceLocation field_217778_a = new ResourceLocation(solinia3ui.MOD_ID, "textures/entity/lizardman/lizardman.png");
 
 	   public LizardmanRenderer(EntityRendererManager renderManagerIn) {
 	      super(renderManagerIn, new LizardmanModel(), 1.1F);

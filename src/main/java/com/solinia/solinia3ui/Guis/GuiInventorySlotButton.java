@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.ClientState;
+import com.solinia.solinia3ui.solinia3ui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -26,7 +27,7 @@ public class GuiInventorySlotButton extends Button {
 		
 	}
 
-	protected static final ResourceLocation GUI_SLOTS_TEXTURES = new ResourceLocation("solinia3ui", "textures/gui/invslots.png");
+	protected static final ResourceLocation GUI_SLOTS_TEXTURES = new ResourceLocation(solinia3ui.MOD_ID, "textures/gui/invslots.png");
 	private int slotIcon;
 	
 	@Override
