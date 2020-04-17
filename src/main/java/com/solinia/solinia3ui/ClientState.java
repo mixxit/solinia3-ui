@@ -741,7 +741,7 @@ public class ClientState {
 	public String getModVersion() throws Exception {
 		for (ModInfo mod : ModList.get().getMods())
 		{
-			if (!mod.getModId().equals("solinia3ui"))
+			if (!mod.getModId().equals(solinia3ui.MOD_ID))
 				continue;
 			
 			return mod.getVersion().toString();

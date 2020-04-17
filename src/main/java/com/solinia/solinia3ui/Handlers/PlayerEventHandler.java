@@ -36,7 +36,7 @@ public class PlayerEventHandler {
 		//solinia3ui.LOGGER.info("Detected playsound event" + event.getSound().getSoundLocation().getPath());
 		
 		// cancel vanilla music
-		if (!event.getSound().getSoundLocation().getNamespace().equals("solinia3ui"))
+		if (!event.getSound().getSoundLocation().getNamespace().equals(solinia3ui.MOD_ID))
 		{
 			//solinia3ui.LOGGER.info("Cancelled vanilla music event" + event.getSound().getSoundLocation().getPath());
 			event.setResultSound(null);

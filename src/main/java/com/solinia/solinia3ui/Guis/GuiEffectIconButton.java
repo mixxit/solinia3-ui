@@ -7,6 +7,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.SpellIconLocation;
 
 import net.minecraft.client.Minecraft;
@@ -15,13 +16,13 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiEffectIconButton extends Button {
-	protected static final ResourceLocation SPELLSSMALL01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1small.png");
-	protected static final ResourceLocation SPELLSSMALL02 = new ResourceLocation( "solinia3ui", "textures/gui/spells2small.png");
-	protected static final ResourceLocation SPELLSSMALL03 = new ResourceLocation( "solinia3ui", "textures/gui/spells3small.png");
-	protected static final ResourceLocation SPELLSSMALL04 = new ResourceLocation( "solinia3ui", "textures/gui/spells4small.png");
-	protected static final ResourceLocation SPELLSSMALL05 = new ResourceLocation( "solinia3ui", "textures/gui/spells5small.png");
-	protected static final ResourceLocation SPELLSSMALL06 = new ResourceLocation( "solinia3ui", "textures/gui/spells6small.png");
-	protected static final ResourceLocation SPELLSSMALL07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7small.png");
+	protected static final ResourceLocation SPELLSSMALL01 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells1small.png");
+	protected static final ResourceLocation SPELLSSMALL02 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells2small.png");
+	protected static final ResourceLocation SPELLSSMALL03 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells3small.png");
+	protected static final ResourceLocation SPELLSSMALL04 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells4small.png");
+	protected static final ResourceLocation SPELLSSMALL05 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells5small.png");
+	protected static final ResourceLocation SPELLSSMALL06 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells6small.png");
+	protected static final ResourceLocation SPELLSSMALL07 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells7small.png");
 	private int spellIcon;
 	private int spellId;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();

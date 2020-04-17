@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.SpellIconLocation;
 
 import net.minecraft.client.Minecraft;
@@ -18,13 +19,13 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiSpellIconButton extends Button {
 
-	protected static final ResourceLocation SPELLS01 = new ResourceLocation( "solinia3ui", "textures/gui/spells1.png");
-	protected static final ResourceLocation SPELLS02 = new ResourceLocation( "solinia3ui", "textures/gui/spells2.png");
-	protected static final ResourceLocation SPELLS03 = new ResourceLocation( "solinia3ui", "textures/gui/spells3.png");
-	protected static final ResourceLocation SPELLS04 = new ResourceLocation( "solinia3ui", "textures/gui/spells4.png");
-	protected static final ResourceLocation SPELLS05 = new ResourceLocation( "solinia3ui", "textures/gui/spells5.png");
-	protected static final ResourceLocation SPELLS06 = new ResourceLocation( "solinia3ui", "textures/gui/spells6.png");
-	protected static final ResourceLocation SPELLS07 = new ResourceLocation( "solinia3ui", "textures/gui/spells7.png");
+	protected static final ResourceLocation SPELLS01 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells1.png");
+	protected static final ResourceLocation SPELLS02 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells2.png");
+	protected static final ResourceLocation SPELLS03 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells3.png");
+	protected static final ResourceLocation SPELLS04 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells4.png");
+	protected static final ResourceLocation SPELLS05 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells5.png");
+	protected static final ResourceLocation SPELLS06 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells6.png");
+	protected static final ResourceLocation SPELLS07 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells7.png");
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 	Minecraft minecraft;
