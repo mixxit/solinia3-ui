@@ -394,12 +394,37 @@ public class CanariWyvernModel extends AdvancedLivingEntityModel<CanariWyvernEnt
     @Override
     public void setLivingAnimations(CanariWyvernEntity canari, float limbSwing, float limbSwingAmount, float partialTick)
     {
+    	float f = 0.5f;
+    	
         this.entity = canari;
         float frame = canari.ticksExisted + partialTick;
 
         resetToDefaultPose();
         animator.update(canari);
         setInitialPositions();
+        
+        if (!canari.isSleeping())
+        {
+            
+            // Body bob
+            bob(body1, globalSpeed * 2, 0.3f, false, limbSwing, 0.5f);
+            
+            // Left Arm
+            //arm1L.walk(globalSpeed, f, true, 0, 0, limbSwing, limbSwingAmount);
+            palmL.walk(globalSpeed, f, true, 2.5f, 0, limbSwing, limbSwingAmount);
+            
+            // Right Arm
+            //arm1R.walk(globalSpeed, f, false, 0, 0, limbSwing, limbSwingAmount);
+            palmR.walk(globalSpeed, f, false, 2.5f, 0, limbSwing, limbSwingAmount);
+            
+            // Left Leg
+            leg1L.walk(globalSpeed, f, false, 0, 0, limbSwing, limbSwingAmount);
+            footL.walk(globalSpeed, 0.2f, false, 2f, 0, limbSwing, limbSwingAmount);
+            
+            // Right Leg
+            leg1R.walk(globalSpeed, f, true, 0, 0, limbSwing, limbSwingAmount);
+            this.footL_1.walk(globalSpeed, 0.2f, true, 2f, 0, limbSwing, limbSwingAmount);
+        }
 
         if (canari.isSleeping()) sleepPose();
 
