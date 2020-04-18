@@ -1,3 +1,13 @@
+SOLINIA3-UI SOURCE
+
+License terms are in agreement with the GNU Public License V3
+
+WYRMROOST RELATED SOURCE
+
+GNU Public License V2.1 - https://github.com/WolfShotz/Wyrmroost/blob/master/LICENSE.md
+
+FORGE RELATED LICENSES
+
 Unless noted below, Minecraft Forge, Forge Mod Loader, and all 
 parts herein are licensed under the terms of the LGPL 2.1 found
 here http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt and 

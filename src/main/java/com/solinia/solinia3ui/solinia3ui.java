@@ -54,6 +54,7 @@ import com.solinia.solinia3ui.Models.ClientProxy;
 import com.solinia.solinia3ui.Models.Solinia3UIKeyBinding;
 import com.solinia.solinia3ui.Models.SpellbookPage;
 import com.solinia.solinia3ui.Models.TrackingChoice;
+import com.solinia.solinia3ui.races.CanariWyvernEntity;
 import com.solinia.solinia3ui.races.LizardmanEntity;
 import com.solinia.solinia3ui.races.OWDrakeEntity;
 
@@ -292,7 +293,8 @@ public class solinia3ui {
 	    public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event)
 	    {
 			event.getRegistry().register(EntityType.Builder.<LizardmanEntity>create(LizardmanEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(1f, 1f).build("lizardman").setRegistryName(solinia3ui.MOD_ID, "lizardman"));
-			event.getRegistry().register(EntityType.Builder.<OWDrakeEntity>create(OWDrakeEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(1f, 1f).build("owdrake").setRegistryName(solinia3ui.MOD_ID, "owdrake"));
+			event.getRegistry().register(EntityType.Builder.<OWDrakeEntity>create(OWDrakeEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(3f, 3f).build("owdrake").setRegistryName(solinia3ui.MOD_ID, "owdrake"));
+			event.getRegistry().register(EntityType.Builder.<CanariWyvernEntity>create(CanariWyvernEntity::new, EntityClassification.MONSTER).setTrackingRange(32).size(3f, 3f).build("canariwyvern").setRegistryName(solinia3ui.MOD_ID, "canariwyvern"));
 	    }
 		
 		@SubscribeEvent
