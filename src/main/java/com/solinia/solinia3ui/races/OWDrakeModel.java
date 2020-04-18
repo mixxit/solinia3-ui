@@ -423,15 +423,29 @@ public class OWDrakeModel extends AdvancedLivingEntityModel<OWDrakeEntity>
         }
         
         if (drake.isSleeping() && currentAnim != OWDrakeEntity.SLEEP_ANIMATION)
+        {
             staySleeping();
+        }
         
-        if (currentAnim == OWDrakeEntity.TALK_ANIMATION) talkAnim();
+        if (currentAnim == OWDrakeEntity.TALK_ANIMATION) 
+        {
+        	talkAnim();
+        }
         
-        if (currentAnim == OWDrakeEntity.SIT_ANIMATION) sitAnim();
+        if (currentAnim == OWDrakeEntity.SIT_ANIMATION)
+        {
+        	sitAnim();
+        }
         
-        if (currentAnim == OWDrakeEntity.STAND_ANIMATION) standAnim();
+        if (currentAnim == OWDrakeEntity.STAND_ANIMATION) 
+        {
+        	standAnim();
+        }
         
-        if (currentAnim == OWDrakeEntity.GRAZE_ANIMATION) grazeAnim(drake.getAnimationTick(), frame);
+        if (currentAnim == OWDrakeEntity.GRAZE_ANIMATION)
+        {
+        	grazeAnim(drake.getAnimationTick(), frame);
+        }
         
         if (currentAnim == OWDrakeEntity.HORN_ATTACK_ANIMATION)
         {
