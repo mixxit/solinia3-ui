@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 
 import com.solinia.solinia3ui.ClientState;
 import com.solinia.solinia3ui.InvalidPacketException;
-import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.ISoliniaPacket;
 
 import io.netty.buffer.ByteBufInputStream;

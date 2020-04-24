@@ -4,14 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.lwjgl.opengl.GL11;
-
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.SpellIconLocation;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 

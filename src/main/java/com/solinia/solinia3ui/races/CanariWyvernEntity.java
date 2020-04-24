@@ -1,23 +1,10 @@
 package com.solinia.solinia3ui.races;
 
 import WolfShotz.Wyrmroost.content.entities.dragon.AbstractDragonEntity;
-import WolfShotz.Wyrmroost.util.QuikMaths;
 import WolfShotz.Wyrmroost.util.entityutils.client.animation.Animation;
-import WolfShotz.Wyrmroost.util.network.NetworkUtils;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import static net.minecraft.entity.SharedMonsterAttributes.*;
 
 public class CanariWyvernEntity extends AbstractDragonEntity
 {
