@@ -47,6 +47,7 @@ import com.solinia.solinia3ui.Handlers.EntityEventHandler;
 import com.solinia.solinia3ui.Handlers.KeyInputHandler;
 import com.solinia.solinia3ui.Handlers.PlayerEventHandler;
 import com.solinia.solinia3ui.Handlers.RenderGuiHandler;
+import com.solinia.solinia3ui.Handlers.RenderHealthBarHandler;
 import com.solinia.solinia3ui.Handlers.RenderInventoryHandler;
 import com.solinia.solinia3ui.Handlers.RenderLivingHandler;
 import com.solinia.solinia3ui.Models.CharacterCreation;
@@ -75,6 +76,7 @@ public class solinia3ui {
 	private RenderLivingHandler renderLivingHandler = new RenderLivingHandler();
 	private EntityEventHandler entityEventHandler = new EntityEventHandler(Minecraft.getInstance());
 	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
+	private RenderHealthBarHandler renderHealthBarHandler = new RenderHealthBarHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -98,6 +100,7 @@ public class solinia3ui {
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
 		// Register ourselves for server and other game events we are interested in
+		MinecraftForge.EVENT_BUS.register(renderHealthBarHandler);
 		MinecraftForge.EVENT_BUS.register(renderGuiHandler);
 		MinecraftForge.EVENT_BUS.register(renderInventoryHandler);
 		MinecraftForge.EVENT_BUS.register(keyInputHandler);
