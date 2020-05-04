@@ -70,7 +70,7 @@ public class RenderHealthBarHandler {
 		frustum.setPosition(viewX, viewY, viewZ);
 		
 			ClientWorld client = mc.world;
-			Int2ObjectMap<Entity> entitiesById = ObfuscationReflectionHelper.getPrivateValue(ClientWorld.class, client, "entitiesById");
+			Int2ObjectMap<Entity> entitiesById = ObfuscationReflectionHelper.getPrivateValue(ClientWorld.class, client, "field_217429_b");
 			for(Entity entity : entitiesById.values()) {
 				if (entity != null && entity instanceof LivingEntity && entity != mc.player && entity.isInRangeToRender3d(renderingVector.getX(), renderingVector.getY(), renderingVector.getZ()) && (entity.ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(entity.getBoundingBox())) && entity.isAlive() && entity.getRecursivePassengers().isEmpty())
 					renderHealthBar((LivingEntity) entity, partialTicks, cameraEntity);
