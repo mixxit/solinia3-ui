@@ -1,7 +1,5 @@
 package com.solinia.solinia3ui.Guis;
 
-import java.awt.Color;
-
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;

@@ -2,7 +2,6 @@ package WolfShotz.Wyrmroost.util.entityutils;
 
 import WolfShotz.Wyrmroost.content.entities.dragon.AbstractDragonEntity;
 import net.minecraft.entity.ai.controller.BodyController;
-import net.minecraft.util.math.MathHelper;
 
 /**
  * Created by WolfShotz - 8/26/19 - 16:12
