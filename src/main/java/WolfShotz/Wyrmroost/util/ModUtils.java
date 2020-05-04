@@ -98,14 +98,6 @@ public class ModUtils
         return Minecraft.getInstance().world;
     }
 
-    /**
-     * Get the Server World
-     */
-    public static ServerWorld getServerWorld(PlayerEntity player)
-    {
-        return ServerLifecycleHooks.getCurrentServer().getWorld(player.dimension);
-    }
-
     public static <T extends IForgeRegistryEntry<T>> Set<T> getRegistryEntries(DeferredRegister<T> registry)
     {
         return registry.getEntries().stream().map(RegistryObject::get).collect(Collectors.toSet());

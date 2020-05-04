@@ -59,7 +59,7 @@ public class KeyInputHandler {
 			// distance
 			double distance = 200D;
 			boolean flag = false;
-			RayTraceResult raycast = entity.func_213324_a(distance, Minecraft.getInstance().getRenderPartialTicks(), false);
+			RayTraceResult raycast = entity.pick(distance, Minecraft.getInstance().getRenderPartialTicks(), false);
 			if (raycast != null)
 			{
 				Vec3d vec3d = entity.getEyePosition(Minecraft.getInstance().getRenderPartialTicks());
