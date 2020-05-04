@@ -80,12 +80,8 @@ public class GuiSpellbook extends Screen {
 	        	
 	        	if (spellButton.IsMouseOverButton())
 	    		{
-	    			//List<ITextComponent> list = itemStack.getTooltip(this.minecraft.player, this.minecraft.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 	    		      List<String> list1 = Lists.newArrayList();
 	
-	    		      /*for(ITextComponent itextcomponent : list) {
-	    		         list1.add(itextcomponent.getFormattedText().replace("Â", ""));
-	    		      }*/
 	    		      if (button.getMessage().split("\\^",-1)[1].equals("null"))
 	    		      {
 		    		      list1.add("This is an empty spell slot");
