@@ -118,9 +118,9 @@ public class RenderHealthBarHandler {
 				float scale = 0.026666672F;
 				
 				EntityRendererManager renderManager = Minecraft.getInstance().getRenderManager();
-				double renderPosX = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "renderPosX");
-				double renderPosY = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "renderPosY");
-				double renderPosZ = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "renderPosZ");
+				double renderPosX = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78725_b");
+				double renderPosY = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78726_c");
+				double renderPosZ = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78723_d");
 
 				GlStateManager.pushMatrix();
 				GlStateManager.translatef((float) (x - renderPosX), (float) (y - renderPosY + passedEntity.getHeight() + HealthBarConfig.heightAbove), (float) (z - renderPosZ));
