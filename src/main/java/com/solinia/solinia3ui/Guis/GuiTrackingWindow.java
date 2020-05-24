@@ -79,7 +79,6 @@ public class GuiTrackingWindow extends Screen {
 		if (this.trackingSelected == null || this.trackingSelected.getTrackingChoiceId() == null || this.trackingSelected.getTrackingChoice().equals(""))
 			return;
 		
-		System.out.println("Tracking target: " + this.trackingSelected.getTrackingChoiceId());
 		Minecraft.getInstance().player.sendChatMessage("/solinia3core:track " + this.trackingSelected.getTrackingChoiceId());
 		Minecraft.getInstance().player.closeScreen();
 	}

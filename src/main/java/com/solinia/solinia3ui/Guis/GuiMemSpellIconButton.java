@@ -1,5 +1,6 @@
 package com.solinia.solinia3ui.Guis;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class GuiMemSpellIconButton extends Button {
 	protected static final ResourceLocation SPELLS05 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells5.png");
 	protected static final ResourceLocation SPELLS06 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells6.png");
 	protected static final ResourceLocation SPELLS07 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells7.png");
+	protected static final ResourceLocation WINDOWPIECES = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/window_pieces01");
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 
@@ -49,26 +51,20 @@ public class GuiMemSpellIconButton extends Button {
 			return;
 		}
 		
-		int j = 14737632;
-		if (packedFGColor != 0) {
-			j = packedFGColor;
-		} else if (!this.active) {
-			j = 10526880;
-		} else if (this.isHovered()) {
-			j = 16777120;
-		}
+		int j = Color.WHITE.getRGB();
 		
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		
-		if (this.spellIcon > 0)
+		setSpellIconResourceLocations();
+		SpellIconLocation location = spellIconLocations.get(this.spellIcon);
+		if (location != null)
 		{
-			setSpellIconResourceLocations();
-			SpellIconLocation location = spellIconLocations.get(this.spellIcon);
-			if (location != null)
-			{
-				Minecraft.getInstance().getTextureManager().bindTexture(location.loc);
-				this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
-			}
+			Minecraft.getInstance().getTextureManager().bindTexture(location.loc);
+			this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
+		} else {
+			// Grey box instead
+			Minecraft.getInstance().getTextureManager().bindTexture(SPELLS07);
+			this.blit(this.x, this.y, 20, 0, this.width, this.height);
 		}
 		
 		this.renderBg(Minecraft.getInstance(), posX, posY);

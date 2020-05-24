@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.BossInfo.Color;
 
 public class GuiSpellIconButton extends Button {
 
@@ -37,7 +38,7 @@ public class GuiSpellIconButton extends Button {
 		
 		popupText = Lists.newArrayList();
 		
-	      if (getMessage().split("\\^",-1)[1].equals("null"))
+	      if (getMessage().split("\\^",-1)[1].equals(""))
 	      {
 	    	  popupText.add("This is an empty spell slot");
 		      popupText.add("Drop spell books into the spell");
@@ -54,6 +55,14 @@ public class GuiSpellIconButton extends Button {
 	      }
 	      
 			setSpellIconResourceLocations();
+	}
+	
+	public GuiSpellIconButtonPressable getOnPress()
+	{
+		if (this.onPress instanceof GuiSpellIconButtonPressable)
+			return (GuiSpellIconButtonPressable)this.onPress;
+		
+		return null;
 	}
 	
 	

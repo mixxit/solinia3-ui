@@ -89,7 +89,6 @@ public class GuiInventorySlotButton extends Button {
 	      List<String> list1 = Lists.newArrayList();
 
 	      for(ITextComponent itextcomponent : list) {
-	    	  //System.out.println(itextcomponent.getFormattedText());
 	         list1.add(itextcomponent.getFormattedText());
 	      }
 	      String max = Collections.max(list1, Comparator.comparing(String::length)); 
