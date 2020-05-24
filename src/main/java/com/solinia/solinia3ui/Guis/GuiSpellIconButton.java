@@ -80,6 +80,12 @@ public class GuiSpellIconButton extends Button {
 		String displayString = "";
 		if (this.getMessage().split("\\^",-1).length > 1)
 			displayString = this.getMessage().split("\\^",-1)[1];
+		
+		displayString = displayString.trim();
+		
+		if (displayString.length() > 15)
+			displayString = displayString.substring(0,12)+"...";
+		
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 	}
 	
