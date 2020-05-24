@@ -26,7 +26,7 @@ public class GuiMemSpellIconButton extends Button {
 	protected static final ResourceLocation SPELLS05 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells5.png");
 	protected static final ResourceLocation SPELLS06 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells6.png");
 	protected static final ResourceLocation SPELLS07 = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/spells7.png");
-	protected static final ResourceLocation WINDOWPIECES = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/window_pieces01");
+	protected static final ResourceLocation UTILITY = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/utility.png");
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 
@@ -63,8 +63,8 @@ public class GuiMemSpellIconButton extends Button {
 			this.blit(this.x, this.y, location.point.x, location.point.y, this.width, this.height);
 		} else {
 			// Grey box instead
-			Minecraft.getInstance().getTextureManager().bindTexture(SPELLS07);
-			this.blit(this.x, this.y, 20, 0, this.width, this.height);
+			Minecraft.getInstance().getTextureManager().bindTexture(UTILITY);
+			this.blit(this.x, this.y, 40, 0, this.width, this.height);
 		}
 		
 		this.renderBg(Minecraft.getInstance(), posX, posY);

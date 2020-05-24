@@ -6,9 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Guis.GuiAddItemToReagentsButtonPressable;
 import com.solinia.solinia3ui.Guis.GuiAddItemToSpellbookButtonPressable;
+import com.solinia.solinia3ui.Guis.GuiCraftButton;
 import com.solinia.solinia3ui.Guis.GuiInventorySlotButton;
 import com.solinia.solinia3ui.Guis.GuiInventorySlotButtonPressable;
 import com.solinia.solinia3ui.Guis.GuiInventorySlotUnequipButtonPressable;
+import com.solinia.solinia3ui.Guis.GuiOpenCraftBButtonPressable;
+import com.solinia.solinia3ui.Guis.GuiReagentButton;
+import com.solinia.solinia3ui.Guis.GuiSpellbookButton;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
@@ -119,9 +123,6 @@ public class RenderInventoryHandler {
 
 	private void addSlotCloseButtons(Post event) {
 
-		// close buttons
-		event.addWidget(new Button(minecraft.mainWindow.getScaledWidth()-width,20,width,width,"Spell",new GuiAddItemToSpellbookButtonPressable()));
-		event.addWidget(new Button(minecraft.mainWindow.getScaledWidth()-width,40,width,width,"Reagent",new GuiAddItemToReagentsButtonPressable()));
 		// Inventory slots
 		// fingers
 		event.addWidget(new Button(minecraft.mainWindow.getScaledWidth()-width*3+20,20,5,5,"x",new GuiInventorySlotUnequipButtonPressable(0)));
@@ -142,8 +143,9 @@ public class RenderInventoryHandler {
 	}
 
 	private void addSlots(Post event) {
-		event.addWidget(new Button(minecraft.mainWindow.getScaledWidth()-width,20,width,width,"Spell",new GuiAddItemToSpellbookButtonPressable()));
-		event.addWidget(new Button(minecraft.mainWindow.getScaledWidth()-width,40,width,width,"Reagent",new GuiAddItemToReagentsButtonPressable()));
+		event.addWidget(new GuiSpellbookButton(minecraft.mainWindow.getScaledWidth()-width-2,20,width+1,width+1,"S",new GuiAddItemToSpellbookButtonPressable()));
+		event.addWidget(new GuiReagentButton(minecraft.mainWindow.getScaledWidth()-width-2,39,width+1,width+1,"R",new GuiAddItemToReagentsButtonPressable()));
+		event.addWidget(new GuiCraftButton(minecraft.mainWindow.getScaledWidth()-width-2,58,width+1,width+1,"C",new GuiOpenCraftBButtonPressable()));
 		
 		for(GuiInventorySlotButton button : getInventorySlotButton())
 		{
