@@ -98,8 +98,8 @@ public class PacketOpenSpellbook implements ISoliniaPacket {
     }
 	
 	public void handle(Supplier<NetworkEvent.Context> context)
-	{
-		context.get().enqueueWork(() -> solinia3ui.openSpellBook(this.spellbookPage));
+	{		
+		context.get().enqueueWork(() -> solinia3ui.openSpellbookWindow(this.spellbookPage));
     	context.get().setPacketHandled(true);
 	}
 }

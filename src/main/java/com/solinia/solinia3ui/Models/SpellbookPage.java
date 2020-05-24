@@ -221,52 +221,52 @@ public class SpellbookPage {
 		switch(slot)
 		{
 			case 1:
-				return SpellSlot1Name;
+				return SpellSlot1Name == null ? "" : String.valueOf(SpellSlot1Name);
 			
 			case 2:
-				return SpellSlot2Name;
+				return SpellSlot2Name == null ? "" : String.valueOf(SpellSlot2Name);
 			
 			case 3:
-				return SpellSlot3Name;
+				return SpellSlot3Name == null ? "" : String.valueOf(SpellSlot3Name);
 			
 			case 4:
-				return SpellSlot4Name;
+				return SpellSlot4Name == null ? "" : String.valueOf(SpellSlot4Name);
 			
 			case 5:
-				return SpellSlot5Name;
+				return SpellSlot5Name == null ? "" : String.valueOf(SpellSlot5Name);
 			
 			case 6:
-				return SpellSlot6Name;
+				return SpellSlot6Name == null ? "" : String.valueOf(SpellSlot6Name);
 			
 			case 7:
-				return SpellSlot7Name;
+				return SpellSlot7Name == null ? "" : String.valueOf(SpellSlot7Name);
 			
 			case 8:
-				return SpellSlot8Name;
+				return SpellSlot8Name == null ? "" : String.valueOf(SpellSlot8Name);
 			
 			case 9:
-				return SpellSlot9Name;
+				return SpellSlot9Name == null ? "" : String.valueOf(SpellSlot9Name);
 				
 			case 10:
-				return SpellSlot10Name;
+				return SpellSlot10Name == null ? "" : String.valueOf(SpellSlot10Name);
 				
 			case 11:
-				return SpellSlot11Name;
+				return SpellSlot11Name == null ? "" : String.valueOf(SpellSlot11Name);
 				
 			case 12:
-				return SpellSlot12Name;
+				return SpellSlot12Name == null ? "" : String.valueOf(SpellSlot12Name);
 				
 			case 13:
-				return SpellSlot13Name;
+				return SpellSlot13Name == null ? "" : String.valueOf(SpellSlot13Name);
 				
 			case 14:
-				return SpellSlot14Name;
+				return SpellSlot14Name == null ? "" : String.valueOf(SpellSlot14Name);
 				
 			case 15:
-				return SpellSlot15Name;
+				return SpellSlot15Name == null ? "" : String.valueOf(SpellSlot15Name);
 				
 			case 16:
-				return SpellSlot16Name;
+				return SpellSlot16Name == null ? "" : String.valueOf(SpellSlot16Name);
 				
 			default:
 				return null;

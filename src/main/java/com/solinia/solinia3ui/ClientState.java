@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.solinia.solinia3ui.Guis.GuiCharacterCreation;
+import com.solinia.solinia3ui.Guis.GuiSpellbook;
+import com.solinia.solinia3ui.Guis.GuiTrackingWindow;
 import com.solinia.solinia3ui.Models.AlignmentType;
 import com.solinia.solinia3ui.Models.Bond;
+import com.solinia.solinia3ui.Models.CharacterCreation;
 import com.solinia.solinia3ui.Models.Effects;
 import com.solinia.solinia3ui.Models.EntityVital;
 import com.solinia.solinia3ui.Models.Flaw;
@@ -14,6 +18,8 @@ import com.solinia.solinia3ui.Models.Ideal;
 import com.solinia.solinia3ui.Models.KeyBinds;
 import com.solinia.solinia3ui.Models.MemorisedSpells;
 import com.solinia.solinia3ui.Models.Oath;
+import com.solinia.solinia3ui.Models.SpellbookPage;
+import com.solinia.solinia3ui.Models.TrackingChoice;
 import com.solinia.solinia3ui.Models.Trait;
 
 import net.minecraft.client.Minecraft;
@@ -23,6 +29,7 @@ import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundEngine;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
@@ -41,19 +48,40 @@ public class ClientState {
 	public List<Flaw> flaws = generateFlaws();
 	public List<Trait> traits = generateTraits();
 	public List<Oath> oaths = generateOaths();
+	private SpellbookPage spellbookPage;
 	
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	private EquipSlots equipSlots;
 	private Effects effects = new Effects();
-	private Minecraft minecraft;
+	private GuiSpellbook activeSpellBook;
 	
-    private ClientState(Minecraft minecraft){
-    	this.minecraft = minecraft;
-
+    private ClientState(){
         if (instance != null){
             throw new RuntimeException("Only accessible via getInstance()");
         }
     }
+    
+    public void tryOpenSpelbookNextPrevious()
+	{
+		if (getSpellbookPage() == null)
+			return;
+		
+		int previous = this.getSpellbookPage().PageNo - 1;
+		if (previous < 1)
+			previous = 0;
+		
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook " + previous);
+	}
+	
+	public void tryOpenSpelbookNextPage()
+	{
+		if (getSpellbookPage() == null)
+			return;
+		
+		int next = this.getSpellbookPage().PageNo + 1;
+		
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook " + (next));
+	}
     
 	public List<Ideal> generateIdeals()
 	{
@@ -504,7 +532,7 @@ public class ClientState {
           
             synchronized (ClientState.class) {
             	if (instance == null) 
-            		instance = new ClientState(Minecraft.getInstance());
+            		instance = new ClientState();
             }
         }
 
@@ -643,78 +671,78 @@ public class ClientState {
 	}
 	
 	private boolean hail() {
-		this.minecraft.player.sendChatMessage("/solinia3core:say HAIL");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:say HAIL");
 		return true;
 	}
 
 	private boolean openSpellbook() {
-		this.minecraft.player.sendChatMessage("/solinia3core:openspellbook");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:openspellbook");
 		solinia3ui.LOGGER.info("Opening Spell Book");
 		return true;
 	}
 
 	private boolean openCharacterCreation() {
-		this.minecraft.player.sendChatMessage("/solinia3core:opencharcreation");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:opencharcreation");
 		solinia3ui.LOGGER.info("Opening Character Creation");
 		return true;
 	}
 	
 	private boolean toggleSitStand() {
-		this.minecraft.player.sendChatMessage("/solinia3core:sit");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:sit");
 		solinia3ui.LOGGER.info("Sitting");
 		return true;
 	}
 
 	private boolean targetPet() {
-		this.minecraft.player.sendChatMessage("/solinia3core:target pet");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target pet");
 		solinia3ui.LOGGER.info("Targetting pet");
 		return true;
 	}
 
 	private boolean petattack() {
-		this.minecraft.player.sendChatMessage("/solinia3core:pet attack");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:pet attack");
 		solinia3ui.LOGGER.info("Pet attacking");
 		return true;
 	}
 	
 	private boolean consider() {
-		this.minecraft.player.sendChatMessage("/solinia3core:consider");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:consider");
 		solinia3ui.LOGGER.info("Considering");
 		return true;
 	}
 
 	private boolean castSpell(int i) {
-		this.minecraft.player.sendChatMessage("/solinia3core:castslot " + i);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:castslot " + i);
 		solinia3ui.LOGGER.info("Casting spell slot " + i);
 		return true;
 	}
 
 	private boolean targetTeamMember(int i) {
-		this.minecraft.player.sendChatMessage("/solinia3core:target " + i);
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target " + i);
 		solinia3ui.LOGGER.info("Targetting team member " + i);
 		return true;
 	}
 
 	private boolean targetSelf() {
-		this.minecraft.player.sendChatMessage("/solinia3core:target self");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target self");
 		solinia3ui.LOGGER.info("Chat message sent");
 		return true;
 	}
 
 	private boolean cancelTarget() {
-		this.minecraft.player.sendChatMessage("/solinia3core:target clear");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target clear");
 		solinia3ui.LOGGER.info("Clearing target");
 		return true;
 	}
 
 	private boolean toggleAutoAttack() {
-		this.minecraft.player.sendChatMessage("/solinia3core:autoattack");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:autoattack");
 		solinia3ui.LOGGER.info("Auto attacking");
 		return true;
 	}
 
 	private boolean targetNearestNpc() {
-		this.minecraft.player.sendChatMessage("/solinia3core:target nearestnpc");
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:target nearestnpc");
 		solinia3ui.LOGGER.info("Targetting nearest npc");
 		return true;
 	}
@@ -776,7 +804,7 @@ public class ClientState {
 	{
 		try
 		{
-		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, this.minecraft.getSoundHandler(), "field_147694_f");
+		SoundEngine soundEngine = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundHandler.class, Minecraft.getInstance().getSoundHandler(), "field_147694_f");
 		Map<ISound, ChannelManager.Entry> playingSounds = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.client.audio.SoundEngine.class, soundEngine, "field_217942_m");
 		for(ISound sound : playingSounds.keySet())
 		{
@@ -818,7 +846,7 @@ public class ClientState {
 			int repeatTime = 5;
 			SimpleSound sound = new SimpleSound(event.getName(),SoundCategory.MUSIC, 1F, 1.0F, repeat, repeatTime, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F, true);
 			
-			this.minecraft.getSoundHandler().play(sound);
+			Minecraft.getInstance().getSoundHandler().play(sound);
 			//this.minecraft.player.playSound(event, 1F, 1F);
 		}
 	}
@@ -840,5 +868,50 @@ public class ClientState {
 		this.entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 		this.equipSlots = null;
 		this.effects = new Effects();
+	}
+
+	public void tryOpenSpellbook() {
+		if (getSpellbookPage() == null)
+			return;
+		
+		StringTextComponent textComponent = new StringTextComponent("Spell Book");
+		if (this.activeSpellBook == null)
+			this.activeSpellBook = new GuiSpellbook(textComponent);
+		
+		if (!(Minecraft.getInstance().currentScreen instanceof GuiSpellbook))
+		{
+			Minecraft.getInstance().displayGuiScreen(this.activeSpellBook);
+		} else {
+			this.activeSpellBook.updatePage();
+		}
+	}
+
+	public void tryOpenTrackingWindow(List<TrackingChoice> trackingChoices) {
+		// if already in then dont open
+		if (Minecraft.getInstance().currentScreen instanceof GuiTrackingWindow)
+			return;
+				
+		StringTextComponent textComponent = new StringTextComponent("Tracking");
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiTrackingWindow(textComponent, trackingChoices));
+		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public void tryOpenCharacterCreation(CharacterCreation characterCreation) {
+
+		// if already in then dont open
+		if (Minecraft.getInstance().currentScreen instanceof GuiCharacterCreation)
+			return;
+		
+		StringTextComponent textComponent = new StringTextComponent("CharacterCreation");
+		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiCharacterCreation(textComponent, characterCreation));
+		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public SpellbookPage getSpellbookPage() {
+		return spellbookPage;
+	}
+
+	public void setSpellbookPage(SpellbookPage spellbookPage) {
+		this.spellbookPage = spellbookPage;
 	}
 }

@@ -40,6 +40,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.solinia.solinia3ui.Events.SpellbookOpenPageEvent;
 import com.solinia.solinia3ui.Guis.GuiCharacterCreation;
 import com.solinia.solinia3ui.Guis.GuiSpellbook;
 import com.solinia.solinia3ui.Guis.GuiTrackingWindow;
@@ -50,6 +51,7 @@ import com.solinia.solinia3ui.Handlers.RenderGuiHandler;
 import com.solinia.solinia3ui.Handlers.RenderHealthBarHandler;
 import com.solinia.solinia3ui.Handlers.RenderInventoryHandler;
 import com.solinia.solinia3ui.Handlers.RenderLivingHandler;
+import com.solinia.solinia3ui.Handlers.SpellBookOpenPageHandler;
 import com.solinia.solinia3ui.Models.CharacterCreation;
 import com.solinia.solinia3ui.Models.ClientProxy;
 import com.solinia.solinia3ui.Models.Solinia3UIKeyBinding;
@@ -77,6 +79,7 @@ public class solinia3ui {
 	private EntityEventHandler entityEventHandler = new EntityEventHandler(Minecraft.getInstance());
 	private PlayerEventHandler playerEventHandler = new PlayerEventHandler();
 	private RenderHealthBarHandler renderHealthBarHandler = new RenderHealthBarHandler();
+	private SpellBookOpenPageHandler spellbookOpenPageHandler = new SpellBookOpenPageHandler();
 	
 	private static final String PROTOCOL_VERSION = Integer.toString(1);
 	public static SimpleChannel channelToClient = NetworkRegistry.ChannelBuilder
@@ -107,6 +110,7 @@ public class solinia3ui {
 		MinecraftForge.EVENT_BUS.register(renderLivingHandler);
 		MinecraftForge.EVENT_BUS.register(entityEventHandler);
 		MinecraftForge.EVENT_BUS.register(playerEventHandler);
+		MinecraftForge.EVENT_BUS.register(spellbookOpenPageHandler);
 		
 		createSoundEvents();
 	}
@@ -308,58 +312,32 @@ public class solinia3ui {
 				solinia3ui.LOGGER.info("Registered new Sound: " + soundEvent.getName());
 			}
 		}
-		/*
-		@ForgeSubscribe
-		public void onBackgroundSound(PlayBackgroundMusicEvent par1PlayBackgroundMusicEvent) {
-			SoundPoolEntry var1 = par1PlayBackgroundMusicEvent.manager.soundPoolMusic.getRandomSoundFromSoundPool("ml.outdoor");
-
-			if(var1 != null) {
-				solinia3ui.LOGGER.info("Play!");
-				par1PlayBackgroundMusicEvent.result = par1PlayBackgroundMusicEvent.manager.soundPoolMusic.getRandomSoundFromSoundPool("ml.outdoor");
-			} else {
-				solinia3ui.LOGGER.info("Load!");
-				par1PlayBackgroundMusicEvent.manager.soundPoolMusic.addSound("ml/outdoor.ogg", new File(Minecraft.getMinecraft().getMinecraftDir(), "resources/MusicLoops/Outdoor.ogg"));
-				this.onBackgroundSound(par1PlayBackgroundMusicEvent);
-			}
-		}*/
-	}
-
-	
-	public static void openSpellBook(final SpellbookPage SpellbookPage) {
-		if (SpellbookPage == null)
-			return;
 		
-		StringTextComponent textComponent = new StringTextComponent("Test");
-		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiSpellbook(textComponent, SpellbookPage));
-		Minecraft.getInstance().runImmediately(rn);
 	}
 
 	public static void openCharacterCreation(CharacterCreation characterCreation) {
 		if (characterCreation == null)
 			return;
 		
-		// if already in then dont open
-		if (Minecraft.getInstance().currentScreen instanceof GuiCharacterCreation)
-			return;
-		
-		StringTextComponent textComponent = new StringTextComponent("CharacterCreation");
-		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiCharacterCreation(textComponent, characterCreation));
+		Runnable rn = () -> ClientState.getInstance().tryOpenCharacterCreation(characterCreation);
 		Minecraft.getInstance().runImmediately(rn);
 	}
 
 	public static void openTrackingWindow(List<TrackingChoice> trackingChoices) {
-		//System.out.println("received tracking message");
-
-		
 		if (trackingChoices == null)
 			return;
 		
-		// if already in then dont open
-		if (Minecraft.getInstance().currentScreen instanceof GuiTrackingWindow)
+		Runnable rn = () -> ClientState.getInstance().tryOpenTrackingWindow(trackingChoices);
+		Minecraft.getInstance().runImmediately(rn);
+	}
+
+	public static void openSpellbookWindow(SpellbookPage spellbookPage) {
+		if (spellbookPage == null)
 			return;
 		
-		StringTextComponent textComponent = new StringTextComponent("Tracking");
-		Runnable rn = () -> Minecraft.getInstance().displayGuiScreen(new GuiTrackingWindow(textComponent, trackingChoices));
+		SpellbookOpenPageEvent ev = new SpellbookOpenPageEvent(spellbookPage);
+
+		Runnable rn = () -> MinecraftForge.EVENT_BUS.post(ev);
 		Minecraft.getInstance().runImmediately(rn);
 	}
 

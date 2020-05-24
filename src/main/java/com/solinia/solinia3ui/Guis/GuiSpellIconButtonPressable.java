@@ -12,6 +12,11 @@ public class GuiSpellIconButtonPressable implements Button.IPressable {
 		this.spellId = spellId;
 		this.spellBookSlotId = spellBookSlotId;
 	}
+	
+	public int getSpellBookSlotId()
+	{
+		return this.spellBookSlotId;
+	}
 
 	@Override
 	public void onPress(Button button) {

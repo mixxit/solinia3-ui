@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.solinia3ui;
 import com.solinia.solinia3ui.Models.SpellIconLocation;
@@ -15,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.BossInfo.Color;
 
 public class GuiSpellIconButton extends Button {
 
@@ -28,10 +30,39 @@ public class GuiSpellIconButton extends Button {
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 	Minecraft minecraft;
+	List<String> popupText = new ArrayList<String>();
 	
 	public GuiSpellIconButton(Minecraft minecraft, int widthIn, int heightIn, int x, int y, String text, Button.IPressable onPress) {
 		super(widthIn, heightIn, x, y, text, onPress);
 		this.minecraft = minecraft;
+		
+		popupText = Lists.newArrayList();
+		
+	      if (getMessage().split("\\^",-1)[1].equals(""))
+	      {
+	    	  popupText.add("This is an empty spell slot");
+		      popupText.add("Drop spell books into the spell");
+		      popupText.add("button in your inventory to");
+		      popupText.add("write new spells into here");
+	      } else {
+	    	  popupText.add(getMessage().split("\\^",-1)[1]);
+		      popupText.add("Level: " + getMessage().split("\\^",-1)[2]);
+		      if (getMessage().split("\\^",-1).length > 3)
+		    	  popupText.add(getMessage().split("\\^",-1)[3]);
+		      popupText.add("-------------------");
+	    	  popupText.add("To memorise, left click this icon then");
+	    	  popupText.add("left click in a memory slot in the top left");
+	      }
+	      
+			setSpellIconResourceLocations();
+	}
+	
+	public GuiSpellIconButtonPressable getOnPress()
+	{
+		if (this.onPress instanceof GuiSpellIconButtonPressable)
+			return (GuiSpellIconButtonPressable)this.onPress;
+		
+		return null;
 	}
 	
 	
@@ -65,7 +96,6 @@ public class GuiSpellIconButton extends Button {
 		
 		if (this.spellIcon > 0)
 		{
-			setSpellIconResourceLocations();
 			SpellIconLocation location = spellIconLocations.get(this.spellIcon);
 			if (location != null)
 			{
@@ -80,6 +110,12 @@ public class GuiSpellIconButton extends Button {
 		String displayString = "";
 		if (this.getMessage().split("\\^",-1).length > 1)
 			displayString = this.getMessage().split("\\^",-1)[1];
+		
+		displayString = displayString.trim();
+		
+		if (displayString.length() > 15)
+			displayString = displayString.substring(0,12)+"...";
+		
 		this.drawStringCenteredScale(Minecraft.getInstance().fontRenderer, displayString, this.x + this.width /2,this.y + (this.height - 8) + Minecraft.getInstance().fontRenderer.FONT_HEIGHT, 0.5f, j);
 	}
 	
@@ -98,19 +134,6 @@ public class GuiSpellIconButton extends Button {
         this.drawCenteredString(fontRendererIn,text,Math.round(x / size),Math.round(y / size),color);
         GL11.glScalef(mSize,mSize,mSize);
     }
-	
-	public List<String> getSpellFiles()
-	{
-		List<String> files = new ArrayList<String>();
-		files.add("spells01.png");
-		files.add("spells02.png");
-		files.add("spells03.png");
-		files.add("spells04.png");
-		files.add("spells05.png");
-		files.add("spells06.png");
-		files.add("spells07.png");
-		return files;
-	}
 	
 	public ResourceLocation getResourceLocationByString(String name)
 	{
@@ -171,5 +194,10 @@ public class GuiSpellIconButton extends Button {
         }
 		
 		return null;
+	}
+
+
+	public List<String> getPopupText() {
+		return this.popupText;
 	}
 }

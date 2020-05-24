@@ -16,6 +16,7 @@ import com.solinia.solinia3ui.Guis.GuiSpellbook;
 import com.solinia.solinia3ui.Models.EffectSlot;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseClickedEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -100,6 +101,13 @@ public class RenderGuiHandler {
 		if (event.getGui() instanceof GuiSpellbook)
 		{
 			handleMainScreenClickWithSpellbookOpen((GuiSpellbook)event.getGui(), event.getMouseX(), event.getMouseY(), event.getButton());
+		} else {
+			if (event.getButton() != 0)
+			{
+				int memorisedSpellSlot = getMemorisedSpellSlotByMouseCoords((int)Math.round(event.getMouseX()), (int)Math.round(event.getMouseY()));
+				if (memorisedSpellSlot > 0)
+					removeSpellSlot(memorisedSpellSlot);
+			}
 		}
 		
 		if (event.getButton() != 0)
@@ -211,7 +219,7 @@ public class RenderGuiHandler {
 			}
 		}
 		
-		if (minecraft.currentScreen instanceof GuiSpellbook)
+		if (minecraft.currentScreen instanceof GuiSpellbook || minecraft.currentScreen instanceof ChatScreen)
 		{
 			// Render mem slot hover
 		    int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
