@@ -52,6 +52,8 @@ public class GuiSpellIconButton extends Button {
 	    	  popupText.add("To memorise, left click this icon then");
 	    	  popupText.add("left click in a memory slot in the top left");
 	      }
+	      
+			setSpellIconResourceLocations();
 	}
 	
 	
@@ -85,7 +87,6 @@ public class GuiSpellIconButton extends Button {
 		
 		if (this.spellIcon > 0)
 		{
-			setSpellIconResourceLocations();
 			SpellIconLocation location = spellIconLocations.get(this.spellIcon);
 			if (location != null)
 			{

@@ -1,6 +1,8 @@
 package com.solinia.solinia3ui.Guis;
 
 import java.awt.Point;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -90,10 +92,15 @@ public class GuiInventorySlotButton extends Button {
 	    	  //System.out.println(itextcomponent.getFormattedText());
 	         list1.add(itextcomponent.getFormattedText());
 	      }
+	      String max = Collections.max(list1, Comparator.comparing(String::length)); 
+	      double maxLength = this.minecraft.fontRenderer.getStringWidth(max);
+	      if (maxLength < 120)
+	    	  maxLength = 120;
 	      
-		screen.renderTooltip(list1,
-					-300+(int)Math.round(minecraft.mouseHelper.getMouseX() * (double)minecraft.mainWindow.getScaledWidth() / (double)minecraft.mainWindow.getWidth()),
-					-75+(int)Math.round(minecraft.mouseHelper.getMouseY() * (double)minecraft.mainWindow.getScaledHeight() / (double)minecraft.mainWindow.getHeight())
+	      int posx = minecraft.mainWindow.getScaledWidth()/2-(int)maxLength;
+	      screen.renderTooltip(list1,
+				posx,
+				0
 				);
 		} catch (Exception e)
 		{

@@ -2,6 +2,8 @@ package com.solinia.solinia3ui.Guis;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.collect.Lists;
 import com.solinia.solinia3ui.ClientState;
 import com.solinia.solinia3ui.solinia3ui;
@@ -46,6 +48,7 @@ public class GuiSpellbook extends Screen {
 	public GuiSpellbook(ITextComponent textComponent, SpellbookPage SpellbookPage) {
 		super(textComponent);
 		this._SpellbookPage = SpellbookPage;
+		loadGui();
 	}
 
 	@Override
@@ -63,7 +66,6 @@ public class GuiSpellbook extends Screen {
         int x = (width - this.xSize) / 2;
 		int y = (height - this.ySize) / 2;
 		blit(x, y, 0, 0, this.xSize, this.ySize);
-		loadGui();
         
         //this.drawDefaultBackground();
         //this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 5, 16777215);
@@ -77,6 +79,8 @@ public class GuiSpellbook extends Screen {
 	        		continue;
 	        	
 	        	GuiSpellIconButton spellButton = (GuiSpellIconButton)button;
+	        	
+	        	//minecraft.currentScreen.renderDirtBackground(1);
 	        	
 	        	if (spellButton.IsMouseOverButton())
 	    		{
