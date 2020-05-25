@@ -27,6 +27,7 @@ import net.minecraft.client.audio.ChannelManager;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundEngine;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.StringTextComponent;
@@ -49,7 +50,7 @@ public class ClientState {
 	public List<Trait> traits = generateTraits();
 	public List<Oath> oaths = generateOaths();
 	private SpellbookPage spellbookPage;
-	
+
 	private ConcurrentHashMap<Integer,EntityVital> entityVitals = new ConcurrentHashMap<Integer,EntityVital>();
 	private EquipSlots equipSlots;
 	private Effects effects = new Effects();

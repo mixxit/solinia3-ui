@@ -18,7 +18,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiReagentButton extends Button{
-	protected static final ResourceLocation UTILITY = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/utility.png");
+	protected static final ResourceLocation UTILITYREAGENT = new ResourceLocation( solinia3ui.MOD_ID, "textures/gui/utility.png");
 	private int spellIcon;
 	HashMap<Integer, SpellIconLocation> spellIconLocations = new HashMap<Integer,SpellIconLocation>();
 	Minecraft minecraft;
@@ -50,7 +50,7 @@ public class GuiReagentButton extends Button{
 		
 		try
 		{
-			this.spellIcon = 1;
+			this.spellIcon = 4;
 		} catch (Exception e)
 		{
 			return;
@@ -89,7 +89,7 @@ public class GuiReagentButton extends Button{
 	public SpellIconLocation setSpellIconResourceLocations() {
 		for (int spellIconSheet = 0; spellIconSheet < 100; spellIconSheet++)
         {
-			if (UTILITY == null)
+			if (UTILITYREAGENT == null)
 				continue;
 			
 			int _x = _spellIconStart.x;
@@ -100,7 +100,7 @@ public class GuiReagentButton extends Button{
             {
             	int foundNewIconId = ((spellIconSheet * _spellIconsPerFile) + _iconIndex);
 
-            	this.spellIconLocations.put(foundNewIconId,new SpellIconLocation(UTILITY,new Point(_x,_y)));
+            	this.spellIconLocations.put(foundNewIconId,new SpellIconLocation(UTILITYREAGENT,new Point(_x,_y)));
             	
             	_iconIndex++;
                 _x += this.width + _spellIconPadding.x;
