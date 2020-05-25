@@ -143,9 +143,9 @@ public class RenderInventoryHandler {
 	}
 
 	private void addSlots(Post event) {
-		event.addWidget(new GuiSpellbookButton(minecraft.mainWindow.getScaledWidth()-width-2,20,width+1,width+1,"S",new GuiAddItemToSpellbookButtonPressable()));
-		event.addWidget(new GuiReagentButton(minecraft.mainWindow.getScaledWidth()-width-2,39,width+1,width+1,"R",new GuiAddItemToReagentsButtonPressable()));
-		event.addWidget(new GuiCraftButton(minecraft.mainWindow.getScaledWidth()-width-2,58,width+1,width+1,"C",new GuiOpenCraftBButtonPressable()));
+		event.addWidget(new GuiReagentButton(minecraft.mainWindow.getScaledWidth()-width-2,20,width+1,width+1,"R",new GuiAddItemToReagentsButtonPressable()));
+		event.addWidget(new GuiSpellbookButton(minecraft.mainWindow.getScaledWidth()-width-2,40,width+1,width+1,"S",new GuiAddItemToSpellbookButtonPressable()));
+		event.addWidget(new GuiCraftButton(minecraft.mainWindow.getScaledWidth()-width-2,60,width+1,width+1,"C",new GuiOpenCraftBButtonPressable()));
 		
 		for(GuiInventorySlotButton button : getInventorySlotButton())
 		{
