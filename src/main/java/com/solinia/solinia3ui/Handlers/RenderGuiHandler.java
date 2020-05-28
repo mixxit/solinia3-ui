@@ -196,32 +196,20 @@ public class RenderGuiHandler {
 			}
 			
 			int i = 0; // number of slots to go over
-			int renderi = 0; // position on the effects bar to render
+			int renderi = -1; // position on the effects bar to render
 			if (ClientState.getInstance().getEffects().getSlots().entrySet().size() > 0)
 			{
 				for(Entry<Integer, EffectSlot> effectSlots : ClientState.getInstance().getEffects().getSlots().entrySet())
 				{
-					if (effectSlotButtons.get(i) == null)
-					{
-						i++;
-						continue;
-					}
-					
-					if (effectSlotButtons.get(i).getMessage().equals("-1^-1^0^0^"))
-					{
-						i++;
-						continue;
-					}
-	
 					if (effectSlots.getValue() != null)
 					{
-						effectSlotButtons.get(renderi).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name+"^"+effectSlots.getValue().TicksLeft+"^");
+						effectSlotButtons.get(i).setMessage(effectSlots.getValue().NewIcon+"^"+effectSlots.getValue().SpellId+"^"+effectSlots.getValue().Name+"^"+effectSlots.getValue().TicksLeft+"^");
+						renderi++;
 					} else {
-						effectSlotButtons.get(renderi).setMessage("-1^-1^0^0^");
+						effectSlotButtons.get(i).setMessage("-1^-1^0^0^");
 					}
 					
-					effectSlotButtons.get(renderi).render(effectSize*renderi, 10, 1.0F);
-					renderi++;
+					effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
 					
 					i++;
 				}
