@@ -30,7 +30,7 @@ public class RenderGuiHandler {
 	
 	public static final int memorisedSpellSize = 20;
 	public static final int effectSize = 10;
-	public static final int effectSlotLimit = 20;
+	public static final int effectSlotLimit = 40;
 	
 	public ConcurrentHashMap<Integer,GuiMemSpellIconButton> memorisedButtons = new ConcurrentHashMap<Integer,GuiMemSpellIconButton>();
 	public ConcurrentHashMap<Integer,Button> effectSlotButtons = new ConcurrentHashMap<Integer,Button>();
@@ -209,7 +209,7 @@ public class RenderGuiHandler {
 						effectSlotButtons.get(i).setMessage("-1^-1^0^0^");
 					}
 					
-					effectSlotButtons.get(i).render(effectSize*i, 10, 1.0F);
+					effectSlotButtons.get(i).render(effectSize*renderi, 10, 1.0F);
 					
 					i++;
 				}
