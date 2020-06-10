@@ -101,8 +101,8 @@ public class GuiSpellbook extends Screen {
 	        	if (spellButton.IsMouseOverButton())
 	    		{
 	    			renderTooltip(spellButton.getPopupText(),
-	    						(int)Math.round(minecraft.mouseHelper.getMouseX() * (double)minecraft.mainWindow.getScaledWidth() / (double)minecraft.mainWindow.getWidth()),
-	    						(int)Math.round(minecraft.mouseHelper.getMouseY() * (double)minecraft.mainWindow.getScaledHeight() / (double)minecraft.mainWindow.getHeight())
+	    						(int)Math.round(minecraft.mouseHelper.getMouseX() * (double)minecraft.getMainWindow().getScaledWidth() / (double)minecraft.getMainWindow().getWidth()),
+	    						(int)Math.round(minecraft.mouseHelper.getMouseY() * (double)minecraft.getMainWindow().getScaledHeight() / (double)minecraft.getMainWindow().getHeight())
 	    					);
 	    		}
         	} catch (Exception e)

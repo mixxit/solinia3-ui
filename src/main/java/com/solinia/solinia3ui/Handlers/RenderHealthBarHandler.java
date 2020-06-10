@@ -1,5 +1,11 @@
 package com.solinia.solinia3ui.Handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Stack;
+
+import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.solinia.solinia3ui.ClientState;
@@ -8,81 +14,78 @@ import com.solinia.solinia3ui.Models.HealthBarConfig;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Stack;
 
 public class RenderHealthBarHandler {
 	List<LivingEntity> renderedEntities = new ArrayList<>();
 	
+	/* NO LONGER WORKS IN 1.15.2
 	 @SubscribeEvent
 	 public void renderNamePlate(RenderLivingEvent.Specials.Pre event) {
 		 event.setCanceled(true);
 	 }
+	*/
+	
+	@SubscribeEvent
+	public void onRenderWorldLastTwo(RenderWorldLastEvent event) {
+		
+	}
+	 
 	 
 	
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		try
-		{
-		Minecraft mc = Minecraft.getInstance();
-
-		if((!HealthBarConfig.renderInF1 && !Minecraft.isGuiEnabled()) || !HealthBarConfig.draw)
-			return;
-
-		Entity cameraEntity = mc.getRenderViewEntity();
-		BlockPos renderingVector = cameraEntity.getPosition();
-		Frustum frustum = new Frustum();
-
-		float partialTicks = event.getPartialTicks();
-		double viewX = cameraEntity.lastTickPosX + (cameraEntity.posX - cameraEntity.lastTickPosX) * partialTicks;
-		double viewY = cameraEntity.lastTickPosY + (cameraEntity.posY - cameraEntity.lastTickPosY) * partialTicks;
-		double viewZ = cameraEntity.lastTickPosZ + (cameraEntity.posZ - cameraEntity.lastTickPosZ) * partialTicks;
-		frustum.setPosition(viewX, viewY, viewZ);
-		
-			ClientWorld client = mc.world;
-			Int2ObjectMap<Entity> entitiesById = ObfuscationReflectionHelper.getPrivateValue(ClientWorld.class, client, "field_217429_b");
-			for(Entity entity : entitiesById.values()) {
-				if (entity != null && entity instanceof LivingEntity && entity != mc.player && entity.isInRangeToRender3d(renderingVector.getX(), renderingVector.getY(), renderingVector.getZ()) && (entity.ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(entity.getBoundingBox())) && entity.isAlive() && entity.getRecursivePassengers().isEmpty())
-					renderHealthBar((LivingEntity) entity, partialTicks, cameraEntity);
-			}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		renderNamePlates(event);
 		
 	}
 
+	private void renderNamePlates(RenderWorldLastEvent event) {
+		/* Needs updating for 1.15.2
+		try
+		{
+			Minecraft mc = Minecraft.getInstance();
+	
+			if((!HealthBarConfig.renderInF1 && !Minecraft.isGuiEnabled()) || !HealthBarConfig.draw)
+				return;
+	
+			Entity cameraEntity = mc.getRenderViewEntity();
+			BlockPos renderingVector = cameraEntity.getPosition();
+			Frustum frustum = new Frustum();
+	
+			float partialTicks = event.getPartialTicks();
+			double viewX = cameraEntity.lastTickPosX + (cameraEntity.getPosX() - cameraEntity.lastTickPosX) * partialTicks;
+			double viewY = cameraEntity.lastTickPosY + (cameraEntity.getPosY() - cameraEntity.lastTickPosY) * partialTicks;
+			double viewZ = cameraEntity.lastTickPosZ + (cameraEntity.getPosZ() - cameraEntity.lastTickPosZ) * partialTicks;
+			frustum.setPosition(viewX, viewY, viewZ);
+			
+				ClientWorld client = mc.world;
+				Int2ObjectMap<Entity> entitiesById = ObfuscationReflectionHelper.getPrivateValue(ClientWorld.class, client, "field_217429_b");
+				for(Entity entity : entitiesById.values()) {
+					if (entity != null && entity instanceof LivingEntity && entity != mc.player && entity.isInRangeToRender3d(renderingVector.getX(), renderingVector.getY(), renderingVector.getZ()) && (entity.ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(entity.getBoundingBox())) && entity.isAlive() && entity.getRecursivePassengers().isEmpty())
+						renderHealthBar((LivingEntity) entity, partialTicks, cameraEntity);
+				}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}*/
+	}
+
+
+
 	public void renderHealthBar(LivingEntity passedEntity, float partialTicks, Entity viewPoint) {
+		/* Needs updating for 1.15.2
 		Stack<LivingEntity> ridingStack = new Stack<>();
 		
 		LivingEntity entity = passedEntity;
@@ -111,9 +114,9 @@ public class RenderHealthBarHandler {
 				if(!HealthBarConfig.showOnPlayers && entity instanceof PlayerEntity)
 					break processing;
 
-				double x = passedEntity.lastTickPosX + (passedEntity.posX - passedEntity.lastTickPosX) * partialTicks;
-				double y = passedEntity.lastTickPosY + (passedEntity.posY - passedEntity.lastTickPosY) * partialTicks;
-				double z = passedEntity.lastTickPosZ + (passedEntity.posZ - passedEntity.lastTickPosZ) * partialTicks;
+				double x = passedEntity.lastTickPosX + (passedEntity.getPosX() - passedEntity.lastTickPosX) * partialTicks;
+				double y = passedEntity.lastTickPosY + (passedEntity.getPosY() - passedEntity.lastTickPosY) * partialTicks;
+				double z = passedEntity.lastTickPosZ + (passedEntity.getPosZ() - passedEntity.lastTickPosZ) * partialTicks;
 
 				float scale = 0.026666672F;
 				
@@ -239,6 +242,7 @@ public class RenderHealthBarHandler {
 				pastTranslate -= bgHeight + barHeight + padding;
 			}
 		}
+		*/
 	}
 	
 }
