@@ -96,7 +96,7 @@ public class GuiInventorySlotButton extends Button {
 	      if (maxLength < 120)
 	    	  maxLength = 120;
 	      
-	      int posx = minecraft.mainWindow.getScaledWidth()/2-(int)maxLength;
+	      int posx = minecraft.getMainWindow().getScaledWidth()/2-(int)maxLength;
 	      screen.renderTooltip(list1,
 				posx,
 				0
@@ -109,8 +109,8 @@ public class GuiInventorySlotButton extends Button {
 	public boolean IsMouseOverButton()
 	{
 		return this.isMouseOver(
-				(int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),
-				(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
+				(int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth()),
+				(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight()));
 				
 	}
 	
@@ -146,48 +146,48 @@ public class GuiInventorySlotButton extends Button {
 			case 0:
 				if (ClientState.getInstance().getEquipSlots().getFingersItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getFingersItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,20);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getFingersItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,20);
 				}
 				break;
 			case 1:
 				if (ClientState.getInstance().getEquipSlots().getShouldersItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getShouldersItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,45);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getShouldersItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,45);
 				}
 				break;
 			case 2:
 				if (ClientState.getInstance().getEquipSlots().getNeckItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getNeckItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,70);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getNeckItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,70);
 				}
 			case 3:
 				if (ClientState.getInstance().getEquipSlots().getEarsItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getEarsItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,95);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getEarsItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,95);
 				}
 				break;
 			case 4:
 				if (ClientState.getInstance().getEquipSlots().getForearmsItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getForearmsItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,120);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getForearmsItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,120);
 				}
 				break;
 			case 5:
 				if (ClientState.getInstance().getEquipSlots().getArmsItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getArmsItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,145);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getArmsItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,145);
 				}
 				break;
 			case 6:
 				if (ClientState.getInstance().getEquipSlots().getHandsItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getHandsItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,170);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getHandsItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,170);
 				}
 				break;
 			case 7:
 				if (ClientState.getInstance().getEquipSlots().getWaistItemStack() != null)
 				{
-					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getWaistItemStack(),this.minecraft.mainWindow.getScaledWidth()-width*3,195);
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getWaistItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,195);
 				}
 				break;
 			default:

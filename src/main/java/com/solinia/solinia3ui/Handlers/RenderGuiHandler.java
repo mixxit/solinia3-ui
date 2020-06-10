@@ -23,7 +23,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 public class RenderGuiHandler {
 	public static final int hotbarCount = 8;
@@ -49,7 +49,7 @@ public class RenderGuiHandler {
 			this.memorisedButtons.put(i,new GuiMemSpellIconButton(memorisedSpellSize*i,0,memorisedSpellSize,memorisedSpellSize,-1+"^"+Integer.toString(slot), new GuiMemorisedSpellButtonPressable(slot)));
 		}
 
-		int startX = this.minecraft.mainWindow.getScaledWidth()-(effectSize*6);
+		int startX = this.minecraft.getMainWindow().getScaledWidth()-(effectSize*6);
 		int startY = 20-effectSize;
 		int rowSize = 5;
 		
@@ -173,7 +173,7 @@ public class RenderGuiHandler {
 	{
 		if (event.isCanceled())
 			return;
-		
+				
 		if (this.minecraft.player == null)
 			return;
 		
@@ -227,7 +227,7 @@ public class RenderGuiHandler {
 			if (minecraft.currentScreen instanceof GuiSpellbook || minecraft.currentScreen instanceof ChatScreen)
 			{
 				// Render mem slot hover
-			    int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
+			    int memorisedSpellSlotPosition = getMemorisedSpellSlotByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight()));
 			    if (memorisedSpellSlotPosition > 0 && memorisedButtons.get(memorisedSpellSlotPosition-1) != null && memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage() != null )
 			    {
 			    	if (memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^").length >= 4)
@@ -235,13 +235,13 @@ public class RenderGuiHandler {
 			    	String[] text = {memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[2],"Level: " + memorisedButtons.get(memorisedSpellSlotPosition-1).getMessage().split("\\^")[3],"Right click to remove"};
 			    		List temp = Arrays.asList(text);
 			    		int maxTextWidth = 120;
-			    		GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+			    		GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight()), this.minecraft.getMainWindow().getScaledWidth(), this.minecraft.getMainWindow().getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 			    	}
 			    }
 			}
 			
 			// Render effects hover
-			GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()));
+			GuiEffectIconButton effectSlotButton = getEffectSlotButtonByMouseCoords((int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight()));
 			if (effectSlotButton != null && effectSlotButton.getSpellName() != null && !effectSlotButton.getSpellName().equals("") && !effectSlotButton.getSpellName().equals("0"))
 			{
 				
@@ -249,7 +249,7 @@ public class RenderGuiHandler {
 		        List temp = Arrays.asList(text);
 		        int maxTextWidth = 140;
 		        
-		        GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.mainWindow.getScaledWidth() / (double)this.minecraft.mainWindow.getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.mainWindow.getScaledHeight() / (double)this.minecraft.mainWindow.getHeight()), this.minecraft.mainWindow.getScaledWidth(), this.minecraft.mainWindow.getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
+		        GuiUtils.drawHoveringText(temp, (int)Math.round(this.minecraft.mouseHelper.getMouseX() * (double)this.minecraft.getMainWindow().getScaledWidth() / (double)this.minecraft.getMainWindow().getWidth()),(int)Math.round(this.minecraft.mouseHelper.getMouseY() * (double)this.minecraft.getMainWindow().getScaledHeight() / (double)this.minecraft.getMainWindow().getHeight()), this.minecraft.getMainWindow().getScaledWidth(), this.minecraft.getMainWindow().getScaledHeight(), maxTextWidth, this.minecraft.fontRenderer); // makes all that nice default tool tip box from vanilla minecraft 
 			}
 		} catch (Exception e)
 		{

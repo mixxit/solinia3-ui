@@ -33,13 +33,13 @@ public class GuiCharacterText extends AbstractGui {
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         float mSize = (float)Math.pow(fontHeight,-1);
         int lengthOfText1 = (int)(this.minecraft.fontRenderer.getStringWidth(entityName)*fontHeight);
-        int horizontalTextPosition1 = this.minecraft.mainWindow.getScaledWidth() - lengthOfText1;
+        int horizontalTextPosition1 = this.minecraft.getMainWindow().getScaledWidth() - lengthOfText1;
         int vertitalTextPosition1 = verticalPosition - (int)(10*fontHeight);
-        //int maxVerticalPosition = this.minecraft.mainWindow.getScaledHeight();
+        //int maxVerticalPosition = this.minecraft.getMainWindow().getScaledHeight();
         this.minecraft.fontRenderer.drawString(entityName, Math.round(horizontalTextPosition1 / fontHeight),Math.round(vertitalTextPosition1 / fontHeight), 16777215);
         GL11.glScalef(mSize,mSize,mSize);
     	
-    	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
+    	int progressBarHorizontalPosition = this.minecraft.getMainWindow().getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, BossInfo.Color.RED, entityHp, overlayType, progressBarWidth);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
@@ -56,13 +56,13 @@ public class GuiCharacterText extends AbstractGui {
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         float mSize = (float)Math.pow(fontHeight,-1);
         int lengthOfText1 = (int)(this.minecraft.fontRenderer.getStringWidth(entityName)*fontHeight);
-        int horizontalTextPosition1 = this.minecraft.mainWindow.getScaledWidth() - lengthOfText1;
+        int horizontalTextPosition1 = this.minecraft.getMainWindow().getScaledWidth() - lengthOfText1;
         int vertitalTextPosition1 = verticalPosition - (int)(10*fontHeight);
-        //int maxVerticalPosition = this.minecraft.mainWindow.getScaledHeight();
+        //int maxVerticalPosition = this.minecraft.getMainWindow().getScaledHeight();
         this.minecraft.fontRenderer.drawString(entityName, Math.round(horizontalTextPosition1 / fontHeight),Math.round(vertitalTextPosition1 / fontHeight), 16777215);
         GL11.glScalef(mSize,mSize,mSize);
     	
-    	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
+    	int progressBarHorizontalPosition = this.minecraft.getMainWindow().getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderProgressBar(progressBarHorizontalPosition, verticalPosition, BossInfo.Color.RED, entityHp, overlayType, progressBarWidth);
         this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
@@ -74,7 +74,7 @@ public class GuiCharacterText extends AbstractGui {
 	
 	public void renderSpellBar(int verticalPosition, int progressBarDistances, int progressBarWidth, int overlayType)
 	{
-    	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
+    	int progressBarHorizontalPosition = this.minecraft.getMainWindow().getScaledWidth() - progressBarWidth;
     	this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
         this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), BossInfo.Color.YELLOW, (float) ClientState.getInstance().getCastingPercent(), overlayType, progressBarWidth);
 	}
@@ -99,7 +99,7 @@ public class GuiCharacterText extends AbstractGui {
         	if (ClientState.getInstance().getEntityVital(-1).getLevel() > 0)
         		theirlevel = ClientState.getInstance().getEntityVital(-1).getLevel();
         	
-        	int progressBarHorizontalPosition = this.minecraft.mainWindow.getScaledWidth() - progressBarWidth;
+        	int progressBarHorizontalPosition = this.minecraft.getMainWindow().getScaledWidth() - progressBarWidth;
             this.minecraft.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
             this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*5), BossInfo.Color.RED, (float) (ClientState.getInstance().getEntityVital(-1).getHealthPercent()), overlayType, progressBarWidth);
     	}
@@ -112,7 +112,7 @@ public class GuiCharacterText extends AbstractGui {
     	
     	String targetText = "Target: " + targetName; 
     	int lengthOfText = (int)(this.minecraft.fontRenderer.getStringWidth(targetText)*fontHeight);
-        int horizontalTextPosition = this.minecraft.mainWindow.getScaledWidth() - lengthOfText;
+        int horizontalTextPosition = this.minecraft.getMainWindow().getScaledWidth() - lengthOfText;
         int vertitalTextPosition = verticalPosition + (progressBarDistances*2) + (int)(15*fontHeight);
         this.minecraft.fontRenderer.drawStringWithShadow(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), con.getColor());
         this.minecraft.fontRenderer.drawString(hp, Math.round(horizontalTextPosition / fontHeight)+15,Math.round(vertitalTextPosition / fontHeight)+12, 16777215);
@@ -303,7 +303,7 @@ public class GuiCharacterText extends AbstractGui {
     	        float mSize = (float)Math.pow(fontHeight,-1);
     	    	String targetText = "Pet CTRL-P"; 
     	    	int lengthOfText = (int)(this.minecraft.fontRenderer.getStringWidth(targetText)*fontHeight)+51;
-    	        int horizontalTextPosition = this.minecraft.mainWindow.getScaledWidth() - lengthOfText;
+    	        int horizontalTextPosition = this.minecraft.getMainWindow().getScaledWidth() - lengthOfText;
     	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(45*fontHeight);
     	        this.minecraft.fontRenderer.drawString(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
     	        GL11.glScalef(mSize,mSize,mSize);
@@ -318,7 +318,7 @@ public class GuiCharacterText extends AbstractGui {
 	        float mSize = (float)Math.pow(fontHeight,-1);
 	    	String targetText = "Party Members:"; 
 	    	int lengthOfText = (int)(this.minecraft.fontRenderer.getStringWidth(targetText)*fontHeight)+40;
-	        int horizontalTextPosition = this.minecraft.mainWindow.getScaledWidth() - lengthOfText;
+	        int horizontalTextPosition = this.minecraft.getMainWindow().getScaledWidth() - lengthOfText;
 	        int vertitalTextPosition = verticalPosition + (progressBarDistances) + (int)(80*fontHeight);
 	        this.minecraft.fontRenderer.drawString(targetText, Math.round(horizontalTextPosition / fontHeight),Math.round(vertitalTextPosition / fontHeight), 16777215);
 	        GL11.glScalef(mSize,mSize,mSize);
