@@ -1,248 +1,323 @@
 package com.solinia.solinia3ui.Handlers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Stack;
-
-import org.lwjgl.opengl.GL11;
-
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.solinia.solinia3ui.ClientState;
-import com.solinia.solinia3ui.Models.HealthBarConfig;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.entity.player.RemoteClientPlayerEntity;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.world.BossInfo.Color;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.RenderNameplateEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class RenderHealthBarHandler {
-	List<LivingEntity> renderedEntities = new ArrayList<>();
+	/*private MatrixStack matrixStack;
+	  
+	  private Matrix4f matrix;
+	  
+	  private IRenderTypeBuffer renderBuffer;
+	  
+	  private FontRenderer fontRenderer;
+	  
+	  private String displayName;
+	  
+	  private float strHalfWidth;
+	  
+	  private int packedLight;
+	  
+	  private Team teamThem;
+	  
+	  private AbstractClientPlayerEntity entityPE;
+	  
+	  private Team teamMine;
+	  
+	  private Scoreboard scoreboard;
+	  
+	  private ScoreObjective scoreobjective;
+	  
+	  private boolean canRenderName = false;
+	  
+	  private boolean isVisible = true;
+	  
+	  private boolean isStanding = true;
+	  
+	  private double renderHeight = 0.0D;
+	  
+	  private double distanceSq = 0.0D;
+	  
+	  private float health = 1.0F;
+	  
+	  private float healthInv = 0.0F;
+	  
+	  private float strR = 255.0F;
+	  
+	  private float strG = 255.0F;
+	  
+	  private float strB = 255.0F;
+	  
+	  private float strA = 255.0F;
+	  
+	  private float strScaleV = 255.0F;
+	  
+	  private int strRGBA = -1;
+	  
+	  private int strRGBAFaded = 553648127;
+	  
+	  private float bgR = 0.0F;
+	  
+	  private float bgG = 0.0F;
+	  
+	  private float bgB = 0.0F;
+	  
+	  private float bgScaleV = 0.0F;
+	  
+	  private boolean doAprilFools;
+	  
+	  private Style obfuscated = (new Style()).setObfuscated(Boolean.valueOf(true));
+	  */
+
+	  private boolean vanillaMobs;
+	  
+	  private boolean vanillaScoreboards;
+	  
+	private Class<?> playerClass;
+
+	private int nameMaxR;
+	  
+	  private int nameMaxG;
+	  
+	  private int nameMaxB;
+	  
+	  private int nameMaxA;
+	  
+	  private float nameMaxV;
+	  
+	  private int nameMinR;
+	  
+	  private int nameMinG;
+	  
+	  private int nameMinB;
+	  
+	  private int nameMinA;
+	  
+	  private float nameMinV;
+	  
+	  private int plateMaxR;
+	  
+	  private int plateMaxG;
+	  
+	  private int plateMaxB;
+	  
+	  private int plateMaxA;
+	  
+	  private float plateMaxV;
+	  
+	  private int plateMinR;
+	  
+	  private int plateMinG;
+	  
+	  private int plateMinB;
+	  
+	  private int plateMinA;
+	  
+	  private float plateMinV;
+	  
+	  private boolean isPaused = false;
 	
-	/* NO LONGER WORKS IN 1.15.2
-	 @SubscribeEvent
-	 public void renderNamePlate(RenderLivingEvent.Specials.Pre event) {
-		 event.setCanceled(true);
-	 }
-	*/
-	
-	@SubscribeEvent
-	public void onRenderWorldLastTwo(RenderWorldLastEvent event) {
-		
-	}
-	 
-	 
-	
-	@SubscribeEvent
-	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		renderNamePlates(event);
-		
-	}
+	  @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+	  public void onPause(GuiOpenEvent event) {
+	    if (event.getGui() instanceof net.minecraft.client.gui.screen.IngameMenuScreen && !isPaused) {
+	      isPaused = true;
+	    } else if (isPaused && event.getGui() == null) {
+	      cacheConfig();
+	      isPaused = false;
+	    } else if (event.getGui() instanceof net.minecraft.client.gui.screen.MainMenuScreen) {
+	      cacheConfig();
+	    } 
+	  }
+	  
+	  public void cacheConfig() {
+	    playerClass = (AbstractClientPlayerEntity.class);
+	    vanillaScoreboards = ((Boolean)true).booleanValue();
+	    vanillaMobs = ((Boolean)false).booleanValue();
+	    nameMaxR = 255;
+	    nameMaxG = 255;
+	    nameMaxB = 255;
+	    nameMaxA = (int)Math.round(((Double)1.0D * 255.0D));
+	    nameMaxV = getVibrancy(nameMaxR, nameMaxG, nameMaxB);
+	    nameMinR = 0;
+	    nameMinG = 0;
+	    nameMinB = 0;
+	    nameMinA = (int)Math.round(((Double)0.25D * 255.0D));
+	    nameMinV = getVibrancy(nameMinR, nameMinG, nameMinB);
+	    plateMaxR = 0;
+	    plateMaxG = 0;
+	    plateMaxB = 0;
+	    plateMaxA = (int)Math.round(((Double)0.25D * 255.0D));
+	    plateMaxV = getVibrancy(plateMaxR, plateMaxG, plateMaxB);
+	    plateMinR = 0;
+	    plateMinG = 0;
+	    plateMinB = 0;
+	    plateMinA = (int)Math.round(((Double)0.25D * 255.0D));
+	    plateMinV = getVibrancy(plateMinR, plateMinG, plateMinB);
+	  }
+	  
+	  public float getVibrancy(int R, int G, int B) {
+	    if (R >= G && R >= B)
+	      return R; 
+	    if (G >= B)
+	      return G; 
+	    return B;
+	  }
+	  
+	  public float getVibrancy(float R, float G, float B) {
+	    if (R >= G && R >= B)
+	      return R; 
+	    if (G >= B)
+	      return G; 
+	    return B;
+	  }
+	  
+	  @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+	  public void onRenderNameplate(RenderNameplateEvent event) {
+	    if ((event.hasResult() && event.getResult() == Event.Result.DENY) || !(event.getEntity() instanceof LivingEntity))
+	      return; 
+	    
+	    try
+	    {
+	    	EntityRendererManager rendererManager = event.getEntityRenderer().getRenderManager();
+	    	
+		    LivingEntity entityLE = (LivingEntity)event.getEntity();
+		    ClientPlayerEntity entityMe = (Minecraft.getInstance()).player;
+		    boolean isVisible = !entityLE.isInvisibleToPlayer((PlayerEntity)entityMe);
+		    boolean isStanding = !entityLE.isDiscrete();
+		    double distanceSq = rendererManager.squareDistanceTo((Entity)entityLE);
+		    boolean canRenderName = false;
+		    if (distanceSq < (isStanding ? 4096.0D : 1024.0D)) {
+		      if (entityLE != entityMe && entityLE.getTeam() != null) {
+		    	  Team teamThem = entityLE.getTeam();
+		    	  Team teamMine = entityMe.getTeam();
+		    	  canRenderName = true;
+		      } else {
+		    	  canRenderName = (Minecraft.isGuiEnabled() && isVisible && !entityLE.isBeingRidden());
+		      } 
+		      if (canRenderName && (playerClass.isInstance(entityLE) || (entityLE.hasCustomName() && (entityLE.isCustomNameVisible() || entityLE == rendererManager.pointedEntity)))) {
+		    	  MatrixStack matrixStack = event.getMatrixStack();
+		    	  IRenderTypeBuffer renderBuffer = event.getRenderTypeBuffer();
+		    	  int packedLight = event.getPackedLight();
+		    	  FontRenderer fontRenderer = rendererManager.getFontRenderer();
+		    	  double renderHeight = entityLE.getHeight() + 0.5D;
+		    	  float health = entityLE.getHealth() / entityLE.getMaxHealth();
+		    	  float healthInv = 1.0F - health;
+		    	  float strR = nameMaxR * health + nameMinR * healthInv;
+		    	  float strG = nameMaxG * health + nameMinG * healthInv;
+		    	  float strB = nameMaxB * health + nameMinB * healthInv;
+		    	  float strA = nameMaxA * health + nameMinA * healthInv;
+		    	  float strScaleV = (nameMaxV * health + nameMinV * healthInv) / getVibrancy(strR, strG, strB);
+		    	  int strRGBA = java.awt.Color.white.getRGB();
+		    	  int strRGBAFaded = ((int)((strA < 32.1F) ? 4.1F : (strA * 0.1255F)) & 0xFF) << 24 | strRGBA;
+		    	  float bgR = plateMaxR * health + plateMinR * healthInv;
+		    	  float bgG = plateMaxG * health + plateMinG * healthInv;
+		    	  float bgB = plateMaxB * health + plateMinB * healthInv;
+		    	  float bgScaleV = (plateMaxV * health + plateMinV * healthInv) / getVibrancy(bgR, bgG, bgB);
+		        int tmpbgRGBA = ((int)(plateMaxA * health + plateMinA * healthInv) & 0xFF) << 24 | ((int)(bgR * bgScaleV) & 0xFF) << 16 | ((int)(bgG * bgScaleV) & 0xFF) << 8 | (int)(bgB * bgScaleV) & 0xFF;
 
-	private void renderNamePlates(RenderWorldLastEvent event) {
-		/* Needs updating for 1.15.2
-		try
-		{
-			Minecraft mc = Minecraft.getInstance();
-	
-			if((!HealthBarConfig.renderInF1 && !Minecraft.isGuiEnabled()) || !HealthBarConfig.draw)
-				return;
-	
-			Entity cameraEntity = mc.getRenderViewEntity();
-			BlockPos renderingVector = cameraEntity.getPosition();
-			Frustum frustum = new Frustum();
-	
-			float partialTicks = event.getPartialTicks();
-			double viewX = cameraEntity.lastTickPosX + (cameraEntity.getPosX() - cameraEntity.lastTickPosX) * partialTicks;
-			double viewY = cameraEntity.lastTickPosY + (cameraEntity.getPosY() - cameraEntity.lastTickPosY) * partialTicks;
-			double viewZ = cameraEntity.lastTickPosZ + (cameraEntity.getPosZ() - cameraEntity.lastTickPosZ) * partialTicks;
-			frustum.setPosition(viewX, viewY, viewZ);
-			
-				ClientWorld client = mc.world;
-				Int2ObjectMap<Entity> entitiesById = ObfuscationReflectionHelper.getPrivateValue(ClientWorld.class, client, "field_217429_b");
-				for(Entity entity : entitiesById.values()) {
-					if (entity != null && entity instanceof LivingEntity && entity != mc.player && entity.isInRangeToRender3d(renderingVector.getX(), renderingVector.getY(), renderingVector.getZ()) && (entity.ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(entity.getBoundingBox())) && entity.isAlive() && entity.getRecursivePassengers().isEmpty())
-						renderHealthBar((LivingEntity) entity, partialTicks, cameraEntity);
-				}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}*/
-	}
-
-
-
-	public void renderHealthBar(LivingEntity passedEntity, float partialTicks, Entity viewPoint) {
-		/* Needs updating for 1.15.2
-		Stack<LivingEntity> ridingStack = new Stack<>();
-		
-		LivingEntity entity = passedEntity;
-		ridingStack.push(entity);
-
-		while(entity.getRidingEntity() != null && entity.getRidingEntity() instanceof LivingEntity) {
-			entity = (LivingEntity) entity.getRidingEntity();
-			ridingStack.push(entity);
-		}
-
-		Minecraft mc = Minecraft.getInstance();
-		
-		float pastTranslate = 0F;
-		while(!ridingStack.isEmpty()) {
-			entity = ridingStack.pop();
-			boolean boss = !entity.isNonBoss();
-
-			String entityID = entity.getEntityString();	
-			
-			processing: {
-				float distance = passedEntity.getDistance(viewPoint);
-				if(distance > HealthBarConfig.maxDistance || !passedEntity.canEntityBeSeen(viewPoint) || entity.isInvisible()) 
-					break processing;
-				if(!HealthBarConfig.showOnBosses && !boss)
-					break processing;
-				if(!HealthBarConfig.showOnPlayers && entity instanceof PlayerEntity)
-					break processing;
-
-				double x = passedEntity.lastTickPosX + (passedEntity.getPosX() - passedEntity.lastTickPosX) * partialTicks;
-				double y = passedEntity.lastTickPosY + (passedEntity.getPosY() - passedEntity.lastTickPosY) * partialTicks;
-				double z = passedEntity.lastTickPosZ + (passedEntity.getPosZ() - passedEntity.lastTickPosZ) * partialTicks;
-
-				float scale = 0.026666672F;
-				
-				EntityRendererManager renderManager = Minecraft.getInstance().getRenderManager();
-				double renderPosX = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78725_b");
-				double renderPosY = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78726_c");
-				double renderPosZ = ObfuscationReflectionHelper.getPrivateValue(EntityRendererManager.class, renderManager, "field_78723_d");
-
-				GlStateManager.pushMatrix();
-				GlStateManager.translatef((float) (x - renderPosX), (float) (y - renderPosY + passedEntity.getHeight() + HealthBarConfig.heightAbove), (float) (z - renderPosZ));
-				GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-				GlStateManager.rotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-				GlStateManager.rotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-				GlStateManager.scalef(-scale, -scale, scale);
-				boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-				GlStateManager.disableLighting();
-				GlStateManager.depthMask(false);
-				GlStateManager.disableDepthTest();
-				GlStateManager.disableTexture();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				Tessellator tessellator = Tessellator.getInstance();
-				BufferBuilder buffer = tessellator.getBuffer();
-
-				float padding = 0;//HealthBarConfig.backgroundPadding;
-				int bgHeight = 1;//HealthBarConfig.backgroundHeight;
-				int barHeight = 8;//HealthBarConfig.barHeight;
-				float size =1;// HealthBarConfig.plateSize;
-
-				
-				GlStateManager.translatef(0F, pastTranslate, 0F);
-				
-				float fontSize = 1F;
-				String name = entity.getDisplayName().getFormattedText();
-				for(ITextComponent sibling : entity.getDisplayName().getSiblings())
-				{
-					name = sibling.getString();
-				}
-				
-				if(entity.hasCustomName())
-				{
-					if (entity instanceof LivingEntity && entity.hasCustomName())
-					{
-						ITextComponent textName = entity.getCustomName();
-						for(ITextComponent sibling : textName.getSiblings())
-						{
-							name = sibling.getString();
-						}
-					}
-				}
-				
-				int targetEntityId = 0;
-				
-				if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getEntityId() > 0)
-				{
+		        int targetEntityId = 0;
+		        if (ClientState.getInstance().getEntityVital(-1) != null && ClientState.getInstance().getEntityVital(-1).getEntityId() > 0)
 					targetEntityId = ClientState.getInstance().getEntityVital(-1).getEntityId();
-					
-					//event.getEntity().getEntityId() == ClientState.getInstance().getEntityVital(-1).getEntityId()
-				}
-				
-				if (entity.getEntityId() == targetEntityId)
-				name = "> "+name+" <";
-					
-				float namel = mc.fontRenderer.getStringWidth(name) * fontSize;
-				if(namel + 20 > size * 2)
-					size = namel / 2F + 6F;
-				
-				int colr=0;
-				int colg=0;
-				int colb=0;
-				
-				
-				
-				if (entity.getEntityId() == targetEntityId)
-				{
-					colr=0;
-					colg=255;
-					colb=0;
-				}
-				
-				// Background
-				if(HealthBarConfig.drawBackground) {
-					buffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-					buffer.pos(-size - padding, -bgHeight, 0.0D).color(colr, colg, colb, 64).endVertex();
-					buffer.pos(-size - padding, barHeight + padding, 0.0D).color(colr, colg, colb, 64).endVertex();
-					buffer.pos(size + padding, barHeight + padding, 0.0D).color(colr, colg, colb, 64).endVertex();
-					buffer.pos(size + padding, -bgHeight, 0.0D).color(colr, colg, colb, 64).endVertex();
-					tessellator.draw();
-				}
-				
-				GlStateManager.enableTexture();
-				
-				GlStateManager.pushMatrix();
-				GlStateManager.translatef(-size, 0F, 0F);
-				GlStateManager.scalef(fontSize, fontSize, fontSize);
-				mc.fontRenderer.drawString(name, 6, 0, 0xFFFFFF);
 
-				GlStateManager.pushMatrix();
-				float s1 = 0.75F;
-				GlStateManager.scalef(s1, s1, s1);
-				
-			
- 				GlStateManager.popMatrix();
- 				
- 				GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-				int off = 0;
-
-				s1 = 0.5F;
-				GlStateManager.scalef(s1, s1, s1);
-				GlStateManager.translatef(size / (fontSize * s1) * 2 - 16, 0F, 0F);
-				mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-				
-				GlStateManager.popMatrix();
-
-				GlStateManager.disableBlend();
-				GlStateManager.enableDepthTest();
-				GlStateManager.depthMask(true);
-				if(lighting)
-					GlStateManager.enableLighting();
-				GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-				GlStateManager.popMatrix();
-				
-				pastTranslate -= bgHeight + barHeight + padding;
-			}
-		}
-		*/
-	}
+		        java.awt.Color baseCol = java.awt.Color.GRAY;
+		        if (entityLE.getEntityId() == targetEntityId)
+		        {
+		        	baseCol = java.awt.Color.green;
+		        }
+		        
+		        tmpbgRGBA = new java.awt.Color(baseCol.getRed(), baseCol.getGreen(), baseCol.getBlue(), 80).getRGB();
+		        
+		        if (entityLE instanceof AbstractClientPlayerEntity) {
+		        	AbstractClientPlayerEntity entityPE = (AbstractClientPlayerEntity)entityLE;
+		          if (distanceSq < 100.0D) {
+		            Scoreboard scoreboard = entityPE.getWorldScoreboard();
+		            ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
+		            if (scoreobjective != null) {
+		              if (vanillaScoreboards) {
+		                drawNameplate(packedLight, renderHeight, isStanding, renderBuffer, rendererManager, fontRenderer, matrixStack, scoreboard.getOrCreateScore(entityPE.getGameProfile().getName(), scoreobjective).getScorePoints() + " " + scoreobjective.getDisplayName().getFormattedText(), isStanding ? -1 : 553648127, 553648127, 1073741824);
+		              } else {
+		                drawNameplate(packedLight, renderHeight, isStanding, renderBuffer, rendererManager, fontRenderer, matrixStack, scoreboard.getOrCreateScore(entityPE.getGameProfile().getName(), scoreobjective).getScorePoints() + " " + scoreobjective.getDisplayName().getUnformattedComponentText(), strRGBA, strRGBAFaded, tmpbgRGBA);
+		              } 
+		              renderHeight += 0.25875D;
+		            } 
+		          } 
+		          
+		          String displayName = entityPE.getDisplayName().getFormattedText();
+		          if (entityPE.getCustomName() != null)
+		        	  displayName = entityPE.getCustomName().getFormattedText();
 	
+		          if (entityPE.getEntityId() == targetEntityId)
+		        	  displayName = ClientState.getInstance().getEntityVital(-1).getName();
+		          
+		          if (entityPE.getEntityId() == targetEntityId)
+		        	  displayName = ">" + displayName + "<";
+		          
+		          drawNameplate(packedLight, renderHeight, isStanding, renderBuffer, rendererManager, fontRenderer, matrixStack, displayName, strRGBA, strRGBAFaded, tmpbgRGBA);
+		        } else if (vanillaMobs) {
+		          drawNameplate(packedLight, renderHeight, isStanding, renderBuffer, rendererManager, fontRenderer, matrixStack, event.getContent(), isStanding ? -1 : 553648127, 553648127, 1073741824);
+		        } else {
+			        String displayName = entityLE.getDisplayName().getFormattedText();
+			        if (entityLE.getCustomName() != null)
+			        	displayName = entityLE.getCustomName().getUnformattedComponentText();
+			        
+			        if (entityLE.getEntityId() == targetEntityId)
+			        	  displayName = ClientState.getInstance().getEntityVital(-1).getName();
+			        
+		          if (entityLE.getEntityId() == targetEntityId)
+		        	  displayName = ">" + displayName + "<";
+	
+		          drawNameplate(packedLight, renderHeight, isStanding, renderBuffer, rendererManager, fontRenderer, matrixStack, displayName, strRGBA, strRGBAFaded, tmpbgRGBA);
+		        } 
+		        event.setResult(Event.Result.DENY);
+		      } 
+		    } 
+	    } catch (Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	  }
+	  
+	  private String formatName(String name, Style style) {
+	    return (new StringTextComponent(name)).setStyle(style).getFormattedText();
+	  }
+	  
+	  private void renderString(String name, int color, boolean isStanding) {}
+	  
+	  private void drawNameplate(int packedLight, double renderHeight, boolean isStanding, IRenderTypeBuffer renderBuffer, EntityRendererManager rendererManager, FontRenderer fontRenderer, MatrixStack matrixStack, String str, int strRGBA, int strRGBAFaded, int bgRGBA) {
+	    matrixStack.push();
+	    matrixStack.translate(0.0D, renderHeight, 0.0D);
+	    matrixStack.rotate(rendererManager.getCameraOrientation());
+	    matrixStack.scale(-0.025F, -0.025F, 0.025F);
+	    Matrix4f matrix = matrixStack.getLast().getMatrix();
+	    float strHalfWidth = (-fontRenderer.getStringWidth(str) / 2);
+	    fontRenderer.renderString(str, strHalfWidth, 0.0F, strRGBAFaded, false, matrix, renderBuffer, isStanding, bgRGBA, packedLight);
+	    if (isStanding)
+	      fontRenderer.renderString(str, strHalfWidth, 0.0F, strRGBA, false, matrix, renderBuffer, false, 0, packedLight); 
+	    matrixStack.pop();
+	  }
+	  
+	  private void drawNameplate(String str, int strRGBA, int strRGBAFaded, int plateR, int plateG, int plateB, int plateA) {}
 }

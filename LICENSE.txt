@@ -2,10 +2,6 @@ SOLINIA3-UI SOURCE
 
 License terms are in agreement with the GNU Public License V3
 
-WYRMROOST RELATED SOURCE
-
-GNU Public License V2.1 - https://github.com/WolfShotz/Wyrmroost/blob/master/LICENSE.md
-
 NEAT BASED CODE
 
 https://github.com/Vazkii/Neat/blob/26473e623003a6d87b687c6285f08ceb52f673d6/README.md
