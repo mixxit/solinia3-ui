@@ -33,6 +33,7 @@ public class KeyBinds
     public Solinia3UIKeyBinding hail;
     public Solinia3UIKeyBinding opencharactercreation;
     public Solinia3UIKeyBinding petattack;
+    public Solinia3UIKeyBinding assisttarget;
  
     public void registerKeyBinds()
     {
@@ -60,6 +61,7 @@ public class KeyBinds
        	openspellbook = new Solinia3UIKeyBinding("key.openspellbook", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_K, "key.categories.solinia");
        	opencharactercreation = new Solinia3UIKeyBinding("key.opencharactercreation", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_SEMICOLON, "key.categories.solinia");
        	petattack = new Solinia3UIKeyBinding("key.petattack", KeyConflictContext.IN_GAME,KeyModifier.NONE,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_R, "key.categories.solinia");
+       	assisttarget = new Solinia3UIKeyBinding("key.assisttarget", KeyConflictContext.IN_GAME,KeyModifier.CONTROL,InputMappings.Type.KEYSYM,  GLFW.GLFW_KEY_Q, "key.categories.solinia");
         
         ClientRegistry.registerKeyBinding(hail);
         ClientRegistry.registerKeyBinding(targetnearestnpc);
@@ -85,5 +87,6 @@ public class KeyBinds
         ClientRegistry.registerKeyBinding(openspellbook);
         ClientRegistry.registerKeyBinding(opencharactercreation);
         ClientRegistry.registerKeyBinding(petattack);
+        ClientRegistry.registerKeyBinding(assisttarget);
     }
 }
