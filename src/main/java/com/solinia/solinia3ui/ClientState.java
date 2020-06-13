@@ -663,12 +663,19 @@ public class ClientState {
 			consider();
 		if (keyBinds.petattack != null && keyBinds.petattack.isKeyDown())
 			petattack();
+		if (keyBinds.assisttarget != null && keyBinds.assisttarget.isKeyDown())
+			assisttarget();
 		if (keyBinds.targetpet != null && keyBinds.targetpet.isKeyDown())
 			targetPet();
 		if (keyBinds.openspellbook != null && keyBinds.openspellbook.isKeyDown())
 			openSpellbook();
 		if (keyBinds.opencharactercreation != null && keyBinds.opencharactercreation.isKeyDown())
 			openCharacterCreation();
+	}
+	
+	private boolean assisttarget() {
+		Minecraft.getInstance().player.sendChatMessage("/solinia3core:assist");
+		return true;
 	}
 	
 	private boolean hail() {
