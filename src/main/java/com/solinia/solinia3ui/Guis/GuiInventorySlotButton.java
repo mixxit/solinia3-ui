@@ -134,6 +134,14 @@ public class GuiInventorySlotButton extends Button {
 				return ClientState.getInstance().getEquipSlots().getHandsItemStack();
 			case 7:
 				return ClientState.getInstance().getEquipSlots().getWaistItemStack();
+			case 8:
+				return ClientState.getInstance().getEquipSlots().getHeadItemStack();
+			case 9:
+				return ClientState.getInstance().getEquipSlots().getChestItemStack();
+			case 10:
+				return ClientState.getInstance().getEquipSlots().getLegsItemStack();
+			case 11:
+				return ClientState.getInstance().getEquipSlots().getFeetItemStack();
 			default:
 				return null;
 		}
@@ -190,6 +198,30 @@ public class GuiInventorySlotButton extends Button {
 					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getWaistItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*3,195);
 				}
 				break;
+			case 8:
+				if (ClientState.getInstance().getEquipSlots().getHeadItemStack() != null)
+				{
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getHeadItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*4,20);
+				}
+				break;
+			case 9:
+				if (ClientState.getInstance().getEquipSlots().getChestItemStack() != null)
+				{
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getChestItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*4,45);
+				}
+				break;
+			case 10:
+				if (ClientState.getInstance().getEquipSlots().getLegsItemStack() != null)
+				{
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getLegsItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*4,70);
+				}
+				break;
+			case 11:
+				if (ClientState.getInstance().getEquipSlots().getFeetItemStack() != null)
+				{
+					this.minecraft.getItemRenderer().renderItemIntoGUI(ClientState.getInstance().getEquipSlots().getFeetItemStack(),this.minecraft.getMainWindow().getScaledWidth()-width*4,95);
+				}
+				break;
 			default:
 				break;
 		}
@@ -215,6 +247,14 @@ public class GuiInventorySlotButton extends Button {
 				return new Point(2*slotSize,0*slotSize); // HANDS 3x1
 			case 7:
 				return new Point(1*slotSize,4*slotSize); // WAIST 2x5
+			case 8:
+				return new Point(0*slotSize,2*slotSize); // HEAD 1x3
+			case 9:
+				return new Point(0*slotSize,4*slotSize); // CHEST 1x5
+			case 10:
+				return new Point(2*slotSize,2*slotSize); // LEGS 3x3
+			case 11:
+				return new Point(2*slotSize,3*slotSize); // FEET 3x4
 			default:
 				return new Point(2*slotSize,1*slotSize); // FINGER 3x2
 		}
@@ -241,6 +281,14 @@ public class GuiInventorySlotButton extends Button {
 			return "Hands";
 		case 7:
 			return "Waist";
+		case 8:
+			return "Head";
+		case 9:
+			return "Chest";
+		case 10:
+			return "Legs";
+		case 11:
+			return "Feet";
 			default:
 				return "";
 				

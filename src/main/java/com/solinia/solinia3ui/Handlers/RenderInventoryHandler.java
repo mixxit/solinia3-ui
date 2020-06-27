@@ -59,6 +59,14 @@ public class RenderInventoryHandler {
 		inventoryButtons.put(6,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*3,170,width,width,"6",new GuiInventorySlotButtonPressable(6)));
 		//waist
 		inventoryButtons.put(7,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*3,195,width,width,"7",new GuiInventorySlotButtonPressable(7)));
+		//head
+		inventoryButtons.put(8,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*4,20,width,width,"8",new GuiInventorySlotButtonPressable(8)));
+		//chest
+		inventoryButtons.put(9,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*4,45,width,width,"9",new GuiInventorySlotButtonPressable(9)));
+		//legs
+		inventoryButtons.put(10,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*4,70,width,width,"10",new GuiInventorySlotButtonPressable(10)));
+		//feet
+		inventoryButtons.put(11,new GuiInventorySlotButton(minecraft,minecraft.getMainWindow().getScaledWidth()-width*4,95,width,width,"11",new GuiInventorySlotButtonPressable(11)));
 	}
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -140,6 +148,14 @@ public class RenderInventoryHandler {
 		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,170,5,5,"x",new GuiInventorySlotUnequipButtonPressable(6)));
 		//waist
 		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(7)));
+		//head
+		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(8)));
+		//chest
+		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(9)));
+		//legs
+		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(10)));
+		//feet
+		event.addWidget(new Button(minecraft.getMainWindow().getScaledWidth()-width*3+20,195,5,5,"x",new GuiInventorySlotUnequipButtonPressable(11)));
 	}
 
 	private void addSlots(Post event) {
