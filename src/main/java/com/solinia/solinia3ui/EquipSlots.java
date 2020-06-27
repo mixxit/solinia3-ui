@@ -11,10 +11,14 @@ public class EquipSlots {
 	public String ArmsItemBase64;
 	public String HandsItemBase64;
 	public String WaistItemBase64;
+	public String HeadItemBase64;
+	public String ChestItemBase64;
+	public String LegsItemBase64;
+	public String FeetItemBase64;
 	
 	public ItemStack getSlotAsItemStack(int slotIndex)
 	{
-		if (slotIndex < 0 || slotIndex > 7)
+		if (slotIndex < 0 || slotIndex > 11)
 			return null;
 		
 		String slotBase64 = this.getSlotByIndex(slotIndex);
@@ -55,6 +59,18 @@ public class EquipSlots {
 			case 7:
 				this.WaistItemBase64 = base64;
 				break;
+			case 8:
+				this.HeadItemBase64 = base64;
+				break;
+			case 9:
+				this.ChestItemBase64 = base64;
+				break;
+			case 10:
+				this.LegsItemBase64 = base64;
+				break;
+			case 11:
+				this.FeetItemBase64 = base64;
+				break;
 			default:
 				break;
 		}
@@ -80,6 +96,14 @@ public class EquipSlots {
 				return this.HandsItemBase64;
 			case 7:
 				return this.WaistItemBase64;
+			case 8:
+				return this.HeadItemBase64;
+			case 9:
+				return this.ChestItemBase64;
+			case 10:
+				return this.LegsItemBase64;
+			case 11:
+				return this.FeetItemBase64;
 			default:
 				return null;
 		}
@@ -145,9 +169,39 @@ public class EquipSlots {
 		// TODO Auto-generated method stub
 		if (getSlotByIndex(7) == null)
 			return null;
-		
-		
 
 		return getSlotAsItemStack(7);
+	}
+	
+	public ItemStack getHeadItemStack() {
+		// TODO Auto-generated method stub
+		if (getSlotByIndex(8) == null)
+			return null;
+
+		return getSlotAsItemStack(8);
+	}
+	
+	public ItemStack getChestItemStack() {
+		// TODO Auto-generated method stub
+		if (getSlotByIndex(9) == null)
+			return null;
+
+		return getSlotAsItemStack(9);
+	}
+	
+	public ItemStack getLegsItemStack() {
+		// TODO Auto-generated method stub
+		if (getSlotByIndex(10) == null)
+			return null;
+
+		return getSlotAsItemStack(10);
+	}
+	
+	public ItemStack getFeetItemStack() {
+		// TODO Auto-generated method stub
+		if (getSlotByIndex(11) == null)
+			return null;
+
+		return getSlotAsItemStack(11);
 	}
 }

@@ -47,6 +47,14 @@ public class GuiInventorySlotButtonPressable implements IPressable {
 			return "HANDS";
 		case 7:
 			return "WAIST";
+		case 8:
+			return "HEAD";
+		case 9:
+			return "CHEST";
+		case 10:
+			return "LEGS";
+		case 11:
+			return "FEET";
 			default:
 				throw new Exception("Unknown slot");
 		}
