@@ -19,6 +19,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 	private int entityId = 0;
 	private String name = "";
 	private int level = 0;
+	private int xp = 0;
 	
 	PacketMobVitals(PacketBuffer buf) throws RuntimeException
     {
@@ -44,7 +45,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 
 		String[] dataArray = data.split("\\^",-1);
 		//solinia3ui.LOGGER.info("Mob Vitals: " + dataArray.length + " " + data);
-		if (dataArray.length < 4)
+		if (dataArray.length < 5)
 			throw new InvalidPacketException("Packet data missing elements");
 		
 		int partyMember = Integer.parseInt(dataArray[0]);
@@ -60,6 +61,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 		}
 		String name = dataArray[4];
 		int level = Integer.parseInt(dataArray[5]);
+		int xp = Integer.parseInt(dataArray[6]);
 		
 		this.partyMember = partyMember;
 		this.healthPercent = healthPercent;
@@ -67,6 +69,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 		this.entityId = entityId;
 		this.name = name;
 		this.level = level;
+		this.xp = xp;
 	}
 	
 	public int getPartyMember()
@@ -99,6 +102,10 @@ public class PacketMobVitals implements ISoliniaPacket {
 		return this.level;
 	}
 	
+	public int getXP()
+	{
+		return this.xp;
+	}
 	public String toPacketData()
 	{
 		String packetData = "";
@@ -112,7 +119,7 @@ public class PacketMobVitals implements ISoliniaPacket {
 				+ "^" + uniqueString
 				+ "^" + getName()
 				+ "^" + getLevel()
-				;
+		+ "^" + getXP();
 		return packetData;
 	}
 	
@@ -124,7 +131,10 @@ public class PacketMobVitals implements ISoliniaPacket {
 	public void handle(Supplier<NetworkEvent.Context> context)
 	{
 		//solinia3ui.LOGGER.info("received new message mob vital");
-		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name, this.level));
+		float xpFloat = this.xp / 100F;
+		if (this.partyMember == 0)
+			System.out.println(xpFloat);
+		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name, this.level, xpFloat));
     	context.get().setPacketHandled(true);
 	}
 }

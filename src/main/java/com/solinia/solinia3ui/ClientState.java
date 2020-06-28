@@ -768,8 +768,8 @@ public class ClientState {
 		return this.entityVitals.get(partyMember);
 	}
 
-	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, int entityId, String name, int level) {
-		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,entityId,name, level);
+	public void setEntityVital(int partyMember, float healthPercent, float manaPercent, int entityId, String name, int level, float experiencePercent) {
+		EntityVital entityVital = new EntityVital(healthPercent,manaPercent,entityId,name, level, experiencePercent);
 		//solinia3ui.LOGGER.info("Setting entity vital: " + partyMember + " : " + name);
 		this.entityVitals.put(partyMember,entityVital);
 	}
