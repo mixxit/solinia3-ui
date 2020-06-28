@@ -132,8 +132,6 @@ public class PacketMobVitals implements ISoliniaPacket {
 	{
 		//solinia3ui.LOGGER.info("received new message mob vital");
 		float xpFloat = this.xp / 100F;
-		if (this.partyMember == 0)
-			System.out.println(xpFloat);
 		context.get().enqueueWork(() -> ClientState.getInstance().setEntityVital(this.partyMember, this.healthPercent, this.manaPercent, this.getEntityId(), this.name, this.level, xpFloat));
     	context.get().setPacketHandled(true);
 	}

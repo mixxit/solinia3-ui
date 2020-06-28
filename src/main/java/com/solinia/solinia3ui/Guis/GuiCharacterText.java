@@ -51,7 +51,6 @@ public class GuiCharacterText extends AbstractGui {
 	{
 		entityName = entityName + " " + "CTRL-"+(index+1);
 		String hp = "["+(int)(entityHp*100)+"% HP]";
-		String mp = "["+(int)(entityMana*100)+"% MP]";
 		String xp = "["+(int)(entityExperience*100)+"% XP]";
 		//int increment = 16;
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -73,7 +72,7 @@ public class GuiCharacterText extends AbstractGui {
         this.renderProgressBar(progressBarHorizontalPosition, verticalPosition+(progressBarDistances*2), BossInfo.Color.PINK, entityExperience, overlayType, progressBarWidth);
     	GL11.glScalef(fontHeight,fontHeight,fontHeight);
         this.minecraft.fontRenderer.drawString(hp, Math.round(horizontalTextPosition1 / fontHeight)+15,Math.round(vertitalTextPosition1 / fontHeight)+12, 16777215);
-        this.minecraft.fontRenderer.drawString(mp, Math.round(horizontalTextPosition1 / fontHeight)+15,Math.round(vertitalTextPosition1 / fontHeight)+20, 16777215);
+
         this.minecraft.fontRenderer.drawString(xp, Math.round(horizontalTextPosition1 / fontHeight)+15,Math.round(vertitalTextPosition1 / fontHeight)+28, 16777215 );
         GL11.glScalef(mSize,mSize,mSize);
 	}
