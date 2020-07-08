@@ -116,9 +116,9 @@ public class GuiCharacterCreation extends Screen {
         this.raceList.setLeftPos(6);
         int infoHeight = 60;
         int infoWidth = this.width - this.listWidth - 20;
-        this.classInfo = new InfoPanel(this.minecraft, infoWidth/2-10, infoHeight+20, 10, 10);
-        this.raceInfo = new InfoPanel(this.minecraft, infoWidth/2, infoHeight+20, 10, 10+(infoWidth/2));
-        this.personalityInfo = new InfoPanel(this.minecraft, infoWidth, 110, 100, 10);
+        this.classInfo = new InfoPanel(this.minecraft, infoWidth/2-10, infoHeight+20, 10, this.raceList.getWidth()+10);
+        this.raceInfo = new InfoPanel(this.minecraft, infoWidth/2, infoHeight+20, 10, this.raceList.getWidth()+10+(infoWidth/2));
+        this.personalityInfo = new InfoPanel(this.minecraft, infoWidth, 110, 100, this.raceList.getWidth()+10);
         
         this.textForename = new TextFieldWidget(this.getMinecraft().fontRenderer, raceList.getWidth() + 8, this.height - 22, 60, 16, "Name");
         this.textForename.setText("Name");
@@ -135,17 +135,17 @@ public class GuiCharacterCreation extends Screen {
         this.textForename.setCanLoseFocus(true);
         this.textLastname.setCanLoseFocus(true);
         
-        int personalityButtonWidth = this.getMinecraft().fontRenderer.getStringWidth("XXXXXXXXXX");
+        int personalityButtonWidth = 60;
         this.addButton(this.nextIdeal = new Button(6, this.height - 72, personalityButtonWidth, 20,
-                "Ideal", b -> nextIdeal()));
+                "Ideal >", b -> nextIdeal()));
         this.addButton(this.nextGender = new Button(6 + personalityButtonWidth + 5, this.height - 72, personalityButtonWidth, 20,
-                "Gender", b -> nextGender()));
-        this.addButton(this.nextTrait = new Button(6, this.height - 48, personalityButtonWidth, 20,"Trait 1", b -> nextFirstTrait()));
-        this.addButton(this.nextTrait2 = new Button(6 + personalityButtonWidth + 5 , this.height - 48, personalityButtonWidth, 20,"Trait 2", b -> nextSecondTrait()));
+                "Gender >", b -> nextGender()));
+        this.addButton(this.nextTrait = new Button(6, this.height - 48, personalityButtonWidth, 20,"1st Trait >", b -> nextFirstTrait()));
+        this.addButton(this.nextTrait2 = new Button(6 + personalityButtonWidth + 5 , this.height - 48, personalityButtonWidth, 20,"2nd Trait >", b -> nextSecondTrait()));
         this.addButton(this.nextBond = new Button(6 + personalityButtonWidth + 5 , this.height - 24, personalityButtonWidth, 20,
-                "Bond", b -> nextBond()));
+                "Bond >", b -> nextBond()));
         this.addButton(this.nextFlaw = new Button(6, this.height - 24, personalityButtonWidth, 20,
-                "Flaw", b -> nextFlaw()));
+                "Flaw >", b -> nextFlaw()));
         
         int createButtonWidth = Math.min(infoWidth/2, 100);
         
